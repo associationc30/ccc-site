@@ -10,9 +10,9 @@
   --color-body: #fff;
   --color-border: #eaeaea;
   --color-light: #f6f6f6;
-  --color-dark: #040404;
+   #040404;
   --color-text: #444444;
-  --color-text-dark: #040404;
+   #040404;
   --color-text-light: #717171;
 
   /* === Darkmode Colors === */
@@ -20,9 +20,9 @@
   --color-darkmode-body: #1c1c1c;
   --color-darkmode-border: #3E3E3E;
   --color-darkmode-light: #222222;
-  --color-darkmode-dark: #fff;
+   #fff;
   --color-darkmode-text: #B4AFB6;
-  --color-darkmode-text-dark: #fff;
+   #fff;
   --color-darkmode-text-light: #B4AFB6;
 
   /* === Font Families === */
