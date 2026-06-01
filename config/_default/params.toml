@@ -28,6 +28,7 @@ google_adsense = ""     # example: ca-pub-xxxxxxxxxxxxxxxx
 custom_script = ""
 # copyright
 # copyright = "Designed & Developed by [Zeon Studio](https://zeon.studio)"
+copyright = "© 2026 鍾肇政文學推廣協會。本站網頁內容採用 [創用 CC 姓名標示-非商業性-相同方式分享 4.0 國際授權條款](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW) 釋出。"
 
 # Preloader
 # preloader module: https://github.com/gethugothemes/hugo-modules/tree/master/components/preloader
