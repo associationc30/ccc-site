@@ -12,7 +12,7 @@ url = "/about"
 weight = 2
 
 [[main]]
-name = "關於鍾肇政"
+name = "鍾肇政"
 url = "/chung-chao-cheng"
 weight = 3
 
@@ -40,7 +40,7 @@ url = "/licensing"
 [[main]]
 weight = 7
 # parent = "Pages"
-name = "Contact"
+name = "聯絡協會"
 url = "/contact"
 
 # [[main]]
@@ -50,16 +50,21 @@ url = "/contact"
 
 # footer menu
 [[footer]]
-name = "About"
+name = "關於協會"
 url = "/about"
 weight = 1
 
 [[footer]]
-name = "Elements"
-url = "/elements"
+name = "授權合作"
+url = "/licensing"
 weight = 2
+
+[[footer]]
+name = "聯絡協會"
+url = "/contact"
+weight = 3
 
 [[footer]]
 name = "Privacy Policy"
 url = "/privacy-policy"
-weight = 3
+weight = 4
