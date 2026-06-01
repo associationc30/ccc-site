@@ -8,7 +8,6 @@ categories: ["Architecture"]
 author: "John Doe"
 tags: ["silicon", "technology"]
 draft: false
-type: "posts"   # (備註：如果無效，請試著改成 type: "blog")
 ---
 
 Nemo vel ad consectetur namut rutrum ex, venenatis sollicitudin urna. Aliquam erat volutpat. Integer eu ipsum sem. Ut bibendum lacus vestibulum maximus suscipit. Quisque vitae nibh iaculis neque blandit euismod.
