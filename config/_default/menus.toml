@@ -22,7 +22,7 @@ name = "專文"
 url = "/articles"
 
 [[main]]
-parent = "articles"      # 對接上面的 ID
+parent = "專文"      # 對接上面的 ID
 name = "文章列表"         # 這個項目是可以點擊的
 url = "/articles"
 weight = 1
@@ -31,6 +31,7 @@ weight = 1
 parent = "專文"
 name = "Categories"
 url = "/categories"
+weight = 2
 
 [[main]]
 weight = 5
