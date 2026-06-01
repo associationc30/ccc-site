@@ -22,8 +22,8 @@ name = "專文"
 url = "/blog"
 
 [[main]]
-parent = "專文"      # 對接上面的 ID
-name = "文章列表"         # 這個項目是可以點擊的
+parent = "專文"      
+name = "文章列表"         
 url = "/blog"
 weight = 1
 
