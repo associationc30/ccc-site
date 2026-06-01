@@ -2,49 +2,51 @@
 
 # main menu
 [[main]]
-name = "Home"
+name = "首頁"
 url = "/"
 weight = 1
 
 [[main]]
-name = "About"
+name = "關於協會"
 url = "/about"
 weight = 2
 
 [[main]]
-name = "Elements"
-url = "/elements"
+name = "關於鍾肇政"
+url = "/chung-chao-cheng"
 weight = 3
 
 [[main]]
 weight = 4
-name = "Pages"
+name = "專文"
+url = "/articles"
 
 [[main]]
-parent = "Pages"
-name = "Blog"
-url = "/blog"
-
-[[main]]
-parent = "Pages"
-name = "Contact"
-url = "/contact"
-
-[[main]]
-parent = "Pages"
-name = "Authors"
-url = "/authors"
-
-[[main]]
-parent = "Pages"
+parent = "專文"
 name = "Categories"
 url = "/categories"
 
 [[main]]
-parent = "Pages"
-name = "404 Page"
-url = "/404"
+weight = 5
+# parent = "Pages"
+name = "研究資源"
+url = "/resources"
 
+[[main]]
+weight = 6
+name = "授權合作"
+url = "/licensing"
+
+[[main]]
+weight = 7
+# parent = "Pages"
+name = "Contact"
+url = "/contact"
+
+# [[main]]
+# parent = "Pages"
+# name = "404 Page"
+# url = "/404"
 
 # footer menu
 [[footer]]
