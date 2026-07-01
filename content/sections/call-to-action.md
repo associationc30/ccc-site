@@ -6,7 +6,7 @@ description: "「台灣鍾肇政文學推廣協會」既是要提供所有想要
 button:
   enable: true
   label: "瞭解協會"
-  link: "/about"
+  link: "/about/"
 
 # don't create a separate page
 build:
