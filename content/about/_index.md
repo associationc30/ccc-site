@@ -1,5 +1,5 @@
 ---
-title: "臺灣鍾肇政文學推廣協會"
+title: "台灣鍾肇政文學推廣協會"
 meta_title: "About"
 description: "this is meta description"
 image: "/images/image-placeholder.png"
