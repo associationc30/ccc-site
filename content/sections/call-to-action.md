@@ -1,12 +1,12 @@
 ---
 enable: true
-title: "Ready to build your next project with Hugo?"
+title: "傳承鍾老精神，推廣台灣文學"
 image: "/images/call-to-action.png"
-description: "Experience the future of web development with Hugoplate and Hugo. Build lightning-fast static sites with ease and flexibility."
+description: "「台灣鍾肇政文學推廣協會」既是要提供所有想要瞭解、閱讀、研究鍾肇政的人一個容易親近的起點，也是希望透過對鍾肇政文學的推廣，進一步的深耕「臺灣文學」這一鍾肇政一生的志業。"
 button:
   enable: true
-  label: "Fork Deploy and Edit Online 🚀"
-  link: "https://app.sitepins.com/new/clone?name=Hugoplate&repository=https://github.com/zeon-studio/hugoplate?aff=hugoplate"
+  label: "瞭解協會"
+  link: "/about"
 
 # don't create a separate page
 build:
