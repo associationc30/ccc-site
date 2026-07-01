@@ -1,0 +1,43 @@
+{{ define "recent-events" }}
+<section class="section-sm bg-gradient">
+  <div class="container">
+    <div class="row items-center justify-between">
+      <div class="mb:md-0 md:col-5 mb-6">
+        <h2 class="mb-4">近期活動</h2>
+        <p class="mb-8 text-lg">
+          關注我們最新的活動動態，與我們一起參與文學推廣與文化交流。
+        </p>
+        <a class="btn btn-primary mt-6" href="{{ "events/" | relLangURL }}">
+          查看所有活動 <i class="fa fa-arrow-right pl-2"></i>
+        </a>
+      </div>
+      <div class="md:col-7 lg:col-6">
+        <ul class="space-y-4">
+          {{ range first 3 (sort .Site.RegularPages "date" "desc") | whereWith "FilePath" "contains" "events" }}
+            <li class="bg-light rounded-lg p-6 flex items-center">
+              {{ if .Params.image }}
+                <img src="{{ .Params.image | relURL }}" alt="{{ .Title }}" class="w-20 h-20 object-cover rounded mr-4">
+              {{ else }}
+                <div class="w-20 h-20 bg-gray-200 rounded mr-4 flex items-center justify-center">
+                  <i class="fa fa-calendar text-3xl text-gray-400"></i>
+                </div>
+              {{ end }}
+              <div class="flex-1">
+                <h3 class="h4 mb-1">
+                  <a href="{{ .RelPermalink }}" class="hover:text-primary">{{ .Title }}</a>
+                </h3>
+                <p class="text-sm text-gray-600">
+                  {{ .Date.Format "2006-01-02" }}
+                </p>
+              </div>
+            </li>
+          {{ end }}
+          {{ if not (sort .Site.RegularPages "date" "desc" | whereWith "FilePath" "contains" "events" | first 3) }}
+            <li class="text-gray-500">目前暫無近期活動資訊。</li>
+          {{ end }}
+        </ul
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

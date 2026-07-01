@@ -17,9 +17,9 @@ url = "/chung-chao-cheng"
 weight = 3
 
 [[main]]
+name = "近期活動"
+url = "/events"
 weight = 4
-name = "專文"
-url = "/blog"
 
 [[main]]
 parent = "專文"      
