@@ -1,0 +1,571 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+  <section class="section-sm pt-8">
+    <div class="container">
+      <!-- Database Description Card -->
+      <div class="mb-8 rounded-2xl bg-theme-light p-6 md:p-8 border border-border/50 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="h4 mb-2 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+              臺灣鍾肇政文學推廣協會 — 書信文物後設資料庫
+            </h2>
+            <p class="text-text/80 text-sm leading-relaxed">
+              本資料庫整理並收入鍾肇政先生與戰後臺灣文學同仁（如鍾理和、葉石濤、吳濁流、李喬等）交流之重要書信後設資料與全文摘要。您可以透過下方欄位進行動態條件過濾、關鍵字檢索與資料匯出。
+            </p>
+          </div>
+          <div class="flex-shrink-0 flex gap-2">
+            <button id="exportCsvBtn" type="button" class="btn btn-outline-primary btn-sm flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              匯出 CSV 結果
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Filter Bar Controls -->
+      <div class="mb-6 rounded-xl bg-body border border-border/80 p-5 shadow-sm">
+        <!-- Main Search Bar -->
+        <div class="mb-4">
+          <label for="searchInput" class="block text-xs font-semibold text-text/70 uppercase tracking-wider mb-1">
+            關鍵字與全文摘要檢索 (搜尋寄件人、收件人、摘要內容、關鍵字或備註)
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text/40">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="searchInput"
+              class="form-input pl-10 pr-10 w-full"
+              placeholder="輸入如：文友通訊、魯冰花、大河小說、葉石濤、龍潭..."
+            />
+            <button id="clearSearchBtn" type="button" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-text/40 hover:text-text">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Dropdowns Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+          <!-- Filter: Sender -->
+          <div>
+            <label for="filterSender" class="block text-xs font-medium text-text/70 mb-1">寄件人 (Sender)</label>
+            <select id="filterSender" class="form-select w-full text-sm">
+              <option value="">全部寄件人 (All Senders)</option>
+            </select>
+          </div>
+
+          <!-- Filter: Recipient -->
+          <div>
+            <label for="filterRecipient" class="block text-xs font-medium text-text/70 mb-1">收件人 (Recipient)</label>
+            <select id="filterRecipient" class="form-select w-full text-sm">
+              <option value="">全部收件人 (All Recipients)</option>
+            </select>
+          </div>
+
+          <!-- Filter: Language -->
+          <div>
+            <label for="filterLanguage" class="block text-xs font-medium text-text/70 mb-1">書寫語言 (Language)</label>
+            <select id="filterLanguage" class="form-select w-full text-sm">
+              <option value="">全部語言 (All Languages)</option>
+            </select>
+          </div>
+
+          <!-- Filter: Era / Period -->
+          <div>
+            <label for="filterPeriod" class="block text-xs font-medium text-text/70 mb-1">書寫年代 (Period)</label>
+            <select id="filterPeriod" class="form-select w-full text-sm">
+              <option value="">全部年代 (All Eras)</option>
+              <option value="1950s">1950年代 (1950-1959)</option>
+              <option value="1960s">1960年代 (1960-1969)</option>
+              <option value="1970s">1970年代 (1970-1979)</option>
+              <option value="1980s">1980年代 (1980-1989)</option>
+              <option value="1990s">1990年代 (1990-1999)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Popular Tags Pills & Reset Button -->
+        <div class="mt-4 pt-4 border-t border-border/40 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="text-text/60 font-medium">常用熱門關鍵字:</span>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="文友通訊">#文友通訊</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="魯冰花">#魯冰花</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="大河小說">#大河小說</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="濁流三部曲">#濁流三部曲</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="台灣文藝">#台灣文藝</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="還我母語">#還我母語</button>
+          </div>
+
+          <button id="resetFiltersBtn" type="button" class="text-xs text-primary hover:underline font-medium flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            重設所有篩選條件
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Stats & Sorting Header Bar -->
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
+        <div class="text-text/80">
+          搜尋結果：共找到 <span id="resultCount" class="font-bold text-primary">0</span> 筆資料 (全庫共 <span id="totalCount">0</span> 筆)
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="sortBy" class="text-xs text-text/60 whitespace-nowrap">排序方式:</label>
+          <select id="sortBy" class="form-select text-xs py-1 px-2 rounded">
+            <option value="date-desc">書寫日期 (由新到舊)</option>
+            <option value="date-asc">書寫日期 (由舊到新)</option>
+            <option value="sender-asc">寄件人姓名 (筆劃)</option>
+            <option value="recipient-asc">收件人姓名 (筆劃)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Data Table Section -->
+      <div class="overflow-x-auto rounded-xl border border-border/80 shadow-sm bg-body">
+        <table class="min-w-full divide-y divide-border/60 text-sm">
+          <thead class="bg-theme-light text-text/80 text-xs font-semibold uppercase tracking-wider">
+            <tr>
+              <th scope="col" class="py-3.5 px-4 text-left">編號 / 書寫日期</th>
+              <th scope="col" class="py-3.5 px-4 text-left">寄件人</th>
+              <th scope="col" class="py-3.5 px-4 text-left">收件人</th>
+              <th scope="col" class="py-3.5 px-4 text-left">語言</th>
+              <th scope="col" class="py-3.5 px-4 text-left">內容摘要與關鍵字</th>
+              <th scope="col" class="py-3.5 px-4 text-center">操作</th>
+            </tr>
+          </thead>
+          <tbody id="lettersTableBody" class="divide-y divide-border/40">
+            <!-- Dynamic rows will be rendered here by JS -->
+          </tbody>
+        </table>
+
+        <!-- No Results Empty State -->
+        <div id="noResults" class="hidden p-12 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-text/30 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p class="text-base font-semibold text-text">查無符合條件的書信資料</p>
+          <p class="text-xs text-text/60 mt-1">請嘗試縮短搜尋關鍵字或點擊「重設所有篩選條件」再試一次。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail View Modal -->
+  <div id="letterModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+      <!-- Modal Backdrop -->
+      <div id="modalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+      <!-- Modal Panel -->
+      <div class="relative transform overflow-hidden rounded-2xl bg-body text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-border/80">
+        <!-- Modal Header -->
+        <div class="bg-theme-light px-6 py-4 border-b border-border/60 flex items-center justify-between">
+          <div>
+            <span id="modalId" class="inline-block px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-primary/10 text-primary mb-1">
+              LTR-XXXX
+            </span>
+            <h3 class="text-lg font-bold text-text" id="modalTitle">
+              書信詳細資料
+            </h3>
+          </div>
+          <button id="closeModalBtn" type="button" class="text-text/40 hover:text-text p-1 rounded-lg hover:bg-border/30 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Modal Body Content -->
+        <div class="px-6 py-5 space-y-5 text-sm">
+          <!-- Metadata Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-theme-light/50 p-4 rounded-xl border border-border/40">
+            <div>
+              <span class="block text-xs text-text/60 font-medium">寄件人 (Sender)</span>
+              <span id="modalSender" class="font-semibold text-text"></span>
+            </div>
+            <div>
+              <span class="block text-xs text-text/60 font-medium">收件人 (Recipient)</span>
+              <span id="modalRecipient" class="font-semibold text-text"></span>
+            </div>
+            <div>
+              <span class="block text-xs text-text/60 font-medium">書寫年月日 (Date)</span>
+              <span id="modalDate" class="font-semibold text-text font-mono"></span>
+            </div>
+            <div>
+              <span class="block text-xs text-text/60 font-medium">書寫語言 (Language)</span>
+              <span id="modalLanguage" class="inline-block px-2 py-0.5 rounded text-xs font-medium bg-secondary/10 text-secondary"></span>
+            </div>
+            <div>
+              <span class="block text-xs text-text/60 font-medium">地點 / 典藏 (Location)</span>
+              <span id="modalLocation" class="font-semibold text-text"></span>
+            </div>
+          </div>
+
+          <!-- Content Summary -->
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              內容摘要 (Summary)
+            </h4>
+            <div id="modalSummary" class="p-3.5 rounded-lg bg-theme-light text-text/90 leading-relaxed text-sm border border-border/40">
+            </div>
+          </div>
+
+          <!-- Keywords List -->
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">
+              關鍵字標籤 (Keywords)
+            </h4>
+            <div id="modalKeywords" class="flex flex-wrap gap-1.5">
+            </div>
+          </div>
+
+          <!-- Notes & Remarks -->
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">
+              典藏備註 (Notes & Remarks)
+            </h4>
+            <div id="modalNotes" class="p-3 rounded-lg bg-yellow-500/5 text-text/80 text-xs border border-yellow-500/20 italic">
+            </div>
+          </div>
+
+          <!-- Simulated Document Preview Card -->
+          <div class="border border-dashed border-border/80 rounded-xl p-4 bg-theme-light/30 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="p-2.5 rounded-lg bg-primary/10 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-text">信件原件高解析掃描檔 Mockup Preview</p>
+                <p class="text-[11px] text-text/60">國家文化記憶庫 / 臺灣鍾肇政文學推廣協會典藏</p>
+              </div>
+            </div>
+            <button type="button" onclick="alert('目前為 Mockup 前端展示模式，真實影像需結合典藏影像伺服器與授權認證即可即時預覽。')" class="btn btn-outline-primary btn-xs text-xs py-1 px-3">
+              預覽圖檔
+            </button>
+          </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="bg-theme-light px-6 py-3 border-t border-border/60 flex items-center justify-end gap-2">
+          <button id="modalCloseBottomBtn" type="button" class="btn btn-outline-primary btn-sm">
+            關閉
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client-Side Search & Interactive Engine Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Injected Hugo JSON data
+      const rawLetters = {{ site.Data.letters | jsonify | safeJS }};
+      let letters = Array.isArray(rawLetters) ? rawLetters : [];
+
+      // UI Elements
+      const searchInput = document.getElementById("searchInput");
+      const clearSearchBtn = document.getElementById("clearSearchBtn");
+      const filterSender = document.getElementById("filterSender");
+      const filterRecipient = document.getElementById("filterRecipient");
+      const filterLanguage = document.getElementById("filterLanguage");
+      const filterPeriod = document.getElementById("filterPeriod");
+      const resetFiltersBtn = document.getElementById("resetFiltersBtn");
+      const exportCsvBtn = document.getElementById("exportCsvBtn");
+      const sortBy = document.getElementById("sortBy");
+      const tableBody = document.getElementById("lettersTableBody");
+      const noResults = document.getElementById("noResults");
+      const resultCount = document.getElementById("resultCount");
+      const totalCount = document.getElementById("totalCount");
+
+      // Modal Elements
+      const modal = document.getElementById("letterModal");
+      const modalBackdrop = document.getElementById("modalBackdrop");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const modalCloseBottomBtn = document.getElementById("modalCloseBottomBtn");
+      const modalId = document.getElementById("modalId");
+      const modalSender = document.getElementById("modalSender");
+      const modalRecipient = document.getElementById("modalRecipient");
+      const modalDate = document.getElementById("modalDate");
+      const modalLanguage = document.getElementById("modalLanguage");
+      const modalLocation = document.getElementById("modalLocation");
+      const modalSummary = document.getElementById("modalSummary");
+      const modalKeywords = document.getElementById("modalKeywords");
+      const modalNotes = document.getElementById("modalNotes");
+
+      totalCount.textContent = letters.length;
+
+      // Populate Select Dropdowns dynamically
+      const senders = [...new Set(letters.map(item => item.sender))].sort();
+      const recipients = [...new Set(letters.map(item => item.recipient))].sort();
+      const languages = [...new Set(letters.map(item => item.language))].sort();
+
+      senders.forEach(s => {
+        const opt = document.createElement("option");
+        opt.value = s;
+        opt.textContent = s;
+        filterSender.appendChild(opt);
+      });
+
+      recipients.forEach(r => {
+        const opt = document.createElement("option");
+        opt.value = r;
+        opt.textContent = r;
+        filterRecipient.appendChild(opt);
+      });
+
+      languages.forEach(l => {
+        const opt = document.createElement("option");
+        opt.value = l;
+        opt.textContent = l;
+        filterLanguage.appendChild(opt);
+      });
+
+      // Filter & Render Function
+      function filterAndRender() {
+        const query = searchInput.value.trim().toLowerCase();
+        const selectedSender = filterSender.value;
+        const selectedRecipient = filterRecipient.value;
+        const selectedLanguage = filterLanguage.value;
+        const selectedPeriod = filterPeriod.value;
+
+        // Toggle clear search button
+        if (query) {
+          clearSearchBtn.classList.remove("hidden");
+        } else {
+          clearSearchBtn.classList.add("hidden");
+        }
+
+        let filtered = letters.filter(item => {
+          // Query matching across text fields
+          if (query) {
+            const keywordsText = Array.isArray(item.keywords) ? item.keywords.join(" ") : "";
+            const haystack = `${item.id} ${item.sender} ${item.recipient} ${item.summary} ${item.notes} ${item.location || ''} ${keywordsText}`.toLowerCase();
+            if (!haystack.includes(query)) return false;
+          }
+
+          // Dropdown filters
+          if (selectedSender && item.sender !== selectedSender) return false;
+          if (selectedRecipient && item.recipient !== selectedRecipient) return false;
+          if (selectedLanguage && item.language !== selectedLanguage) return false;
+
+          // Period filter
+          if (selectedPeriod && item.date) {
+            const year = parseInt(item.date.substring(0, 4), 10);
+            if (selectedPeriod === "1950s" && (year < 1950 || year > 1959)) return false;
+            if (selectedPeriod === "1960s" && (year < 1960 || year > 1969)) return false;
+            if (selectedPeriod === "1970s" && (year < 1970 || year > 1979)) return false;
+            if (selectedPeriod === "1980s" && (year < 1980 || year > 1989)) return false;
+            if (selectedPeriod === "1990s" && (year < 1990 || year > 1999)) return false;
+          }
+
+          return true;
+        });
+
+        // Sorting
+        const sortVal = sortBy.value;
+        filtered.sort((a, b) => {
+          if (sortVal === "date-desc") return (b.date || "").localeCompare(a.date || "");
+          if (sortVal === "date-asc") return (a.date || "").localeCompare(b.date || "");
+          if (sortVal === "sender-asc") return (a.sender || "").localeCompare(b.sender || "", "zh-Hant");
+          if (sortVal === "recipient-asc") return (a.recipient || "").localeCompare(b.recipient || "", "zh-Hant");
+          return 0;
+        });
+
+        resultCount.textContent = filtered.length;
+
+        // Render Table Body
+        if (filtered.length === 0) {
+          tableBody.innerHTML = "";
+          noResults.classList.remove("hidden");
+        } else {
+          noResults.classList.add("hidden");
+          tableBody.innerHTML = filtered.map(item => {
+            const kwBadges = (item.keywords || []).slice(0, 3).map(kw => 
+              `<span class="inline-block bg-theme-light text-text/80 text-[11px] px-2 py-0.5 rounded border border-border/50 mr-1 mb-1">#${kw}</span>`
+            ).join("");
+
+            return `
+              <tr class="hover:bg-theme-light/40 transition cursor-pointer group" onclick="openModal('${item.id}')">
+                <td class="py-3.5 px-4 whitespace-nowrap">
+                  <div class="text-xs font-mono font-semibold text-primary">${item.id}</div>
+                  <div class="text-xs text-text/60 font-mono">${item.date}</div>
+                </td>
+                <td class="py-3.5 px-4 whitespace-nowrap font-medium text-text">
+                  ${item.sender}
+                </td>
+                <td class="py-3.5 px-4 whitespace-nowrap font-medium text-text">
+                  ${item.recipient}
+                </td>
+                <td class="py-3.5 px-4 whitespace-nowrap">
+                  <span class="inline-block text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                    ${item.language}
+                  </span>
+                </td>
+                <td class="py-3.5 px-4">
+                  <p class="text-xs text-text/90 line-clamp-2 mb-1.5 leading-relaxed">${item.summary}</p>
+                  <div>${kwBadges}</div>
+                </td>
+                <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                  <button type="button" class="btn btn-outline-primary btn-xs text-xs py-1 px-3 group-hover:bg-primary group-hover:text-white transition" onclick="event.stopPropagation(); openModal('${item.id}')">
+                    詳細資料
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join("");
+        }
+      }
+
+      // Open Detail Modal
+      window.openModal = function(id) {
+        const item = letters.find(l => l.id === id);
+        if (!item) return;
+
+        modalId.textContent = item.id;
+        modalSender.textContent = item.sender;
+        modalRecipient.textContent = item.recipient;
+        modalDate.textContent = item.date;
+        modalLanguage.textContent = item.language;
+        modalLocation.textContent = item.location || "未記載";
+        modalSummary.textContent = item.summary;
+        modalNotes.textContent = item.notes || "無特記事項。";
+
+        modalKeywords.innerHTML = (item.keywords || []).map(kw => 
+          `<span class="inline-block bg-primary/10 text-primary text-xs font-medium px-2.5 py-1 rounded-full">#${kw}</span>`
+        ).join("");
+
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      };
+
+      // Close Modal
+      function closeModal() {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      closeModalBtn.addEventListener("click", closeModal);
+      modalCloseBottomBtn.addEventListener("click", closeModal);
+      modalBackdrop.addEventListener("click", closeModal);
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      // Event Listeners for Filters
+      searchInput.addEventListener("input", filterAndRender);
+      filterSender.addEventListener("change", filterAndRender);
+      filterRecipient.addEventListener("change", filterAndRender);
+      filterLanguage.addEventListener("change", filterAndRender);
+      filterPeriod.addEventListener("change", filterAndRender);
+      sortBy.addEventListener("change", filterAndRender);
+
+      clearSearchBtn.addEventListener("click", function() {
+        searchInput.value = "";
+        filterAndRender();
+      });
+
+      resetFiltersBtn.addEventListener("click", function() {
+        searchInput.value = "";
+        filterSender.value = "";
+        filterRecipient.value = "";
+        filterLanguage.value = "";
+        filterPeriod.value = "";
+        sortBy.value = "date-desc";
+        filterAndRender();
+      });
+
+      // Tag Pills click listener
+      document.querySelectorAll(".tag-pill").forEach(btn => {
+        btn.addEventListener("click", function() {
+          const tag = this.getAttribute("data-tag");
+          searchInput.value = tag;
+          filterAndRender();
+        });
+      });
+
+      // Export CSV Function
+      exportCsvBtn.addEventListener("click", function() {
+        const query = searchInput.value.trim().toLowerCase();
+        const selectedSender = filterSender.value;
+        const selectedRecipient = filterRecipient.value;
+        const selectedLanguage = filterLanguage.value;
+        const selectedPeriod = filterPeriod.value;
+
+        let filtered = letters.filter(item => {
+          if (query) {
+            const keywordsText = Array.isArray(item.keywords) ? item.keywords.join(" ") : "";
+            const haystack = `${item.id} ${item.sender} ${item.recipient} ${item.summary} ${item.notes} ${item.location || ''} ${keywordsText}`.toLowerCase();
+            if (!haystack.includes(query)) return false;
+          }
+          if (selectedSender && item.sender !== selectedSender) return false;
+          if (selectedRecipient && item.recipient !== selectedRecipient) return false;
+          if (selectedLanguage && item.language !== selectedLanguage) return false;
+          if (selectedPeriod && item.date) {
+            const year = parseInt(item.date.substring(0, 4), 10);
+            if (selectedPeriod === "1950s" && (year < 1950 || year > 1959)) return false;
+            if (selectedPeriod === "1960s" && (year < 1960 || year > 1969)) return false;
+            if (selectedPeriod === "1970s" && (year < 1970 || year > 1979)) return false;
+            if (selectedPeriod === "1980s" && (year < 1980 || year > 1989)) return false;
+            if (selectedPeriod === "1990s" && (year < 1990 || year > 1999)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          alert("目前篩選結果無資料，無法匯出 CSV。");
+          return;
+        }
+
+        const headers = ["編號", "寄件人", "收件人", "書寫年月日", "書寫語言", "地點", "內容摘要", "關鍵字", "備註"];
+        const csvRows = [headers.join(",")];
+
+        filtered.forEach(item => {
+          const row = [
+            `"${item.id}"`,
+            `"${item.sender}"`,
+            `"${item.recipient}"`,
+            `"${item.date}"`,
+            `"${item.language}"`,
+            `"${item.location || ''}"`,
+            `"${(item.summary || '').replace(/"/g, '""')}"`,
+            `"${(item.keywords || []).join(';')}"`,
+            `"${(item.notes || '').replace(/"/g, '""')}"`
+          ];
+          csvRows.push(row.join(","));
+        });
+
+        const csvContent = "\uFEFF" + csvRows.join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `鍾肇政書信文物資料庫_匯出_${new Date().toISOString().slice(0,10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      // Initial Render
+      filterAndRender();
+    });
+  </script>
+{{ end }}

@@ -17,7 +17,12 @@ url = "/chung-chao-cheng"
 weight = 3
 
 [[main]]
+name = "書信文物資料庫"
+url = "/archives"
 weight = 4
+
+[[main]]
+weight = 5
 name = "專文"
 url = "/blog"
 
