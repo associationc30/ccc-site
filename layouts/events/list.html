@@ -1,0 +1,180 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+  <section class="section-sm pt-8">
+    <div class="container">
+      <!-- Hero / Featured Event Banner -->
+      {{ range where .Data.Pages ".Params.featured" true }}
+        <div class="mb-10 rounded-2xl bg-gradient-to-r from-theme-light via-body to-theme-light p-6 md:p-8 border border-border/80 shadow-sm relative overflow-hidden">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-primary text-white tracking-wide uppercase">
+              年度重點計畫 Featured
+            </span>
+            {{ if eq .Params.status "報名中" }}
+              <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                🟢 熱烈報名中
+              </span>
+            {{ end }}
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
+            <div class="lg:col-span-2 space-y-3">
+              <h2 class="h3 text-text">
+                <a href="{{ .RelPermalink }}" class="hover:text-primary transition">{{ .Title }}</a>
+              </h2>
+              <p class="text-text/80 text-sm leading-relaxed line-clamp-3">
+                {{ .Params.description }}
+              </p>
+              
+              <div class="flex flex-wrap gap-y-2 gap-x-6 text-xs text-text/70 pt-2 border-t border-border/40">
+                <div class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="font-medium">{{ .Params.event_date }}</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span>{{ .Params.location }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
+              {{ if and .Params.google_form_url (eq .Params.status "報名中") }}
+                <a href="{{ .Params.google_form_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-md w-full text-center flex items-center justify-center gap-2">
+                  <span>👉 前往 Google 表單線上報名</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              {{ end }}
+              <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-md w-full text-center">
+                查看活動完整說明
+              </a>
+            </div>
+          </div>
+        </div>
+      {{ end }}
+
+      <!-- Filter Controls -->
+      <div class="mb-8 border-b border-border/80 pb-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-semibold bg-primary text-white shadow-sm transition" data-status="all">
+              全部活動 (All)
+            </button>
+            <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="報名中">
+              🟢 熱烈報名中
+            </button>
+            <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="即將舉辦">
+              🔵 即將舉辦
+            </button>
+            <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="常設展">
+              🟣 常設展覽
+            </button>
+            <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="歷年回顧">
+              ⚪ 歷年活動回顧
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Content Grid -->
+      <div id="eventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{ range .Data.Pages }}
+          <div class="event-card rounded-2xl bg-body border border-border/80 shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden group" data-status="{{ .Params.status }}">
+            <div class="p-6 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold text-primary bg-primary/10 px-2.5 py-0.5 rounded">
+                  {{ .Params.category }}
+                </span>
+                
+                {{ if eq .Params.status "報名中" }}
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">🟢 熱烈報名中</span>
+                {{ else if eq .Params.status "即將舉辦" }}
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">🔵 即將舉辦</span>
+                {{ else if eq .Params.status "常設展" }}
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">🟣 常設展覽</span>
+                {{ else }}
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-500/15 text-gray-500 dark:text-gray-400 border border-gray-500/30">⚪ 歷年回顧</span>
+                {{ end }}
+              </div>
+
+              <h3 class="text-base font-bold text-text group-hover:text-primary transition leading-snug line-clamp-2">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+
+              <p class="text-xs text-text/80 line-clamp-3 leading-relaxed">
+                {{ .Params.description }}
+              </p>
+
+              <div class="space-y-1.5 text-xs text-text/70 pt-3 border-t border-border/40">
+                <div class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="font-medium">{{ .Params.event_date }} ({{ .Params.event_time }})</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span class="truncate">{{ .Params.location }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex flex-col sm:flex-row gap-2">
+              {{ if and .Params.google_form_url (eq .Params.status "報名中") }}
+                <a href="{{ .Params.google_form_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-xs text-xs font-bold py-2 flex-1 text-center flex items-center justify-center gap-1">
+                  <span>線上報名</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              {{ end }}
+              <a href="{{ .RelPermalink }}" class="btn btn-outline-primary btn-xs text-xs font-semibold py-2 flex-1 text-center">
+                活動詳情
+              </a>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <!-- Simple JS Filter Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const filterBtns = document.querySelectorAll(".event-filter-btn");
+      const eventCards = document.querySelectorAll(".event-card");
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+          filterBtns.forEach(b => {
+            b.classList.remove("bg-primary", "text-white", "shadow-sm");
+            b.classList.add("bg-theme-light", "text-text/80");
+          });
+          this.classList.remove("bg-theme-light", "text-text/80");
+          this.classList.add("bg-primary", "text-white", "shadow-sm");
+
+          const targetStatus = this.getAttribute("data-status");
+
+          eventCards.forEach(card => {
+            const cardStatus = card.getAttribute("data-status");
+            if (targetStatus === "all" || cardStatus === targetStatus) {
+              card.style.display = "flex";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
+    });
+  </script>
+{{ end }}

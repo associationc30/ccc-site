@@ -22,7 +22,12 @@ url = "/archives"
 weight = 4
 
 [[main]]
+name = "活動與計畫"
+url = "/events"
 weight = 5
+
+[[main]]
+weight = 6
 name = "專文"
 url = "/blog"
 
