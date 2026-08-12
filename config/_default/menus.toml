@@ -45,6 +45,18 @@ url = "/resources/manuscripts"
 weight = 3
 
 [[main]]
+parent = "研究資源"
+name = "研究書目"
+url = "/resources/bibliography"
+weight = 4
+
+[[main]]
+parent = "研究資源"
+name = "著作年表"
+url = "/resources/chronology"
+weight = 5
+
+[[main]]
 weight = 6
 name = "專文"
 url = "/blog"

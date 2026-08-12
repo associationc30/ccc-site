@@ -1,0 +1,485 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+  <section class="section-sm pt-8">
+    <div class="container">
+      <!-- Banner -->
+      <div class="mb-8 rounded-2xl bg-theme-light p-6 md:p-8 border border-border/50 shadow-sm">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="h4 mb-2 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+              臺灣鍾肇政文學推廣協會 — 研究書目檢索系統
+            </h2>
+            <p class="text-text/80 text-sm leading-relaxed">
+              本系統完整彙整關於鍾肇政文學、大河小說、客家文學與戰後臺灣文學之學術專書、評傳、研討會論文集、期刊論文與學位論文。提供多條件組合搜尋與 CSV 書目導出。
+            </p>
+          </div>
+          <div class="flex-shrink-0 flex gap-2">
+            <button id="exportCsvBtn" type="button" class="btn btn-outline-primary btn-sm flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              匯出 CSV 結果
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Filter Bar Controls -->
+      <div class="mb-6 rounded-xl bg-body border border-border/80 p-5 shadow-sm">
+        <div class="mb-4">
+          <label for="searchInput" class="block text-xs font-semibold text-text/70 uppercase tracking-wider mb-1">
+            關鍵字與書目檢索 (搜尋書名、作者/編者、出版社、摘要內容或關鍵字)
+          </label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text/40">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="searchInput"
+              class="form-input pl-10 pr-10 w-full"
+              placeholder="輸入如：彭瑞金、鍾肇政評傳、大河小說、文友通訊、客家女性..."
+            />
+            <button id="clearSearchBtn" type="button" class="hidden absolute inset-y-0 right-0 pr-3 flex items-center text-text/40 hover:text-text">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div>
+            <label for="filterCategory" class="block text-xs font-medium text-text/70 mb-1">書目類別 (Category)</label>
+            <select id="filterCategory" class="form-select w-full text-sm">
+              <option value="">全部分類 (All Categories)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="filterAuthor" class="block text-xs font-medium text-text/70 mb-1">作者/編者 (Author)</label>
+            <select id="filterAuthor" class="form-select w-full text-sm">
+              <option value="">全部作者 (All Authors)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="filterPublisher" class="block text-xs font-medium text-text/70 mb-1">出版社/發表期刊 (Publisher)</label>
+            <select id="filterPublisher" class="form-select w-full text-sm">
+              <option value="">全部出版事業 (All Publishers)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-4 border-t border-border/40 flex flex-wrap items-center justify-between gap-3">
+          <div class="flex flex-wrap items-center gap-2 text-xs">
+            <span class="text-text/60 font-medium">常用熱門標籤:</span>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="鍾肇政評傳">#鍾肇政評傳</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="大河小說">#大河小說</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="跨語世代">#跨語世代</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="客家文學">#客家文學</button>
+            <button type="button" class="tag-pill btn-sm bg-theme-light hover:bg-primary hover:text-white px-2.5 py-1 rounded-full border border-border/60 transition" data-tag="文友通訊">#文友通訊</button>
+          </div>
+
+          <button id="resetFiltersBtn" type="button" class="text-xs text-primary hover:underline font-medium flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            重設所有篩選條件
+          </button>
+        </div>
+      </div>
+
+      <!-- Results Stats Bar -->
+      <div class="mb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm">
+        <div class="text-text/80">
+          搜尋結果：共找到 <span id="resultCount" class="font-bold text-primary">0</span> 筆研究書目 (全庫共 <span id="totalCount">0</span> 筆)
+        </div>
+        <div class="flex items-center gap-2">
+          <label for="sortBy" class="text-xs text-text/60 whitespace-nowrap">排序方式:</label>
+          <select id="sortBy" class="form-select text-xs py-1 px-2 rounded">
+            <option value="year-desc">出版/發表年份 (由新到舊)</option>
+            <option value="year-asc">出版/發表年份 (由舊到新)</option>
+            <option value="title-asc">書名筆劃 (由少到多)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="overflow-x-auto rounded-xl border border-border/80 shadow-sm bg-body">
+        <table class="min-w-full divide-y divide-border/60 text-sm">
+          <thead class="bg-theme-light text-text/80 text-xs font-semibold uppercase tracking-wider">
+            <tr>
+              <th scope="col" class="py-3.5 px-3 text-center whitespace-nowrap w-16">封面</th>
+              <th scope="col" class="py-3.5 px-4 text-left">編號 / 出版年份</th>
+              <th scope="col" class="py-3.5 px-4 text-left">書名 / 論文名稱</th>
+              <th scope="col" class="py-3.5 px-4 text-left">類別</th>
+              <th scope="col" class="py-3.5 px-4 text-left">作者 / 出版事業</th>
+              <th scope="col" class="py-3.5 px-4 text-left">內容摘要與關鍵字</th>
+              <th scope="col" class="py-3.5 px-4 text-center">操作</th>
+            </tr>
+          </thead>
+          <tbody id="bibTableBody" class="divide-y divide-border/40">
+          </tbody>
+        </table>
+
+        <!-- Empty State -->
+        <div id="noResults" class="hidden p-12 text-center">
+          <p class="text-base font-semibold text-text">查無符合條件的研究書目</p>
+          <p class="text-xs text-text/60 mt-1">請嘗試縮短搜尋關鍵字或點擊「重設所有篩選條件」。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail View Modal -->
+  <div id="bibModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+      <div id="modalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+      <div class="relative transform overflow-hidden rounded-2xl bg-body text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-border/80">
+        <div class="bg-theme-light px-6 py-4 border-b border-border/60 flex items-center justify-between">
+          <div>
+            <span id="modalId" class="inline-block px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-primary/10 text-primary mb-1">
+              BIB-XXXX
+            </span>
+            <h3 class="text-lg font-bold text-text leading-snug" id="modalTitle">
+              研究書目詳細資料
+            </h3>
+          </div>
+          <button id="closeModalBtn" type="button" class="text-text/40 hover:text-text p-1 rounded-lg hover:bg-border/30 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="px-6 py-5 space-y-5 text-sm">
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-theme-light/50 p-4 rounded-xl border border-border/40">
+            <div>
+              <span class="block text-xs text-text/60 font-medium">類別 (Category)</span>
+              <span id="modalCategory" class="inline-block px-2 py-0.5 rounded text-xs font-semibold bg-primary/10 text-primary"></span>
+            </div>
+            <div>
+              <span class="block text-xs text-text/60 font-medium">出版年份 (Year)</span>
+              <span id="modalYear" class="font-semibold text-text"></span>
+            </div>
+            <div>
+              <span class="block text-xs text-text/60 font-medium">作者/編者 (Author)</span>
+              <span id="modalAuthor" class="font-semibold text-text"></span>
+            </div>
+            <div class="col-span-2 sm:col-span-3">
+              <span class="block text-xs text-text/60 font-medium">出版社/期刊 (Publisher)</span>
+              <span id="modalPublisher" class="font-bold text-primary"></span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">研究焦點與摘要 (Summary)</h4>
+            <div id="modalSummary" class="p-3.5 rounded-lg bg-theme-light text-text/90 leading-relaxed text-sm border border-border/40"></div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">關鍵字標籤 (Keywords)</h4>
+            <div id="modalKeywords" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">館藏與備註 (Notes)</h4>
+            <div id="modalNotes" class="p-3 rounded-lg bg-yellow-500/5 text-text/80 text-xs border border-yellow-500/20 italic"></div>
+          </div>
+
+          <div class="border border-border/80 rounded-xl p-4 bg-theme-light/30 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-16 h-20 rounded overflow-hidden border border-border/60 bg-body shrink-0">
+                <img id="modalImgPreview" src="" alt="Book Cover" class="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-text">國家圖書館與館藏條碼指引</p>
+                <p class="text-[11px] text-text/60">可至國立臺灣文學館或全國大學圖書館調閱專書紙本與論文電子檔</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-theme-light px-6 py-3 border-t border-border/60 flex items-center justify-end">
+          <button id="modalCloseBottomBtn" type="button" class="btn btn-outline-primary btn-sm">
+            關閉視窗
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const rawBib = {{ site.Data.bibliography | jsonify | safeJS }};
+      let bibliography = Array.isArray(rawBib) ? rawBib : [];
+
+      const searchInput = document.getElementById("searchInput");
+      const clearSearchBtn = document.getElementById("clearSearchBtn");
+      const filterCategory = document.getElementById("filterCategory");
+      const filterAuthor = document.getElementById("filterAuthor");
+      const filterPublisher = document.getElementById("filterPublisher");
+      const resetFiltersBtn = document.getElementById("resetFiltersBtn");
+      const exportCsvBtn = document.getElementById("exportCsvBtn");
+      const sortBy = document.getElementById("sortBy");
+      const tableBody = document.getElementById("bibTableBody");
+      const noResults = document.getElementById("noResults");
+      const resultCount = document.getElementById("resultCount");
+      const totalCount = document.getElementById("totalCount");
+
+      const modal = document.getElementById("bibModal");
+      const modalBackdrop = document.getElementById("modalBackdrop");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const modalCloseBottomBtn = document.getElementById("modalCloseBottomBtn");
+      const modalId = document.getElementById("modalId");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalCategory = document.getElementById("modalCategory");
+      const modalYear = document.getElementById("modalYear");
+      const modalAuthor = document.getElementById("modalAuthor");
+      const modalPublisher = document.getElementById("modalPublisher");
+      const modalSummary = document.getElementById("modalSummary");
+      const modalKeywords = document.getElementById("modalKeywords");
+      const modalNotes = document.getElementById("modalNotes");
+      const modalImgPreview = document.getElementById("modalImgPreview");
+
+      totalCount.textContent = bibliography.length;
+
+      const categories = [...new Set(bibliography.map(item => item.category))].sort();
+      const authors = [...new Set(bibliography.map(item => item.author))].sort();
+      const publishers = [...new Set(bibliography.map(item => item.publisher))].sort();
+
+      categories.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        filterCategory.appendChild(opt);
+      });
+
+      authors.forEach(a => {
+        const opt = document.createElement("option");
+        opt.value = a;
+        opt.textContent = a;
+        filterAuthor.appendChild(opt);
+      });
+
+      publishers.forEach(p => {
+        const opt = document.createElement("option");
+        opt.value = p;
+        opt.textContent = p;
+        filterPublisher.appendChild(opt);
+      });
+
+      function filterAndRender() {
+        const query = searchInput.value.trim().toLowerCase();
+        const selectedCat = filterCategory.value;
+        const selectedAuthor = filterAuthor.value;
+        const selectedPub = filterPublisher.value;
+
+        if (query) {
+          clearSearchBtn.classList.remove("hidden");
+        } else {
+          clearSearchBtn.classList.add("hidden");
+        }
+
+        let filtered = bibliography.filter(item => {
+          if (query) {
+            const keywordsText = Array.isArray(item.keywords) ? item.keywords.join(" ") : "";
+            const haystack = `${item.id} ${item.title} ${item.author} ${item.publisher} ${item.summary} ${item.notes} ${keywordsText}`.toLowerCase();
+            if (!haystack.includes(query)) return false;
+          }
+
+          if (selectedCat && item.category !== selectedCat) return false;
+          if (selectedAuthor && item.author !== selectedAuthor) return false;
+          if (selectedPub && item.publisher !== selectedPub) return false;
+
+          return true;
+        });
+
+        const sortVal = sortBy.value;
+        filtered.sort((a, b) => {
+          if (sortVal === "year-desc") return (b.year || "").localeCompare(a.year || "");
+          if (sortVal === "year-asc") return (a.year || "").localeCompare(b.year || "");
+          if (sortVal === "title-asc") return (a.title || "").localeCompare(b.title || "", "zh-Hant");
+          return 0;
+        });
+
+        resultCount.textContent = filtered.length;
+
+        if (filtered.length === 0) {
+          tableBody.innerHTML = "";
+          noResults.classList.remove("hidden");
+        } else {
+          noResults.classList.add("hidden");
+          tableBody.innerHTML = filtered.map(item => {
+            const kwBadges = (item.keywords || []).slice(0, 3).map(kw => 
+              `<span class="inline-block bg-theme-light text-text/80 text-[11px] px-2 py-0.5 rounded border border-border/50 mr-1 mb-1">#${kw}</span>`
+            ).join("");
+
+            const imgUrl = item.image ? ('/ccc-site/' + item.image) : '/ccc-site/images/blog/blog-1.png';
+
+            return `
+              <tr class="hover:bg-theme-light/40 transition cursor-pointer group" onclick="openModal('${item.id}')">
+                <td class="py-3 px-3 text-center whitespace-nowrap">
+                  <div class="w-12 h-16 rounded overflow-hidden border border-border/80 bg-theme-light shadow-sm flex items-center justify-center mx-auto group-hover:scale-105 transition transform cursor-pointer" onclick="event.stopPropagation(); openModal('${item.id}')">
+                    <img src="${imgUrl}" alt="${item.id}" class="w-full h-full object-cover" onerror="this.src='/ccc-site/images/blog/blog-1.png'" />
+                  </div>
+                </td>
+                <td class="py-3.5 px-4 whitespace-nowrap">
+                  <div class="text-xs font-mono font-semibold text-primary">${item.id}</div>
+                  <div class="text-xs text-text/60 font-mono">${item.year}</div>
+                </td>
+                <td class="py-3.5 px-4 font-bold text-text">
+                  ${item.title}
+                </td>
+                <td class="py-3.5 px-4 whitespace-nowrap">
+                  <span class="inline-block text-xs px-2 py-0.5 rounded bg-primary/10 text-primary font-medium">
+                    ${item.category}
+                  </span>
+                </td>
+                <td class="py-3.5 px-4 text-xs text-text/80">
+                  <div class="font-semibold">${item.author}</div>
+                  <div class="text-text/60">${item.publisher}</div>
+                </td>
+                <td class="py-3.5 px-4">
+                  <p class="text-xs text-text/90 line-clamp-2 mb-1.5 leading-relaxed">${item.summary}</p>
+                  <div>${kwBadges}</div>
+                </td>
+                <td class="py-3.5 px-4 text-center whitespace-nowrap">
+                  <button type="button" class="btn btn-outline-primary btn-xs text-xs py-1 px-3 group-hover:bg-primary group-hover:text-white transition" onclick="event.stopPropagation(); openModal('${item.id}')">
+                    詳細資料
+                  </button>
+                </td>
+              </tr>
+            `;
+          }).join("");
+        }
+      }
+
+      window.openModal = function(id) {
+        const item = bibliography.find(b => b.id === id);
+        if (!item) return;
+
+        modalId.textContent = item.id;
+        modalTitle.textContent = item.title;
+        modalCategory.textContent = item.category;
+        modalYear.textContent = item.year;
+        modalAuthor.textContent = item.author;
+        modalPublisher.textContent = item.publisher;
+        modalSummary.textContent = item.summary;
+        modalNotes.textContent = item.notes || "無特記事項。";
+        modalImgPreview.src = item.image ? ('/ccc-site/' + item.image) : '/ccc-site/images/blog/blog-1.png';
+
+        modalKeywords.innerHTML = (item.keywords || []).map(kw => 
+          `<span class="inline-block bg-primary/10 text-primary text-xs font-medium px-2.5 py-1 rounded-full">#${kw}</span>`
+        ).join("");
+
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      };
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      closeModalBtn.addEventListener("click", closeModal);
+      modalCloseBottomBtn.addEventListener("click", closeModal);
+      modalBackdrop.addEventListener("click", closeModal);
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      searchInput.addEventListener("input", filterAndRender);
+      filterCategory.addEventListener("change", filterAndRender);
+      filterAuthor.addEventListener("change", filterAndRender);
+      filterPublisher.addEventListener("change", filterAndRender);
+      sortBy.addEventListener("change", filterAndRender);
+
+      clearSearchBtn.addEventListener("click", function() {
+        searchInput.value = "";
+        filterAndRender();
+      });
+
+      resetFiltersBtn.addEventListener("click", function() {
+        searchInput.value = "";
+        filterCategory.value = "";
+        filterAuthor.value = "";
+        filterPublisher.value = "";
+        sortBy.value = "year-desc";
+        filterAndRender();
+      });
+
+      document.querySelectorAll(".tag-pill").forEach(btn => {
+        btn.addEventListener("click", function() {
+          const tag = this.getAttribute("data-tag");
+          searchInput.value = tag;
+          filterAndRender();
+        });
+      });
+
+      exportCsvBtn.addEventListener("click", function() {
+        const query = searchInput.value.trim().toLowerCase();
+        const selectedCat = filterCategory.value;
+        const selectedAuthor = filterAuthor.value;
+        const selectedPub = filterPublisher.value;
+
+        let filtered = bibliography.filter(item => {
+          if (query) {
+            const keywordsText = Array.isArray(item.keywords) ? item.keywords.join(" ") : "";
+            const haystack = `${item.id} ${item.title} ${item.author} ${item.publisher} ${item.summary} ${item.notes} ${keywordsText}`.toLowerCase();
+            if (!haystack.includes(query)) return false;
+          }
+          if (selectedCat && item.category !== selectedCat) return false;
+          if (selectedAuthor && item.author !== selectedAuthor) return false;
+          if (selectedPub && item.publisher !== selectedPub) return false;
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          alert("目前篩選結果無資料，無法匯出 CSV。");
+          return;
+        }
+
+        const headers = ["編號", "書名/論文名稱", "類別", "出版年份", "作者/編者", "出版社/期刊", "摘要", "關鍵字", "備註"];
+        const csvRows = [headers.join(",")];
+
+        filtered.forEach(item => {
+          const row = [
+            `"${item.id}"`,
+            `"${item.title}"`,
+            `"${item.category}"`,
+            `"${item.year}"`,
+            `"${item.author}"`,
+            `"${item.publisher}"`,
+            `"${(item.summary || '').replace(/"/g, '""')}"`,
+            `"${(item.keywords || []).join(';')}"`,
+            `"${(item.notes || '').replace(/"/g, '""')}"`
+          ];
+          csvRows.push(row.join(","));
+        });
+
+        const csvContent = "\uFEFF" + csvRows.join("\n");
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.setAttribute("href", url);
+        link.setAttribute("download", `鍾肇政研究書目_匯出_${new Date().toISOString().slice(0,10)}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+
+      filterAndRender();
+    });
+  </script>
+{{ end }}

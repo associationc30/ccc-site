@@ -1,0 +1,266 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+  <section class="section-sm pt-8">
+    <div class="container">
+      <!-- Intro Card -->
+      <div class="mb-10 rounded-2xl bg-theme-light p-6 md:p-8 border border-border/50 shadow-sm">
+        <h2 class="h4 mb-2 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          鍾肇政文學生命與出版大系時間軸
+        </h2>
+        <p class="text-text/80 text-sm leading-relaxed">
+          鍾肇政先生一生筆耕不輟，創作涵蓋《濁流三部曲》、《臺灣人三部曲》等長篇巨構，數百篇短篇小說、散文、劇本與翻譯著作。本互動時間軸完整記錄其半世紀以來之創作里程碑。
+        </p>
+      </div>
+
+      <!-- Decade Filter Tabs -->
+      <div class="mb-10 border-b border-border/80 pb-4">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" class="decade-tab-btn btn-sm px-4 py-2 rounded-xl text-xs font-semibold bg-primary text-white shadow-sm transition" data-decade="all">
+              全部年代 (All)
+            </button>
+            <button type="button" class="decade-tab-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-decade="1950s">
+              1950 年代
+            </button>
+            <button type="button" class="decade-tab-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-decade="1960s">
+              1960 年代
+            </button>
+            <button type="button" class="decade-tab-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-decade="1970s">
+              1970 年代
+            </button>
+            <button type="button" class="decade-tab-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-decade="1980s">
+              1980 年代
+            </button>
+            <button type="button" class="decade-tab-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-decade="1990s">
+              1990 年代起
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Interactive Timeline -->
+      <div class="relative wrap overflow-hidden p-2 md:p-6">
+        <!-- Vertical Center Line -->
+        <div class="border-2-2 absolute border-opacity-20 border-primary h-full border left-4 md:left-1/2"></div>
+
+        <div id="timelineContainer" class="space-y-8">
+          <!-- Rendered dynamically by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Detail Modal -->
+  <div id="chronologyModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+      <div id="modalBackdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+
+      <div class="relative transform overflow-hidden rounded-2xl bg-body text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl border border-border/80">
+        <div class="bg-theme-light px-6 py-4 border-b border-border/60 flex items-center justify-between">
+          <div>
+            <span id="modalId" class="inline-block px-2.5 py-0.5 rounded text-xs font-mono font-semibold bg-primary/10 text-primary mb-1">
+              WORK-XXXX
+            </span>
+            <h3 class="text-lg font-bold text-text leading-snug" id="modalTitle"></h3>
+          </div>
+          <button id="closeModalBtn" type="button" class="text-text/40 hover:text-text p-1 rounded-lg hover:bg-border/30 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="px-6 py-5 space-y-5 text-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-theme-light/50 p-4 rounded-xl border border-border/40 text-xs">
+            <div>
+              <span class="block text-text/60 font-medium">首刊/出版年份</span>
+              <span id="modalYear" class="font-bold text-primary text-sm"></span>
+            </div>
+            <div>
+              <span class="block text-text/60 font-medium">作品類別</span>
+              <span id="modalCategory" class="font-semibold text-text"></span>
+            </div>
+            <div>
+              <span class="block text-text/60 font-medium">首刊媒體/出版事業</span>
+              <span id="modalPublisher" class="font-semibold text-text"></span>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">作品背景與內容說明</h4>
+            <div id="modalSummary" class="p-3.5 rounded-lg bg-theme-light text-text/90 leading-relaxed text-sm border border-border/40"></div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">關鍵字標籤</h4>
+            <div id="modalKeywords" class="flex flex-wrap gap-1.5"></div>
+          </div>
+
+          <div>
+            <h4 class="text-xs font-semibold text-text/70 uppercase tracking-wider mb-2">典藏與備註</h4>
+            <div id="modalNotes" class="p-3 rounded-lg bg-yellow-500/5 text-text/80 text-xs border border-yellow-500/20 italic"></div>
+          </div>
+
+          <div class="border border-border/80 rounded-xl p-4 bg-theme-light/30 flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-16 h-20 rounded overflow-hidden border border-border/60 bg-body shrink-0">
+                <img id="modalImgPreview" src="" alt="Book Cover" class="w-full h-full object-cover" />
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-text">經典書封與修訂稿紙 預覽</p>
+                <p class="text-[11px] text-text/60">收錄於全台公共圖書館與典藏特展</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-theme-light px-6 py-3 border-t border-border/60 flex items-center justify-end">
+          <button id="modalCloseBottomBtn" type="button" class="btn btn-outline-primary btn-sm">
+            關閉視窗
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const rawChronology = {{ site.Data.chronology | jsonify | safeJS }};
+      let works = Array.isArray(rawChronology) ? rawChronology : [];
+
+      const container = document.getElementById("timelineContainer");
+      const decadeBtns = document.querySelectorAll(".decade-tab-btn");
+
+      const modal = document.getElementById("chronologyModal");
+      const modalBackdrop = document.getElementById("modalBackdrop");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const modalCloseBottomBtn = document.getElementById("modalCloseBottomBtn");
+      const modalId = document.getElementById("modalId");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalYear = document.getElementById("modalYear");
+      const modalCategory = document.getElementById("modalCategory");
+      const modalPublisher = document.getElementById("modalPublisher");
+      const modalSummary = document.getElementById("modalSummary");
+      const modalKeywords = document.getElementById("modalKeywords");
+      const modalNotes = document.getElementById("modalNotes");
+      const modalImgPreview = document.getElementById("modalImgPreview");
+
+      let currentDecade = "all";
+
+      function renderTimeline() {
+        let filtered = works.filter(w => {
+          if (currentDecade !== "all" && w.decade !== currentDecade) return false;
+          return true;
+        });
+
+        // Sort by year
+        filtered.sort((a, b) => (a.year || "").localeCompare(b.year || ""));
+
+        container.innerHTML = filtered.map((item, index) => {
+          const isEven = index % 2 === 0;
+          const sideClass = isEven ? "md:flex-row-reverse" : "";
+          const imgUrl = item.image ? ('/ccc-site/' + item.image) : '/ccc-site/images/blog/blog-1.png';
+          const kwBadges = (item.keywords || []).slice(0, 3).map(kw => 
+            `<span class="inline-block bg-theme-light text-text/80 text-[11px] px-2 py-0.5 rounded border border-border/50 mr-1 mb-1">#${kw}</span>`
+          ).join("");
+
+          return `
+            <div class="mb-8 flex items-center justify-between w-full ${sideClass} group">
+              <div class="hidden md:block w-5/12"></div>
+              
+              <!-- Center Dot -->
+              <div class="z-20 flex items-center bg-primary shadow-md w-8 h-8 rounded-full border-4 border-body shrink-0 group-hover:scale-125 transition">
+                <span class="mx-auto font-bold text-xs text-white"></span>
+              </div>
+
+              <!-- Content Box -->
+              <div class="bg-body border border-border/80 rounded-2xl p-5 shadow-sm hover:shadow-md transition w-full md:w-5/12 ml-6 md:ml-0 cursor-pointer space-y-3" onclick="openModal('${item.id}')">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs font-bold font-mono text-primary bg-primary/10 px-2.5 py-0.5 rounded">
+                    ${item.year}
+                  </span>
+                  <span class="text-xs font-medium text-text/60 border border-border/60 px-2 py-0.5 rounded">
+                    ${item.category}
+                  </span>
+                </div>
+
+                <div class="flex gap-3 items-start">
+                  <div class="w-14 h-18 rounded overflow-hidden border border-border/60 bg-theme-light shrink-0">
+                    <img src="${imgUrl}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='/ccc-site/images/blog/blog-1.png'" />
+                  </div>
+                  <div class="space-y-1">
+                    <h3 class="text-base font-bold text-text group-hover:text-primary transition leading-snug">
+                      ${item.title}
+                    </h3>
+                    <p class="text-xs text-text/60">${item.publisher}</p>
+                  </div>
+                </div>
+
+                <p class="text-xs text-text/80 line-clamp-2 leading-relaxed">
+                  ${item.summary}
+                </p>
+
+                <div>${kwBadges}</div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+
+      decadeBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+          decadeBtns.forEach(b => {
+            b.classList.remove("bg-primary", "text-white", "shadow-sm");
+            b.classList.add("bg-theme-light", "text-text/80");
+          });
+          this.classList.remove("bg-theme-light", "text-text/80");
+          this.classList.add("bg-primary", "text-white", "shadow-sm");
+
+          currentDecade = this.getAttribute("data-decade");
+          renderTimeline();
+        });
+      });
+
+      window.openModal = function (id) {
+        const item = works.find(w => w.id === id);
+        if (!item) return;
+
+        modalId.textContent = item.id;
+        modalTitle.textContent = item.title;
+        modalYear.textContent = item.year;
+        modalCategory.textContent = item.category;
+        modalPublisher.textContent = item.publisher;
+        modalSummary.textContent = item.summary;
+        modalNotes.textContent = item.notes || "無特記事項。";
+        modalImgPreview.src = item.image ? ('/ccc-site/' + item.image) : '/ccc-site/images/blog/blog-1.png';
+
+        modalKeywords.innerHTML = (item.keywords || []).map(kw => 
+          `<span class="inline-block bg-primary/10 text-primary text-xs font-medium px-2.5 py-1 rounded-full">#${kw}</span>`
+        ).join("");
+
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      };
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+      }
+
+      closeModalBtn.addEventListener("click", closeModal);
+      modalCloseBottomBtn.addEventListener("click", closeModal);
+      modalBackdrop.addEventListener("click", closeModal);
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
+
+      renderTimeline();
+    });
+  </script>
+{{ end }}
