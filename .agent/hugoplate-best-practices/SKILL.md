@@ -80,13 +80,13 @@ Always include `title`, `description` (for SEO), and `image` (feature image). Us
 
 ## 7. Development Commands
 
-| Command | Purpose |
-|---------|---------|
-| `npm run dev` | Start dev server with theme watching. |
-| `npm run build` | Production build with minification and fingerprinting. |
-| `npm run update-modules` | Clean and update Hugo modules to latest. |
-| `npm run remove-darkmode` | Permanently remove dark mode functionality. |
-| `npm run remove-multilang` | Permanently remove multilingual support. |
+| Command                    | Purpose                                                |
+|----------------------------|--------------------------------------------------------|
+| `npm run dev`              | Start dev server with theme watching.                  |
+| `npm run build`            | Production build with minification and fingerprinting. |
+| `npm run update-modules`   | Clean and update Hugo modules to latest.               |
+| `npm run remove-darkmode`  | Permanently remove dark mode functionality.            |
+| `npm run remove-multilang` | Permanently remove multilingual support.               |
 
 ## 8. Troubleshooting
 
