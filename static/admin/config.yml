@@ -6,6 +6,13 @@ backend:
 media_folder: "static/images/uploads"
 public_folder: "images/uploads"
 
+# ☁️ Cloudinary 多媒體庫設定 (若使用 Cloudinary 圖片託管，請填入您的 Cloud Name 與 API Key)
+# media_library:
+#   name: cloudinary
+#   config:
+#     cloud_name: YOUR_CLOUDINARY_CLOUD_NAME
+#     api_key: YOUR_CLOUDINARY_API_KEY
+
 collections:
   <!-- 1. 書信文物資料庫 -->
   - name: "letters"
