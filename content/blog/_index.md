@@ -1,5 +1,7 @@
 ---
-title: "Blog Posts"
-meta_title: ""
-description: "this is meta description"
+title: "文學專文與報導"
+meta_title: "專文與報導 | 學術評論、特展紀錄與作家專訪 | 臺灣鍾肇政文學推廣協會"
+description: "收錄臺灣本土文學研究學術評論、鍾肇政大河小說導讀、歷史書信特展紀錄、客家母語轉譯文章與活動報導。"
+layout: "list"
+draft: false
 ---
