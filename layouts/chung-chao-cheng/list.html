@@ -1,0 +1,232 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+  <section class="section-sm pt-8">
+    <div class="container space-y-12">
+      <!-- Hero Banner Card -->
+      <div class="rounded-3xl bg-gradient-to-br from-theme-light via-body to-theme-light p-6 md:p-10 border border-border/80 shadow-md">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative group">
+              <div class="w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden shadow-xl border-4 border-body bg-theme-light">
+                <img src="{{ "images/banner.png" | relURL }}" alt="鍾肇政先生" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              </div>
+              <div class="absolute -bottom-4 -right-4 bg-primary text-white text-xs font-bold px-4 py-2 rounded-xl shadow-lg font-mono">
+                1925 - 2020 (享壽 96 歲)
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-4">
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full">#臺灣文學之母</span>
+              <span class="bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full">#大河小說家</span>
+              <span class="bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full">#文友通訊發起人</span>
+              <span class="bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full">#還我母語運動</span>
+            </div>
+
+            <h2 class="h2 text-text">
+              耕耘本土文學沃土，傳承大河精神
+            </h2>
+
+            <p class="text-text/80 text-sm md:text-base leading-relaxed">
+              鍾肇政先生（1925年1月20日－2020年5月13日），出生於桃園龍潭，為臺灣戰後本土文學極具代表性之巨擘，譽為「臺灣文學之母」。先生畢生創作數百萬字，開創臺灣大河小說史詩先河，並自費印行《文友通訊》凝聚同仁，晚年領銜倡議「還我母語運動」，對臺灣文學主體性與客家文化復興影響深遠。
+            </p>
+
+            <div class="pt-2 flex flex-wrap gap-3">
+              <a href="{{ "resources/chronology/" | relLangURL }}" class="btn btn-primary btn-sm flex items-center gap-2">
+                <span>瀏覽著作年表</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+              <a href="{{ "resources/letters/" | relLangURL }}" class="btn btn-outline-primary btn-sm flex items-center gap-2">
+                <span>檢索書信史料</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 Life Story Chapters -->
+      <div class="space-y-6">
+        <div class="border-b border-border/80 pb-3">
+          <h3 class="h3 text-text flex items-center gap-2">
+            <span class="text-primary font-bold">📖</span>
+            鍾肇政生命史與創作四篇章
+          </h3>
+          <p class="text-text/70 text-xs mt-1">歷經跨語世代的陣痛與覺醒，以深厚深情紀錄臺灣土地與人民命運</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Chapter 1 -->
+          <div class="p-6 rounded-2xl bg-body border border-border/80 shadow-sm hover:shadow-md transition space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-primary bg-primary/10 px-2.5 py-1 rounded">1925 — 1945</span>
+              <span class="text-xs font-semibold text-text/60">第一篇章</span>
+            </div>
+            <h4 class="text-lg font-bold text-text">龍潭童年與日治跨語經歷</h4>
+            <p class="text-xs text-text/80 leading-relaxed">
+              出生於桃園龍潭客家庄，父親為國校校長。鍾肇政先後就讀龍潭公學校、臺北高等學校。青年時期接受完整的日語教育，日治末期曾被徵召入伍。二戰結束後，面對語言環境巨變，開始艱苦的中文學習之路。
+            </p>
+          </div>
+
+          <!-- Chapter 2 -->
+          <div class="p-6 rounded-2xl bg-body border border-border/80 shadow-sm hover:shadow-md transition space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-primary bg-primary/10 px-2.5 py-1 rounded">1946 — 1960</span>
+              <span class="text-xs font-semibold text-text/60">第二篇章</span>
+            </div>
+            <h4 class="text-lg font-bold text-text">克服語言壁壘與《文友通訊》</h4>
+            <p class="text-xs text-text/80 leading-relaxed">
+              任教於龍潭國小期間，克服聽力障礙與語言轉型困境，憑藉字典苦讀漢文。1957年發起《文友通訊》，自費印製發行予鍾理和、葉石濤、吳濁流等同仁，被譽為戰後臺灣本土作家團結創作的「精神燈塔」。
+            </p>
+          </div>
+
+          <!-- Chapter 3 -->
+          <div class="p-6 rounded-2xl bg-body border border-border/80 shadow-sm hover:shadow-md transition space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-primary bg-primary/10 px-2.5 py-1 rounded">1960 — 1985</span>
+              <span class="text-xs font-semibold text-text/60">第三篇章</span>
+            </div>
+            <h4 class="text-lg font-bold text-text">開創臺灣大河小說史詩巔峰</h4>
+            <p class="text-xs text-text/80 leading-relaxed">
+              1960年連載長篇小說《魯冰花》一舉成名。隨後陸續完成臺灣文學首部大河小說《濁流三部曲》與《臺灣人三部曲》，以宏大的歷史視野反映臺灣人民自乙未抗日至二戰結束的心靈史。
+            </p>
+          </div>
+
+          <!-- Chapter 4 -->
+          <div class="p-6 rounded-2xl bg-body border border-border/80 shadow-sm hover:shadow-md transition space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold font-mono text-primary bg-primary/10 px-2.5 py-1 rounded">1988 — 2020</span>
+              <span class="text-xs font-semibold text-text/60">第四篇章</span>
+            </div>
+            <h4 class="text-lg font-bold text-text">客家文化復興與還我母語運動</h4>
+            <p class="text-xs text-text/80 leading-relaxed">
+              1988年領銜發起「還我母語遊行」，推動客家公共廣播與文化權。晚年獲頒國家文藝獎成就獎與二等景星勳章，持續提攜後進，至96歲安詳辭世，留下無可取代的文學資產。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Literary Awards & Honors Grid -->
+      <div class="space-y-6">
+        <div class="border-b border-border/80 pb-3">
+          <h3 class="h3 text-text flex items-center gap-2">
+            <span class="text-primary font-bold">🎖️</span>
+            國家級榮譽勳章與文學獎項
+          </h3>
+          <p class="text-text/70 text-xs mt-1">表彰鍾肇政先生一生於文學創作與本土文化推廣之卓越貢獻</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="p-5 rounded-xl bg-theme-light border border-border/60 flex items-start gap-3">
+            <div class="text-2xl">🥇</div>
+            <div>
+              <span class="text-xs font-bold text-primary">1979年</span>
+              <h5 class="text-sm font-bold text-text">第一屆吳三連文藝獎</h5>
+              <p class="text-[11px] text-text/70 mt-1">長篇小說獎（《臺灣人三部曲》）</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-theme-light border border-border/60 flex items-start gap-3">
+            <div class="text-2xl">🎖️</div>
+            <div>
+              <span class="text-xs font-bold text-primary">1999年</span>
+              <h5 class="text-sm font-bold text-text">國家文藝獎成就獎</h5>
+              <p class="text-[11px] text-text/70 mt-1">國家級最高文學創作成就肯定</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-theme-light border border-border/60 flex items-start gap-3">
+            <div class="text-2xl">🎖️</div>
+            <div>
+              <span class="text-xs font-bold text-primary">1999年</span>
+              <h5 class="text-sm font-bold text-text">二等景星勳章</h5>
+              <p class="text-[11px] text-text/70 mt-1">總統府頒授文化建設卓越榮譽勳章</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-theme-light border border-border/60 flex items-start gap-3">
+            <div class="text-2xl">🌺</div>
+            <div>
+              <span class="text-xs font-bold text-primary">2004年</span>
+              <h5 class="text-sm font-bold text-text">總統文化獎百合獎</h5>
+              <p class="text-[11px] text-text/70 mt-1">表彰長期深耕本土多元文化成就</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-theme-light border border-border/60 flex items-start gap-3">
+            <div class="text-2xl">🏆</div>
+            <div>
+              <span class="text-xs font-bold text-primary">2008年</span>
+              <h5 class="text-sm font-bold text-text">客家貢獻獎終身成就獎</h5>
+              <p class="text-[11px] text-text/70 mt-1">行政院客家委員會頒發終身榮譽</p>
+            </div>
+          </div>
+
+          <div class="p-5 rounded-xl bg-theme-light border border-border/60 flex items-start gap-3">
+            <div class="text-2xl">📜</div>
+            <div>
+              <span class="text-xs font-bold text-primary">2016年</span>
+              <h5 class="text-sm font-bold text-text">二等卿雲勳章</h5>
+              <p class="text-[11px] text-text/70 mt-1">感謝對臺灣文學史之偉大獻力</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heritage Sites Section -->
+      <div class="p-8 rounded-3xl bg-body border border-border/80 shadow-sm space-y-6">
+        <div class="border-b border-border/60 pb-3">
+          <h3 class="h3 text-text flex items-center gap-2">
+            <span class="text-primary font-bold">🏛️</span>
+            文學地景與典藏園區指引
+          </h3>
+          <p class="text-text/70 text-xs mt-1">實地走訪鍾老創作發祥地，體驗臺灣本土文學之靈魂深度</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <h4 class="text-base font-bold text-text">龍潭鍾肇政文學生活園區</h4>
+            <p class="text-xs text-text/80 leading-relaxed">
+              位於桃園市龍潭區南龍路，包含龍潭國小日式宿舍群與鍾老舊居。園區內完整復刻其寫作萬年筆、舊式寫字檯與《文友通訊》刻字油印情境。
+            </p>
+            <span class="text-[11px] text-primary font-semibold block">開放時間：週二至週日 08:30 - 17:00 (免費參觀)</span>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="text-base font-bold text-text">國立臺灣文學館鍾肇政捐贈專區</h4>
+            <p class="text-xs text-text/80 leading-relaxed">
+              位於臺南市國立臺灣文學館，典藏鍾肇政先生手稿原件、書信史料、個人文具與國家勳章。提供研究者申請高解析數位史料調閱。
+            </p>
+            <span class="text-[11px] text-primary font-semibold block">參觀指引：請至臺灣文學館或國家文化記憶庫平台檢索</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Research Quick Portal Cards -->
+      <div class="p-8 rounded-3xl bg-theme-light border border-border/60 space-y-4">
+        <h4 class="text-base font-bold text-text">探索更多鍾肇政研究資源與史料資料庫</h4>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <a href="{{ "resources/letters/" | relLangURL }}" class="p-3 bg-body rounded-xl border border-border/60 hover:border-primary text-center transition group">
+            <span class="block text-lg mb-1">✉️</span>
+            <span class="text-xs font-bold text-text group-hover:text-primary">書信文物檢索</span>
+          </a>
+          <a href="{{ "resources/manuscripts/" | relLangURL }}" class="p-3 bg-body rounded-xl border border-border/60 hover:border-primary text-center transition group">
+            <span class="block text-lg mb-1">📜</span>
+            <span class="text-xs font-bold text-text group-hover:text-primary">手稿與文物檢索</span>
+          </a>
+          <a href="{{ "resources/bibliography/" | relLangURL }}" class="p-3 bg-body rounded-xl border border-border/60 hover:border-primary text-center transition group">
+            <span class="block text-lg mb-1">📚</span>
+            <span class="text-xs font-bold text-text group-hover:text-primary">研究書目檢索</span>
+          </a>
+          <a href="{{ "resources/chronology/" | relLangURL }}" class="p-3 bg-body rounded-xl border border-border/60 hover:border-primary text-center transition group">
+            <span class="block text-lg mb-1">⏱️</span>
+            <span class="text-xs font-bold text-text group-hover:text-primary">經典著作年表</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}
