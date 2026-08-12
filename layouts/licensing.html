@@ -1,0 +1,119 @@
+{{ define "main" }}
+  {{ partial "page-header" . }}
+
+  <section class="section-sm pt-8">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10 space-y-10">
+
+          <!-- Standard Policy Article -->
+          <div class="rounded-2xl bg-body border border-border/80 p-6 md:p-10 shadow-sm space-y-8">
+            <div>
+              <h2 class="h3 text-text mb-3">
+                臺灣鍾肇政文學推廣協會 — 著作權授權與史料調閱合作規範
+              </h2>
+              <p class="text-text/80 text-sm leading-relaxed">
+                本協會依法管理與維護「臺灣文學之母」鍾肇政先生遺留之文學作品著作權、手稿、書信與歷史文物影像。為促進臺灣本土文學之學術研究、教育推廣、影視改編與跨界合作，特訂定本授權與調閱規範。
+              </p>
+            </div>
+
+            <!-- Section 1: Creative Commons Notice -->
+            <div class="border-t border-border/60 pt-6 space-y-3">
+              <h3 class="h4 text-text flex items-center gap-2">
+                <span class="text-primary font-bold">1.</span>
+                本站內容創用 CC 授權宣告
+              </h3>
+              <p class="text-xs text-text/80 leading-relaxed">
+                本協會官方網站上由本會原創之網頁文字、專文、後設資料（Metadata）匯出檔，採 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh_TW" target="_blank" class="text-primary font-bold underline">創用 CC 姓名標示-非商業性-相同方式分享 4.0 國際 (CC BY-NC-SA 4.0)</a> 條款釋出。您可以在標示來源為「臺灣鍾肇政文學推廣協會」且非商業營利前提下自由分享與改作。
+              </p>
+            </div>
+
+            <!-- Section 2: Chung Chao-cheng Copyright Policy -->
+            <div class="border-t border-border/60 pt-6 space-y-3">
+              <h3 class="h4 text-text flex items-center gap-2">
+                <span class="text-primary font-bold">2.</span>
+                鍾肇政作品著作權授權規範
+              </h3>
+              <p class="text-xs text-text/80 leading-relaxed">
+                鍾肇政先生長篇小說（如《魯冰花》、《濁流三部曲》、《臺灣人三部曲》、《怒濤》等）、短篇小說、隨筆、翻譯與未公開手稿之著作財產權，均受《中華民國著作權法》保護。下列使用行為須事先向本協會提出書面授權申請並取得授權證明書：
+              </p>
+              <ul class="text-xs text-text/80 space-y-2 list-disc list-inside pl-2">
+                <li><strong class="text-text">商業出版與數位發行：</strong>紙本圖書出版、電子書發行、有聲書錄製、跨國語言翻譯出版。</li>
+                <li><strong class="text-text">影視與舞台劇改編：</strong>電影、電視連續劇、紀錄片、動畫、舞台劇、音樂劇之劇本改編與重製。</li>
+                <li><strong class="text-text">教育教材與展覽圖錄選錄：</strong>中小學教科書、大專院校教材選錄、公私立展覽圖錄印製。</li>
+                <li><strong class="text-text">文創商品與品牌聯名：</strong>結合鍾老字蹟、手稿圖樣之文創開發與商業品牌合作。</li>
+              </ul>
+            </div>
+
+            <!-- Section 3: High-Res Manuscript Access Policy -->
+            <div class="border-t border-border/60 pt-6 space-y-3">
+              <h3 class="h4 text-text flex items-center gap-2">
+                <span class="text-primary font-bold">3.</span>
+                高解析手稿與書信史料調閱規範
+              </h3>
+              <p class="text-xs text-text/80 leading-relaxed">
+                研究學者、學術機構、紀錄片製作團隊如需調閱本會典藏之鍾肇政未公開書信、修訂原稿高解析度掃描檔（TIFF/RAW），請至線上諮詢表單提出申請並載明研究/出版計畫。本會秘書處將視研究目的提供免費或優惠工本規費調閱。
+              </p>
+            </div>
+
+            <!-- Section 4: Application Workflow Steps -->
+            <div class="border-t border-border/60 pt-6 space-y-4">
+              <h3 class="h4 text-text flex items-center gap-2">
+                <span class="text-primary font-bold">4.</span>
+                授權申請四大步驟
+              </h3>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+                <div class="p-4 rounded-xl bg-theme-light border border-border/60 space-y-2">
+                  <span class="font-bold text-primary font-mono text-sm block">STEP 1</span>
+                  <h5 class="font-bold text-text">線上提交申請</h5>
+                  <p class="text-text/70">點擊下方按鈕前往「聯絡協會」統一表單，選擇授權類別並填寫企劃概要。</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-theme-light border border-border/60 space-y-2">
+                  <span class="font-bold text-primary font-mono text-sm block">STEP 2</span>
+                  <h5 class="font-bold text-text">秘書處審查</h5>
+                  <p class="text-text/70">本會著作權管理小組於 3-5 個工作天內核對權利範圍與申請資格。</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-theme-light border border-border/60 space-y-2">
+                  <span class="font-bold text-primary font-mono text-sm block">STEP 3</span>
+                  <h5 class="font-bold text-text">簽署合約規費</h5>
+                  <p class="text-text/70">雙方確認授權條款，簽署正式授權合約書並支付相應規費（若涉及商業發行）。</p>
+                </div>
+
+                <div class="p-4 rounded-xl bg-theme-light border border-border/60 space-y-2">
+                  <span class="font-bold text-primary font-mono text-sm block">STEP 4</span>
+                  <h5 class="font-bold text-text">核發授權書</h5>
+                  <p class="text-text/70">核發官方授權證明書，並交付高解析史料或影音檔案。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consolidated Licensing CTA Card -->
+          <div class="rounded-3xl bg-theme-light border border-border/80 p-8 shadow-sm text-center space-y-4">
+            <div class="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center font-bold text-2xl mx-auto">
+              📝
+            </div>
+            <h3 class="h3 text-text">
+              提出授權合作與史料調閱申請
+            </h3>
+            <p class="text-xs md:text-sm text-text/80 max-w-2xl mx-auto leading-relaxed">
+              若您有商業出版、影視改編、學術論文引用、高解析手稿圖檔調閱或文創合作需求，請前往「聯絡協會」統一線上表單提出申請，秘書處專人將主動與您聯繫。
+            </p>
+            <div class="pt-2">
+              <a href="{{ "contact/?subject=licensing" | relLangURL }}" class="btn btn-primary btn-md inline-flex items-center gap-2 shadow-sm hover:shadow-md transition">
+                <span>前往線上授權合作與諮詢表單</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}
