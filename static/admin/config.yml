@@ -14,7 +14,7 @@ public_folder: "images/uploads"
 #     api_key: YOUR_CLOUDINARY_API_KEY
 
 collections:
-  <!-- 1. 書信文物資料庫 -->
+  # 1. 書信文物資料庫
   - name: "letters"
     label: "✉️ 書信文物資料庫"
     files:
@@ -37,7 +37,7 @@ collections:
               - { label: "典藏備註", name: "notes", widget: "text", required: false }
               - { label: "信件原件掃描圖", name: "image", widget: "image", required: false }
 
-  <!-- 2. 手稿與文物資料庫 -->
+  # 2. 手稿與文物資料庫
   - name: "manuscripts"
     label: "📜 手稿與文物資料庫"
     files:
@@ -60,7 +60,7 @@ collections:
               - { label: "典藏備註", name: "notes", widget: "text", required: false }
               - { label: "高解析影像檔", name: "image", widget: "image", required: false }
 
-  <!-- 3. 研究書目資料庫 -->
+  # 3. 研究書目資料庫
   - name: "bibliography"
     label: "📚 研究書目資料庫"
     files:
@@ -82,7 +82,7 @@ collections:
               - { label: "關鍵字標籤", name: "keywords", widget: "list" }
               - { label: "書封/圖檔", name: "image", widget: "image", required: false }
 
-  <!-- 4. 著作年表資料庫 -->
+  # 4. 著作年表資料庫
   - name: "chronology"
     label: "⏱️ 著作出版年表"
     files:
@@ -104,7 +104,7 @@ collections:
               - { label: "關鍵字標籤", name: "keywords", widget: "list" }
               - { label: "經典書封照片", name: "image", widget: "image", required: false }
 
-  <!-- 5. 協會活動與計畫 -->
+  # 5. 協會活動與計畫
   - name: "events"
     label: "🔥 活動與計畫"
     folder: "content/events"
@@ -120,7 +120,7 @@ collections:
       - { label: "活動宣傳主視覺", name: "image", widget: "image", required: false }
       - { label: "詳細活動說明內文", name: "body", widget: "markdown" }
 
-  <!-- 6. 文學專文與報導 -->
+  # 6. 文學專文與報導
   - name: "blog"
     label: "📰 文學專文與報導"
     folder: "content/blog"
