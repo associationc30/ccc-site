@@ -1,0 +1,130 @@
+backend:
+  name: github
+  repo: associationc30/ccc-site
+  branch: main
+
+media_folder: "static/images/uploads"
+public_folder: "images/uploads"
+
+collections:
+  <!-- 1. 書信文物資料庫 -->
+  - name: "letters"
+    label: "✉️ 書信文物資料庫"
+    files:
+      - file: "data/letters.json"
+        label: "書信資料集"
+        name: "letters_data"
+        fields:
+          - label: "書信清單"
+            name: "letters"
+            widget: "list"
+            fields:
+              - { label: "編號 (ID)", name: "id", widget: "string", default: "LTR-1957-XXXX" }
+              - { label: "寄件人", name: "sender", widget: "string" }
+              - { label: "收件人", name: "recipient", widget: "string" }
+              - { label: "書寫年月日", name: "date", widget: "string" }
+              - { label: "書寫語言", name: "language", widget: "select", options: ["繁體中文", "日文", "客家語", "英文"] }
+              - { label: "典藏/書寫地點", name: "location", widget: "string" }
+              - { label: "內容摘要", name: "summary", widget: "text" }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
+              - { label: "典藏備註", name: "notes", widget: "text", required: false }
+              - { label: "信件原件掃描圖", name: "image", widget: "image", required: false }
+
+  <!-- 2. 手稿與文物資料庫 -->
+  - name: "manuscripts"
+    label: "📜 手稿與文物資料庫"
+    files:
+      - file: "data/manuscripts.json"
+        label: "手稿與文物資料集"
+        name: "manuscripts_data"
+        fields:
+          - label: "文物清單"
+            name: "manuscripts"
+            widget: "list"
+            fields:
+              - { label: "編號 (ID)", name: "id", widget: "string", default: "MS-XXXX" }
+              - { label: "手稿/文物名稱", name: "title", widget: "string" }
+              - { label: "文物類別", name: "category", widget: "select", options: ["小說手稿", "隨筆散文手稿", "論文評論手稿", "筆記大綱", "個人文具文物", "獎座勳章"] }
+              - { label: "創作年代/年份", name: "year", widget: "string" }
+              - { label: "媒介材質", name: "medium", widget: "string" }
+              - { label: "典藏地點", name: "location", widget: "string" }
+              - { label: "內容說明與簡介", name: "summary", widget: "text" }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
+              - { label: "典藏備註", name: "notes", widget: "text", required: false }
+              - { label: "高解析影像檔", name: "image", widget: "image", required: false }
+
+  <!-- 3. 研究書目資料庫 -->
+  - name: "bibliography"
+    label: "📚 研究書目資料庫"
+    files:
+      - file: "data/bibliography.json"
+        label: "研究書目資料集"
+        name: "bibliography_data"
+        fields:
+          - label: "書目清單"
+            name: "bibliography"
+            widget: "list"
+            fields:
+              - { label: "編號 (ID)", name: "id", widget: "string", default: "BIB-XXXX" }
+              - { label: "書名/論文名稱", name: "title", widget: "string" }
+              - { label: "類別", name: "category", widget: "select", options: ["學術專書/評傳", "研討會論文集", "期刊論文", "學位論文"] }
+              - { label: "出版/發表年份", name: "year", widget: "string" }
+              - { label: "作者/編者", name: "author", widget: "string" }
+              - { label: "出版社/發表期刊", name: "publisher", widget: "string" }
+              - { label: "研究焦點與摘要", name: "summary", widget: "text" }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
+              - { label: "書封/圖檔", name: "image", widget: "image", required: false }
+
+  <!-- 4. 著作年表資料庫 -->
+  - name: "chronology"
+    label: "⏱️ 著作出版年表"
+    files:
+      - file: "data/chronology.json"
+        label: "著作年表資料集"
+        name: "chronology_data"
+        fields:
+          - label: "著作清單"
+            name: "chronology"
+            widget: "list"
+            fields:
+              - { label: "編號 (ID)", name: "id", widget: "string", default: "WORK-XXXX" }
+              - { label: "作品名稱", name: "title", widget: "string" }
+              - { label: "文學類別", name: "category", widget: "select", options: ["長篇小說大系", "長篇小說", "短篇小說", "隨筆散文", "翻譯著作", "客家母語專書"] }
+              - { label: "出版/首刊年份", name: "year", widget: "string" }
+              - { label: "十年紀分組", name: "decade", widget: "select", options: ["1950s", "1960s", "1970s", "1980s", "1990s"] }
+              - { label: "首刊媒體/出版事業", name: "publisher", widget: "string" }
+              - { label: "創作背景與內容摘要", name: "summary", widget: "text" }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
+              - { label: "經典書封照片", name: "image", widget: "image", required: false }
+
+  <!-- 5. 協會活動與計畫 -->
+  - name: "events"
+    label: "🔥 活動與計畫"
+    folder: "content/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "活動標題", name: "title", widget: "string" }
+      - { label: "活動主旨簡述", name: "description", widget: "text" }
+      - { label: "活動辦理日期與時間", name: "event_date", widget: "string" }
+      - { label: "活動地點/集合地點", name: "event_location", widget: "string" }
+      - { label: "報名狀態", name: "registration_status", widget: "select", options: ["open", "closed", "past"] }
+      - { label: "Google 表單線上報名網址", name: "google_form_url", widget: "string", required: false }
+      - { label: "活動宣傳主視覺", name: "image", widget: "image", required: false }
+      - { label: "詳細活動說明內文", name: "body", widget: "markdown" }
+
+  <!-- 6. 文學專文與報導 -->
+  - name: "blog"
+    label: "📰 文學專文與報導"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "專文標題", name: "title", widget: "string" }
+      - { label: "SEO 簡述", name: "description", widget: "text" }
+      - { label: "發布日期", name: "date", widget: "datetime" }
+      - { label: "作者/撰稿人", name: "author", widget: "string" }
+      - { label: "文章類別", name: "categories", widget: "list" }
+      - { label: "關鍵字標籤", name: "tags", widget: "list" }
+      - { label: "文章封面圖片", name: "image", widget: "image", required: false }
+      - { label: "文章內文 (Markdown)", name: "body", widget: "markdown" }
