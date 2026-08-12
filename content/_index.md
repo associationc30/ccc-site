@@ -20,8 +20,8 @@ features:
       - "結合國家文化記憶庫，推動文學珍貴資產之數位典藏"
     button:
       enable: true
-      label: "探索書信文物資料庫"
-      link: "/archives"
+      label: "探索書信文物檢索"
+      link: "/resources/letters"
 
   - title: "學術研討與推廣活動"
     image: "/images/service-2.png"

@@ -17,37 +17,37 @@ url = "/chung-chao-cheng"
 weight = 3
 
 [[main]]
-name = "書信文物資料庫"
-url = "/archives"
+name = "活動與計畫"
+url = "/events"
 weight = 4
 
 [[main]]
-name = "活動與計畫"
-url = "/events"
 weight = 5
+name = "研究資源"
+url = "/resources"
+
+[[main]]
+parent = "研究資源"
+name = "研究資源總覽"
+url = "/resources"
+weight = 1
+
+[[main]]
+parent = "研究資源"
+name = "書信文物檢索"
+url = "/resources/letters"
+weight = 2
+
+[[main]]
+parent = "研究資源"
+name = "手稿與文物檢索"
+url = "/resources/manuscripts"
+weight = 3
 
 [[main]]
 weight = 6
 name = "專文"
 url = "/blog"
-
-[[main]]
-parent = "專文"      
-name = "文章列表"         
-url = "/blog"
-weight = 1
-
-[[main]]
-parent = "專文"
-name = "Categories"
-url = "/categories"
-weight = 2
-
-[[main]]
-weight = 5
-# parent = "Pages"
-name = "研究資源"
-url = "/resources"
 
 [[main]]
 weight = 6
