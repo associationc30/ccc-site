@@ -111,10 +111,17 @@
     {{ end }}
   {{ end }}
 
+  {{/* The API key comes from the GOOGLE_MAP_API_KEY environment variable so it
+       is never committed; params.google_map.map_api_key is a local fallback. */}}
+  {{ $mapApiKey := or (getenv "GOOGLE_MAP_API_KEY") site.Params.google_map.map_api_key }}
   {{ if site.Params.google_map.enable }}
-    {{ $gmap:= resources.Get "plugins/maps/google-map.js" }}
-    <script defer src="{{ $gmap.RelPermalink }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ site.Params.google_map.map_api_key }}&libraries=places"></script>
+    {{ if $mapApiKey }}
+      {{ $gmap:= resources.Get "plugins/maps/google-map.js" }}
+      <script defer src="{{ $gmap.RelPermalink }}"></script>
+      <script src="https://maps.googleapis.com/maps/api/js?key={{ $mapApiKey }}&libraries=places"></script>
+    {{ else }}
+      {{ warnf "google_map is enabled but no API key was found; set the GOOGLE_MAP_API_KEY environment variable. Skipping the map script." }}
+    {{ end }}
   {{ end }}
 
 {{ end }}

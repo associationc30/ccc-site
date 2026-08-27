@@ -30,6 +30,13 @@ pagerSize = 10
 path = 'page'
 
 
+############################ Security ############################
+# Templates may only read environment variables matching these patterns.
+# The first two entries are Hugo's defaults and must be kept.
+[security.funcs]
+getenv = ['^HUGO_', '^CI$', '^GOOGLE_MAP_API_KEY$']
+
+
 ############################# Build ##############################
 [build]
 [build.buildStats]

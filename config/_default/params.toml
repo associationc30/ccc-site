@@ -109,9 +109,15 @@ sidebar = ["categories", "tags"]
 
 
 # google map
+# The Maps JavaScript API key must never be committed to this repository.
+# Supply it at build time through the GOOGLE_MAP_API_KEY environment variable
+# (e.g. a Netlify environment variable); the contact template reads it via
+# `getenv`, which is allow-listed under [security.funcs] in hugo.toml.
+# Because a Maps browser key is always visible in the page source, also
+# restrict it by HTTP referrer in the Google Cloud console.
 [google_map]
 enable = false
-map_api_key = "AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"
+map_api_key = "" # keep empty - set GOOGLE_MAP_API_KEY instead
 map_latitude = "51.5223477"
 map_longitude = "-0.1622023"
 map_marker = "images/marker.png"
