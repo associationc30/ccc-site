@@ -219,7 +219,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const rawBib = {{ site.Data.bibliography | jsonify | safeJS }};
+      const rawBib = {{ site.Data.bibliography.bibliography | jsonify | safeJS }};
       let bibliography = Array.isArray(rawBib) ? rawBib : [];
 
       const searchInput = document.getElementById("searchInput");

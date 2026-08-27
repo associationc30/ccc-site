@@ -129,7 +129,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const rawChronology = {{ site.Data.chronology | jsonify | safeJS }};
+      const rawChronology = {{ site.Data.chronology.chronology | jsonify | safeJS }};
       let works = Array.isArray(rawChronology) ? rawChronology : [];
 
       const container = document.getElementById("timelineContainer");

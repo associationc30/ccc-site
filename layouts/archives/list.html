@@ -276,7 +276,7 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       // Injected Hugo JSON data
-      const rawLetters = {{ site.Data.letters | jsonify | safeJS }};
+      const rawLetters = {{ site.Data.letters.letters | jsonify | safeJS }};
       let letters = Array.isArray(rawLetters) ? rawLetters : [];
 
       // UI Elements
