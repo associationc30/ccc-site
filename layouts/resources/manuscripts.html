@@ -232,7 +232,7 @@
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const rawManuscripts = {{ site.Data.manuscripts | jsonify | safeJS }};
+      const rawManuscripts = {{ site.Data.manuscripts.manuscripts | jsonify | safeJS }};
       let manuscripts = Array.isArray(rawManuscripts) ? rawManuscripts : [];
 
       const searchInput = document.getElementById("searchInput");
