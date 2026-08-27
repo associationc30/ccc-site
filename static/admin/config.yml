@@ -120,17 +120,26 @@ collections:
 
   # 5. 協會活動與計畫
   #    欄位名稱與順序必須與 content/events/*.md 及 layouts/events/ 讀取的參數一致：
-  #    title, date, event_date, event_time, location, organizer, category,
-  #    status, featured, google_form_url, capacity, fee, image, description, draft
+  #    cms_type, title, date, event_date, event_time, location, organizer,
+  #    category, status, featured, google_form_url, capacity, fee, image,
+  #    description, draft
+  #
+  #    ⚠️ filter 讓本集合只列出帶有 cms_type: "event" 的檔案，藉此把
+  #    content/events/_index.md（區塊首頁文案）排除在清單之外，避免編輯者從這裡
+  #    開啟它而清空 layout / meta_title。該檔請一律從「🗂️ 區塊首頁文案」編輯。
+  #    若在 repo 手動新增活動檔案卻漏填 cms_type，該檔在網站上仍正常，但不會出現
+  #    在此清單中；請用 `hugo new events/<檔名>.md`（archetypes/events.md）建立新檔。
   - name: "events"
     label: "🔥 活動與計畫"
     label_singular: "活動"
     folder: "content/events"
     create: true
+    filter: { field: "cms_type", value: "event" }
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     preview_path_date_field: "date"
     sortable_fields: ["date", "title"]
     fields:
+      - { label: "集合標記 (系統用，請勿刪除)", name: "cms_type", widget: "hidden", default: "event" }
       - { label: "活動標題", name: "title", widget: "string" }
       - label: "發布日期"
         name: "date"
@@ -168,16 +177,22 @@ collections:
       - { label: "詳細活動說明內文", name: "body", widget: "markdown" }
 
   # 6. 文學專文與報導
-  #    欄位名稱與順序與 content/blog/*.md 一致。
+  #    欄位名稱與順序與 content/blog/*.md 一致（cms_type 置於最前）。
+  #
+  #    ⚠️ filter 讓本集合只列出帶有 cms_type: "post" 的檔案，藉此把
+  #    content/blog/_index.md（區塊首頁文案）排除在清單之外。同上，手動新增專文
+  #    請記得填 cms_type，或用 `hugo new blog/<檔名>.md`（archetypes/blog.md）。
   - name: "blog"
     label: "📰 文學專文與報導"
     label_singular: "專文"
     folder: "content/blog"
     create: true
+    filter: { field: "cms_type", value: "post" }
     slug: "{{slug}}"
     preview_path_date_field: "date"
     sortable_fields: ["date", "title"]
     fields:
+      - { label: "集合標記 (系統用，請勿刪除)", name: "cms_type", widget: "hidden", default: "post" }
       - { label: "專文標題", name: "title", widget: "string" }
       - { label: "SEO 網頁標題 (meta title)", name: "meta_title", widget: "string", required: false, default: "", hint: "留空時將自動使用專文標題。" }
       - { label: "SEO 簡述", name: "description", widget: "text" }
@@ -195,9 +210,10 @@ collections:
       - { label: "文章內文 (Markdown)", name: "body", widget: "markdown" }
 
   # 7. 區塊首頁文案
-  #    content/events/_index.md 與 content/blog/_index.md 會一併出現在上面兩個
-  #    資料夾集合的列表中。請一律從這裡編輯，才能保留 layout 欄位；若從活動或
-  #    專文集合開啟，layout 與 meta_title 會被清空，導致該頁面版面失效。
+  #    content/events/_index.md 與 content/blog/_index.md 是兩個區塊的 landing page，
+  #    其 layout 欄位決定頁面版面。這兩個檔案刻意不帶 cms_type，因此已被上面兩個
+  #    資料夾集合的 filter 排除，只會出現在這裡，不必再擔心被誤開而清空 layout。
+  #    本集合請勿新增未宣告 layout 的檔案項目。
   - name: "section_pages"
     label: "🗂️ 區塊首頁文案"
     editor:
