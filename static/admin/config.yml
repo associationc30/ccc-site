@@ -15,6 +15,7 @@ public_folder: "images/uploads"
 
 collections:
   # 1. 書信文物資料庫
+  #    欄位順序與 data/letters.json 一致，避免存檔時整份檔案的鍵值被重新排序。
   - name: "letters"
     label: "✉️ 書信文物資料庫"
     files:
@@ -25,19 +26,22 @@ collections:
           - label: "書信清單"
             name: "letters"
             widget: "list"
+            label_singular: "書信"
+            summary: "{{fields.id}} — {{fields.sender}} 致 {{fields.recipient}}"
             fields:
               - { label: "編號 (ID)", name: "id", widget: "string", default: "LTR-1957-XXXX" }
               - { label: "寄件人", name: "sender", widget: "string" }
               - { label: "收件人", name: "recipient", widget: "string" }
-              - { label: "書寫年月日", name: "date", widget: "string" }
+              - { label: "書寫年月日", name: "date", widget: "string", hint: "例如：1957-04-20。此為文字欄位，可填寫概略年代。" }
               - { label: "書寫語言", name: "language", widget: "select", options: ["繁體中文", "日文", "客家語", "英文"] }
-              - { label: "典藏/書寫地點", name: "location", widget: "string" }
               - { label: "內容摘要", name: "summary", widget: "text" }
-              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
-              - { label: "典藏備註", name: "notes", widget: "text", required: false }
-              - { label: "信件原件掃描圖", name: "image", widget: "image", required: false }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list", default: [] }
+              - { label: "典藏備註", name: "notes", widget: "text", required: false, default: "" }
+              - { label: "典藏/書寫地點", name: "location", widget: "string" }
+              - { label: "信件原件掃描圖", name: "image", widget: "image", required: false, default: "" }
 
   # 2. 手稿與文物資料庫
+  #    欄位順序與 data/manuscripts.json 一致。
   - name: "manuscripts"
     label: "📜 手稿與文物資料庫"
     files:
@@ -48,19 +52,22 @@ collections:
           - label: "文物清單"
             name: "manuscripts"
             widget: "list"
+            label_singular: "手稿/文物"
+            summary: "{{fields.id}} — {{fields.title}}"
             fields:
               - { label: "編號 (ID)", name: "id", widget: "string", default: "MS-XXXX" }
               - { label: "手稿/文物名稱", name: "title", widget: "string" }
               - { label: "文物類別", name: "category", widget: "select", options: ["小說手稿", "隨筆散文手稿", "論文評論手稿", "筆記大綱", "個人文具文物", "獎座勳章"] }
               - { label: "創作年代/年份", name: "year", widget: "string" }
               - { label: "媒介材質", name: "medium", widget: "string" }
-              - { label: "典藏地點", name: "location", widget: "string" }
               - { label: "內容說明與簡介", name: "summary", widget: "text" }
-              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
-              - { label: "典藏備註", name: "notes", widget: "text", required: false }
-              - { label: "高解析影像檔", name: "image", widget: "image", required: false }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list", default: [] }
+              - { label: "典藏地點", name: "location", widget: "string" }
+              - { label: "典藏備註", name: "notes", widget: "text", required: false, default: "" }
+              - { label: "高解析影像檔", name: "image", widget: "image", required: false, default: "" }
 
   # 3. 研究書目資料庫
+  #    欄位順序與 data/bibliography.json 一致。
   - name: "bibliography"
     label: "📚 研究書目資料庫"
     files:
@@ -71,6 +78,8 @@ collections:
           - label: "書目清單"
             name: "bibliography"
             widget: "list"
+            label_singular: "書目"
+            summary: "{{fields.id}} — {{fields.title}}"
             fields:
               - { label: "編號 (ID)", name: "id", widget: "string", default: "BIB-XXXX" }
               - { label: "書名/論文名稱", name: "title", widget: "string" }
@@ -79,10 +88,12 @@ collections:
               - { label: "作者/編者", name: "author", widget: "string" }
               - { label: "出版社/發表期刊", name: "publisher", widget: "string" }
               - { label: "研究焦點與摘要", name: "summary", widget: "text" }
-              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
-              - { label: "書封/圖檔", name: "image", widget: "image", required: false }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list", default: [] }
+              - { label: "書封/圖檔", name: "image", widget: "image", required: false, default: "" }
+              - { label: "典藏備註", name: "notes", widget: "text", required: false, default: "" }
 
   # 4. 著作年表資料庫
+  #    欄位順序與 data/chronology.json 一致。
   - name: "chronology"
     label: "⏱️ 著作出版年表"
     files:
@@ -93,6 +104,8 @@ collections:
           - label: "著作清單"
             name: "chronology"
             widget: "list"
+            label_singular: "著作"
+            summary: "{{fields.year}} — {{fields.title}}"
             fields:
               - { label: "編號 (ID)", name: "id", widget: "string", default: "WORK-XXXX" }
               - { label: "作品名稱", name: "title", widget: "string" }
@@ -101,37 +114,110 @@ collections:
               - { label: "十年紀分組", name: "decade", widget: "select", options: ["1950s", "1960s", "1970s", "1980s", "1990s"] }
               - { label: "首刊媒體/出版事業", name: "publisher", widget: "string" }
               - { label: "創作背景與內容摘要", name: "summary", widget: "text" }
-              - { label: "關鍵字標籤", name: "keywords", widget: "list" }
-              - { label: "經典書封照片", name: "image", widget: "image", required: false }
+              - { label: "關鍵字標籤", name: "keywords", widget: "list", default: [] }
+              - { label: "經典書封照片", name: "image", widget: "image", required: false, default: "" }
+              - { label: "典藏備註", name: "notes", widget: "text", required: false, default: "" }
 
   # 5. 協會活動與計畫
+  #    欄位名稱與順序必須與 content/events/*.md 及 layouts/events/ 讀取的參數一致：
+  #    title, date, event_date, event_time, location, organizer, category,
+  #    status, featured, google_form_url, capacity, fee, image, description, draft
   - name: "events"
     label: "🔥 活動與計畫"
+    label_singular: "活動"
     folder: "content/events"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path_date_field: "date"
+    sortable_fields: ["date", "title"]
     fields:
       - { label: "活動標題", name: "title", widget: "string" }
-      - { label: "活動主旨簡述", name: "description", widget: "text" }
-      - { label: "活動辦理日期與時間", name: "event_date", widget: "string" }
-      - { label: "活動地點/集合地點", name: "event_location", widget: "string" }
-      - { label: "報名狀態", name: "registration_status", widget: "select", options: ["open", "closed", "past"] }
-      - { label: "Google 表單線上報名網址", name: "google_form_url", widget: "string", required: false }
-      - { label: "活動宣傳主視覺", name: "image", widget: "image", required: false }
+      - label: "發布日期"
+        name: "date"
+        widget: "datetime"
+        default: "{{now}}"
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        picker_utc: false
+        hint: "決定活動在列表中的排序，並非活動實際舉辦日期。"
+      - { label: "活動辦理日期", name: "event_date", widget: "string", hint: "顯示於卡片與活動頁，可填區間，例如：2026-10-24 ~ 2026-10-25" }
+      - { label: "活動時間", name: "event_time", widget: "string", hint: "例如：09:00 - 17:30；已結束的活動可填「活動已圓滿結束」。" }
+      - { label: "活動地點 / 集合地點", name: "location", widget: "string" }
+      - { label: "主辦 / 協辦單位", name: "organizer", widget: "string" }
+      - { label: "活動類別", name: "category", widget: "string", hint: "顯示於卡片標籤。現有類別：學術研討會、展覽特展、文學獎徵件、走讀工作坊。" }
+      - label: "活動狀態"
+        name: "status"
+        widget: "select"
+        default: "報名中"
+        hint: "⚠️ 此欄位控制狀態徽章、活動頁篩選按鈕，以及首頁「近期熱門活動」是否收錄本活動，請務必從清單選取。"
+        options:
+          - { label: "🟢 熱烈報名中", value: "報名中" }
+          - { label: "🔵 即將舉辦", value: "即將舉辦" }
+          - { label: "🟣 常設展覽", value: "常設展" }
+          - { label: "⚪ 歷年回顧", value: "歷年回顧" }
+      - label: "設為精選活動"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "開啟後會顯示在「活動與計畫」頁最上方的精選區塊。"
+      - { label: "Google 表單線上報名網址", name: "google_form_url", widget: "string", required: false, default: "", hint: "僅在「活動狀態」為「🟢 熱烈報名中」時才會顯示報名按鈕。" }
+      - { label: "名額限制", name: "capacity", widget: "string", required: false, default: "", hint: "例如：150人 (額滿為止)、自由參觀、不限人數。" }
+      - { label: "報名費用", name: "fee", widget: "string", required: false, default: "", hint: "例如：免費報名、NT$ 200 (含保險)。" }
+      - { label: "活動宣傳主視覺", name: "image", widget: "image", required: false, default: "" }
+      - { label: "活動主旨簡述", name: "description", widget: "text", hint: "同時作為卡片摘要與搜尋引擎描述，建議 100 字以內。" }
+      - { label: "儲存為草稿 (不對外公開)", name: "draft", widget: "boolean", default: false }
       - { label: "詳細活動說明內文", name: "body", widget: "markdown" }
 
   # 6. 文學專文與報導
+  #    欄位名稱與順序與 content/blog/*.md 一致。
   - name: "blog"
     label: "📰 文學專文與報導"
+    label_singular: "專文"
     folder: "content/blog"
     create: true
     slug: "{{slug}}"
+    preview_path_date_field: "date"
+    sortable_fields: ["date", "title"]
     fields:
       - { label: "專文標題", name: "title", widget: "string" }
+      - { label: "SEO 網頁標題 (meta title)", name: "meta_title", widget: "string", required: false, default: "", hint: "留空時將自動使用專文標題。" }
       - { label: "SEO 簡述", name: "description", widget: "text" }
-      - { label: "發布日期", name: "date", widget: "datetime" }
+      - label: "發布日期"
+        name: "date"
+        widget: "datetime"
+        default: "{{now}}"
+        format: "YYYY-MM-DDTHH:mm:ssZ"
+        picker_utc: false
+      - { label: "文章封面圖片", name: "image", widget: "image", required: false, default: "" }
+      - { label: "文章類別", name: "categories", widget: "list", default: [] }
+      - { label: "關鍵字標籤", name: "tags", widget: "list", default: [] }
       - { label: "作者/撰稿人", name: "author", widget: "string" }
-      - { label: "文章類別", name: "categories", widget: "list" }
-      - { label: "關鍵字標籤", name: "tags", widget: "list" }
-      - { label: "文章封面圖片", name: "image", widget: "image", required: false }
+      - { label: "儲存為草稿 (不對外公開)", name: "draft", widget: "boolean", default: false }
       - { label: "文章內文 (Markdown)", name: "body", widget: "markdown" }
+
+  # 7. 區塊首頁文案
+  #    content/events/_index.md 與 content/blog/_index.md 會一併出現在上面兩個
+  #    資料夾集合的列表中。請一律從這裡編輯，才能保留 layout 欄位；若從活動或
+  #    專文集合開啟，layout 與 meta_title 會被清空，導致該頁面版面失效。
+  - name: "section_pages"
+    label: "🗂️ 區塊首頁文案"
+    editor:
+      preview: false
+    files:
+      - file: "content/events/_index.md"
+        label: "活動與計畫 — 頁面標題與簡介"
+        name: "events_index"
+        fields:
+          - { label: "頁面標題", name: "title", widget: "string" }
+          - { label: "SEO 網頁標題", name: "meta_title", widget: "string", required: false, default: "" }
+          - { label: "頁面簡介 (SEO 描述)", name: "description", widget: "text" }
+          - { label: "版面樣板", name: "layout", widget: "hidden", default: "events" }
+          - { label: "儲存為草稿 (不對外公開)", name: "draft", widget: "boolean", default: false }
+      - file: "content/blog/_index.md"
+        label: "文學專文 — 頁面標題與簡介"
+        name: "blog_index"
+        fields:
+          - { label: "頁面標題", name: "title", widget: "string" }
+          - { label: "SEO 網頁標題", name: "meta_title", widget: "string", required: false, default: "" }
+          - { label: "頁面簡介 (SEO 描述)", name: "description", widget: "text" }
+          - { label: "版面樣板", name: "layout", widget: "hidden", default: "list" }
+          - { label: "儲存為草稿 (不對外公開)", name: "draft", widget: "boolean", default: false }
