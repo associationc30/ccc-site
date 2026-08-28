@@ -6,13 +6,17 @@
     },
     {
       "term": "第二屆",
+      "name": "鍾延威"
+    },
+    {
+      "term": "第三屆",
       "name": "呂函螢"
     }
   ],
   "org_structure": {
     "president": "理事長",
-    "directors": "常務理事及理事 7 人",
-    "supervisors": "常務監事及監事 3 人",
+    "directors": "理事 8 人（常務理事 2 人）",
+    "supervisors": "監事 3 人（常務監事 1 人）",
     "secretary": "秘書長"
   },
   "history": [
