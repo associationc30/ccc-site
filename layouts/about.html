@@ -121,58 +121,89 @@
       </div>
 
       <!-- Board Members & Organizational Structure -->
-      <div class="space-y-6">
+      <div class="space-y-10">
         <div class="border-b border-border/80 pb-3">
           <h3 class="h3 text-text flex items-center gap-2">
             <span class="text-primary font-bold">👥</span>
-            組織架構歷任協會理事長
+            組織架構與歷任理事長
           </h3>
-          <p class="text-text/70 text-xs mt-1">匯聚台灣文學權威學者、文獻專家與客家文化工作者</p>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <!-- Member 1: 理事長 -->
-          <div class="p-6 rounded-2xl bg-theme-light border border-border/60 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded">理事長</span>
-              <span class="text-[11px] text-text/60">President</span>
-            </div>
-            <h4 class="text-lg font-bold text-text">呂函螢</h4>
-            <p class="text-xs text-text/80 leading-relaxed">
-             國立清華大學臺灣文學所博士班，研究領域爲鍾肇政文學及民俗，曾任台灣鍾肇政文學推廣協會第一屆常務理事，一手策劃了協會的大小活動。 
-            </p>
-          </div>
+        <!-- 1. 組織架構圖 -->
+        <div class="space-y-4">
+          <h4 class="text-base font-bold text-text flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+            組織架構圖
+          </h4>
 
-          <!-- Member 2: 常務理事 -->
-          <div class="p-6 rounded-2xl bg-theme-light border border-border/60 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded">常務理事</span>
-              <span class="text-[11px] text-text/60">Executive Director</span>
-            </div>
-            <h4 class="text-lg font-bold text-text">鍾延威 先生</h4>
-            <p class="text-xs text-text/80 leading-relaxed">
-              鍾肇政先生長子、資深媒體人與文獻史料專家。長期整理鍾老手稿、書信與文友檔案，致力於鍾肇政文學遺產之保存與推廣。
-            </p>
-          </div>
+          <div class="p-6 md:p-8 rounded-2xl bg-body border border-border/80 shadow-sm max-w-3xl mx-auto">
+            <div class="flex flex-col items-center space-y-0 text-center">
+              <!-- 理事長 -->
+              <div class="w-56 py-3 px-4 rounded-xl bg-primary text-white font-bold text-base shadow-md">
+                理事長
+              </div>
 
-          <!-- Member 3: 常務監事 -->
-          <div class="p-6 rounded-2xl bg-theme-light border border-border/60 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-2.5 py-0.5 rounded">常務監事</span>
-              <span class="text-[11px] text-text/60">Executive Supervisor</span>
+              <!-- 垂直線 1 -->
+              <div class="w-0.5 h-6 bg-primary/40"></div>
+
+              <!-- 分支線容器 -->
+              <div class="w-full max-w-md relative flex flex-col items-center">
+                <!-- 橫向連接線 -->
+                <div class="w-1/2 border-t-2 border-primary/40"></div>
+                
+                <!-- 左右分支 -->
+                <div class="grid grid-cols-2 gap-4 md:gap-8 w-full pt-0">
+                  <!-- 左分支: 常務理事及理事 -->
+                  <div class="flex flex-col items-center">
+                    <div class="w-0.5 h-4 bg-primary/40"></div>
+                    <div class="w-full py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm">
+                      常務理事及理事 7 人
+                    </div>
+                  </div>
+
+                  <!-- 右分支: 常務監事及監事 -->
+                  <div class="flex flex-col items-center">
+                    <div class="w-0.5 h-4 bg-primary/40"></div>
+                    <div class="w-full py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm">
+                      常務監事及監事 3 人
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 垂直線 2 -->
+              <div class="w-0.5 h-6 bg-primary/40"></div>
+
+              <!-- 下設 秘書長 -->
+              <div class="w-48 py-2.5 px-4 rounded-xl bg-theme-light border-2 border-primary/30 font-semibold text-xs md:text-sm text-text shadow-sm">
+                <span class="text-xs text-text/60 block">（下設）</span>
+                秘書長
+              </div>
             </div>
-            <h4 class="text-lg font-bold text-text">許俊雅 教授</h4>
-            <p class="text-xs text-text/80 leading-relaxed">
-              國立臺灣師範大學國文系教授、臺灣日治與戰後小說研究專家。長期關注日治時期臺灣文學與大河小說美學研究。
-            </p>
           </div>
         </div>
 
-        <div class="p-6 rounded-2xl bg-body border border-border/80 text-xs text-text/80 space-y-2">
-          <div class="font-bold text-text text-sm">協會秘書處與工作團隊：</div>
-          <p class="leading-relaxed">
-            下設「學術推廣組」、「典藏數位組」、「活動出版組」與「行政財務組」。邀請張良澤教授、黃英哲教授等學者擔任協會榮譽顧問，共同推動臺灣本土文學資產之深耕與傳承。
-          </p>
+        <!-- 2. 歷任理事長 -->
+        <div class="space-y-4">
+          <h4 class="text-base font-bold text-text flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+            歷任理事長
+          </h4>
+
+          {{ with site.Data.about.past_presidents }}
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {{ range . }}
+            <div class="p-4 rounded-xl bg-theme-light border border-border/60 flex items-center gap-3 shadow-sm hover:shadow-md transition">
+              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap">
+                {{ .term }}
+              </span>
+              <span class="text-base font-bold text-text">
+                {{ .name }}
+              </span>
+            </div>
+            {{ end }}
+          </div>
+          {{ end }}
         </div>
       </div>
 
