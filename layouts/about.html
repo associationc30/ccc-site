@@ -215,19 +215,19 @@
         </div>
 
         {{ with site.Data.about.history }}
-        <div class="relative pl-6 md:pl-8 space-y-4 text-xs before:absolute before:left-2.5 md:before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-primary/30">
+        <div class="relative pl-6 md:pl-8 space-y-4 text-sm before:absolute before:left-2.5 md:before:left-3.5 before:top-3.5 before:bottom-3.5 before:w-0.5 before:bg-primary/30">
           {{ range . }}
-          <div class="relative flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 p-3.5 rounded-xl bg-theme-light/70 border border-border/40 hover:border-primary/40 transition shadow-2xs">
+          <div class="relative flex flex-col sm:flex-row sm:items-start gap-2.5 sm:gap-4 p-4 rounded-xl bg-theme-light/70 border border-border/40 hover:border-primary/40 transition shadow-2xs">
             <!-- 時間軸圓點 -->
-            <span class="absolute -left-[19px] md:-left-[23px] top-4 w-3.5 h-3.5 rounded-full bg-body border-2 border-primary ring-2 ring-body"></span>
+            <span class="absolute -left-[19px] md:-left-[23px] top-4.5 w-3.5 h-3.5 rounded-full bg-body border-2 border-primary ring-2 ring-body"></span>
             
             <!-- 日期標籤 -->
-            <span class="font-bold font-mono text-primary whitespace-nowrap bg-primary/10 px-2.5 py-1 rounded-md self-start text-xs">
+            <span class="font-bold font-mono text-primary whitespace-nowrap bg-primary/10 px-3 py-1 rounded-md self-start text-sm">
               {{ .date }}
             </span>
             
             <!-- 事件描述 -->
-            <p class="text-text/85 leading-relaxed flex-1 pt-0.5">
+            <p class="text-text/90 text-sm md:text-base leading-relaxed flex-1 pt-0.5">
               {{ .event }}
             </p>
           </div>
