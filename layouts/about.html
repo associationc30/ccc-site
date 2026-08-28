@@ -205,7 +205,7 @@
       </div>
 
       <!-- History Timeline -->
-      <div class="p-8 rounded-3xl bg-body border border-border/80 shadow-sm space-y-6">
+      <div class="p-6 md:p-8 rounded-3xl bg-body border border-border/80 shadow-sm space-y-6">
         <div class="border-b border-border/60 pb-3">
           <h3 class="h3 text-text flex items-center gap-2">
             <span class="text-primary font-bold">📜</span>
@@ -214,123 +214,26 @@
           <p class="text-text/70 text-xs mt-1">紀錄協會成立以來的深耕足跡</p>
         </div>
 
-        <div class="space-y-4 text-xs">
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2019年7月</span>
-            <p class="text-text/80 leading-relaxed">第一屆鍾肇政九龍書室文學營</p>
+        {{ with site.Data.about.history }}
+        <div class="relative pl-6 md:pl-8 space-y-4 text-xs before:absolute before:left-2.5 md:before:left-3.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-primary/30">
+          {{ range . }}
+          <div class="relative flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 p-3.5 rounded-xl bg-theme-light/70 border border-border/40 hover:border-primary/40 transition shadow-2xs">
+            <!-- 時間軸圓點 -->
+            <span class="absolute -left-[19px] md:-left-[23px] top-4 w-3.5 h-3.5 rounded-full bg-body border-2 border-primary ring-2 ring-body"></span>
+            
+            <!-- 日期標籤 -->
+            <span class="font-bold font-mono text-primary whitespace-nowrap bg-primary/10 px-2.5 py-1 rounded-md self-start text-xs">
+              {{ .date }}
+            </span>
+            
+            <!-- 事件描述 -->
+            <p class="text-text/85 leading-relaxed flex-1 pt-0.5">
+              {{ .event }}
+            </p>
           </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2019年10月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政、吳濁流特展——「濁流」激起的巨浪</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2020年3月</span>
-            <p class="text-text/80 leading-relaxed">「台灣鍾肇政文學推廣協會」正式成立，鍾肇政的次子鍾延威擔任協會的首屆理事長，而鍾肇政則以榮譽理事長身分，見證協會的誕生</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2020年5月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政以96歲的高齡辭世</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2020年5月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政追思音樂會</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2020年7月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政紀念系列活動</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2020年7月</span>
-            <p class="text-text/80 leading-relaxed">第二屆鍾肇政九龍書室文學營</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2020年9-12月</span>
-            <p class="text-text/80 leading-relaxed">於龍潭武德殿舉辦以鍾肇政民間文學故事為主軸的「筆繪濃淡總相宜」特展，和鍾肇政夫妻生活為主題的「情牽一世」特展</p>
-          </div>
-
-           <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2021年1月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政冥誕紀念音樂會</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2021年5月</span>
-            <p class="text-text/80 leading-relaxed">頒發第一屆鍾肇政九龍書室文學獎</p>
-          </div>
-
-           <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2022年1月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政冥誕紀念音樂會——戀眷風情</p>
-          </div>         
-
-           <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2022年4月</span>
-            <p class="text-text/80 leading-relaxed">舉辦「鍾肇政龍潭文學地景」走讀活動</p>
-          </div> 
-
-           <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2022年8月</span>
-             <p class="text-text/80 leading-relaxed">「攀一座山——追尋鍾肇政足跡」走讀活動第一場：「遠望鄉愁」，帶領走讀的參與者來到淡水中學校（今淡江中學）一窺鍾肇政的青澀歲月</p>
-          </div> 
-          
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2022年9月</span>
-            <p class="text-text/80 leading-relaxed">響應財團法人李榮春文學推廣協會舉辦的「熠結金蘭」文學市集活動</p>
-          </div>          
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2022年10月</span>
-            <p class="text-text/80 leading-relaxed">「攀一座山——追尋鍾肇政足跡」走讀活動第二場：「高山情懷」，探訪鍾肇政在撰寫《馬黑坡風雲》、《川中島》、《戰火》時的田野調查路線</p>
-          </div>          
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2022年12月</span>
-            <p class="text-text/80 leading-relaxed">《靈潭恨》客語繪本及客語有聲書出版</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2023年1月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政冥誕音樂會</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2023年4月</span>
-            <p class="text-text/80 leading-relaxed">響應桐花祭活動，舉辦「桐樂會─賞桐文藝之旅」</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2023年5月</span>
-            <p class="text-text/80 leading-relaxed">「攀一座山」鍾肇政紀念音樂會</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2024年1月</span>
-            <p class="text-text/80 leading-relaxed">鍾肇政百歲冥誕記憶年系列活動，包括了國際研討會、冥誕紀念音樂會，並於東吳大學圖書館舉辦「跨語小展覽」首次展出鍾肇政的日文手稿及第一本中文日記</p>
-          </div>
-
-          <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2024年5月</span>
-            <p class="text-text/80 leading-relaxed">「攀一座山」鍾肇政紀念音樂會</p>
-          </div>
-
-           <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2024年5月</span>
-            <p class="text-text/80 leading-relaxed">與清大圖書館人社分館合作，策畫展覽「筆架山下的小書蟲」展覽</p>
-          </div>         
-
-           <div class="flex items-start gap-4 p-3 rounded-xl bg-theme-light/60 border border-border/40">
-            <span class="font-bold font-mono text-primary whitespace-nowrap pt-0.5">2024年7月</span>
-            <p class="text-text/80 leading-relaxed">出版鍾肇政的《夕暮大稻埕》與鍾肇政百歲冥誕國際研討會論文集</p>
-          </div> 
-          
+          {{ end }}
         </div>
+        {{ end }}
       </div>
 
       <!-- Call to Action Card -->
