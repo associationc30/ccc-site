@@ -137,46 +137,41 @@
           </h4>
 
           <div class="p-6 md:p-8 rounded-2xl bg-body border border-border/80 shadow-sm max-w-3xl mx-auto">
-            <div class="flex flex-col items-center space-y-0 text-center">
+            <div class="flex flex-col items-center text-center">
               <!-- 理事長 -->
-              <div class="w-56 py-3 px-4 rounded-xl bg-primary text-white font-bold text-base shadow-md">
+              <div class="w-56 py-3 px-4 rounded-xl bg-primary text-white font-bold text-base shadow-md relative z-10">
                 理事長
               </div>
 
-              <!-- 垂直線 1 -->
-              <div class="w-0.5 h-6 bg-primary/40"></div>
+              <!-- 頂部至分支 SVG 連接線 -->
+              <div class="w-full max-w-md h-10 flex justify-center">
+                <svg class="w-full h-full text-primary/50" viewBox="0 0 400 40" fill="none" preserveAspectRatio="none">
+                  <path d="M 200 0 V 20 M 100 20 H 300 M 100 20 V 40 M 300 20 V 40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
 
-              <!-- 分支線容器 -->
-              <div class="w-full max-w-md relative flex flex-col items-center">
-                <!-- 橫向連接線 -->
-                <div class="w-1/2 border-t-2 border-primary/40"></div>
-                
-                <!-- 左右分支 -->
-                <div class="grid grid-cols-2 gap-4 md:gap-8 w-full pt-0">
-                  <!-- 左分支: 常務理事及理事 -->
-                  <div class="flex flex-col items-center">
-                    <div class="w-0.5 h-4 bg-primary/40"></div>
-                    <div class="w-full py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm">
-                      常務理事及理事 7 人
-                    </div>
-                  </div>
+              <!-- 左右分支 -->
+              <div class="grid grid-cols-2 gap-4 md:gap-8 w-full max-w-md relative z-10">
+                <!-- 左分支: 常務理事及理事 -->
+                <div class="py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm flex items-center justify-center min-h-[52px]">
+                  常務理事及理事 7 人
+                </div>
 
-                  <!-- 右分支: 常務監事及監事 -->
-                  <div class="flex flex-col items-center">
-                    <div class="w-0.5 h-4 bg-primary/40"></div>
-                    <div class="w-full py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm">
-                      常務監事及監事 3 人
-                    </div>
-                  </div>
+                <!-- 右分支: 常務監事及監事 -->
+                <div class="py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm flex items-center justify-center min-h-[52px]">
+                  常務監事及監事 3 人
                 </div>
               </div>
 
-              <!-- 垂直線 2 -->
-              <div class="w-0.5 h-6 bg-primary/40"></div>
+              <!-- 分支至秘書長 SVG 連接線 -->
+              <div class="w-full max-w-md h-10 flex justify-center">
+                <svg class="w-full h-full text-primary/50" viewBox="0 0 400 40" fill="none" preserveAspectRatio="none">
+                  <path d="M 100 0 V 20 H 300 M 300 0 V 20 M 200 20 V 40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
 
-              <!-- 下設 秘書長 -->
-              <div class="w-48 py-2.5 px-4 rounded-xl bg-theme-light border-2 border-primary/30 font-semibold text-xs md:text-sm text-text shadow-sm">
-                <span class="text-xs text-text/60 block">（下設）</span>
+              <!-- 秘書長 -->
+              <div class="w-48 py-3 px-4 rounded-xl bg-theme-light border-2 border-primary/30 font-semibold text-xs md:text-sm text-text shadow-sm relative z-10">
                 秘書長
               </div>
             </div>
