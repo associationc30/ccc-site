@@ -137,10 +137,11 @@
           </h4>
 
           <div class="p-6 md:p-8 rounded-2xl bg-body border border-border/80 shadow-sm max-w-3xl mx-auto">
+            {{ with site.Data.about.org_structure }}
             <div class="flex flex-col items-center text-center">
               <!-- 理事長 -->
               <div class="w-56 py-3 px-4 rounded-xl bg-primary text-white font-bold text-base shadow-md relative z-10">
-                理事長
+                {{ .president }}
               </div>
 
               <!-- 頂部至分支 SVG 連接線 -->
@@ -154,12 +155,12 @@
               <div class="grid grid-cols-2 gap-4 md:gap-8 w-full max-w-md relative z-10">
                 <!-- 左分支: 常務理事及理事 -->
                 <div class="py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm flex items-center justify-center min-h-[52px]">
-                  常務理事及理事 7 人
+                  {{ .directors }}
                 </div>
 
                 <!-- 右分支: 常務監事及監事 -->
                 <div class="py-3 px-3 rounded-xl bg-theme-light border border-border/80 font-semibold text-xs md:text-sm text-text shadow-sm flex items-center justify-center min-h-[52px]">
-                  常務監事及監事 3 人
+                  {{ .supervisors }}
                 </div>
               </div>
 
@@ -172,9 +173,10 @@
 
               <!-- 秘書長 -->
               <div class="w-48 py-3 px-4 rounded-xl bg-theme-light border-2 border-primary/30 font-semibold text-xs md:text-sm text-text shadow-sm relative z-10">
-                秘書長
+                {{ .secretary }}
               </div>
             </div>
+            {{ end }}
           </div>
         </div>
 
