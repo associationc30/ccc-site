@@ -5,7 +5,7 @@ date: 2026-08-05T09:00:00+08:00
 event_date: "2026-09-19"
 event_time: "13:30 - 16:30"
 location: "龍潭鍾肇政文學生活園區 (桃園市龍潭區南龍路84號)"
-organizer: "臺灣鍾肇政文學推廣協會、桃園市政府文化局"
+organizer: "台灣鍾肇政文學推廣協會、桃園市政府文化局"
 category: "走讀工作坊"
 status: "報名中"
 featured: false

@@ -5,7 +5,7 @@ date: 2026-05-01T09:00:00+08:00
 event_date: "2026-05-01 ~ 2026-12-31"
 event_time: "每週二至週日 09:00 - 17:00 (週一休館)"
 location: "鍾肇政文學生活園區 展覽館 (桃園龍潭)"
-organizer: "臺灣鍾肇政文學推廣協會"
+organizer: "台灣鍾肇政文學推廣協會"
 category: "展覽特展"
 status: "常設展"
 featured: false

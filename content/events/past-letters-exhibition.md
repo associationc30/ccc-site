@@ -5,7 +5,7 @@ date: 2025-08-10T09:00:00+08:00
 event_date: "2025-08-10 ~ 2025-11-15"
 event_time: "活動已圓滿結束"
 location: "桃園市立圖書館總館 展覽廳"
-organizer: "臺灣鍾肇政文學推廣協會"
+organizer: "台灣鍾肇政文學推廣協會"
 category: "展覽特展"
 status: "歷年回顧"
 featured: false
