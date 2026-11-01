@@ -132,7 +132,7 @@ ccc-site/
 - 兩站 `baseURL` 刻意不同，改網址時各改各的環境變數
 - GitHub Pages 需在 repo Settings → Pages 設為「GitHub Actions」
 - 詳細說明見 `DEPLOY.md`
-- 其他平台設定檔（amplify.yml、.gitlab-ci.yml、vercel.json）仍留置但未啟用
+- 其他平台設定檔（amplify/gitlab/vercel）已移除，勿再新增
 
 ---
 
