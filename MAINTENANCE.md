@@ -27,6 +27,10 @@ npm run format          # Prettier 格式化
 ```
 
 > `hugo_stats.json` 是 Hugo build 自動產生的統計檔，已列入 `.gitignore`，勿提交。
+> ⚠️ **但 Tailwind 是靠它決定要產生哪些 utility class**（`main.css` 的 `@source "hugo_stats.json"`）。
+> 檔案不存在時，第一次 build 產生的 CSS 會缺少所有 utility（`flex`、`max-w-*` 等），版面會壞掉。
+> 因此 `package.json` 的 `dev`／`build`／`preview` 都先跑一次 `hugo --renderToMemory --quiet` 產生統計檔，再進行正式建置。
+> **不要移除這個前置步驟**，否則 CI 首次建置會產出殘缺的 CSS。
 
 ---
 
@@ -59,7 +63,8 @@ ccc-site/
 │   └── _partials/essentials/ # header、footer、head、style、script
 ├── assets/
 │   ├── css/custom.css        # ⭐ 自訂樣式入口（目前僅註解）
-│   └── images/               # logo、favicon、og-image、banner 等圖檔
+│   └── images/               # logo、favicon、og-image、hero-books 等圖檔
+│       └── hero-books.png    # ⭐ 首頁主視覺（書島插畫，底色 #FCFBF9）
 ├── static/admin/             # ⭐ Decap CMS 後台（/admin 路徑）
 │   ├── index.html            # 含 Netlify Identity 登入
 │   └── config.yml            # CMS 集合定義（見第 4 節）
@@ -116,6 +121,10 @@ ccc-site/
 5. **CMS 後台**：`static/admin/` 整套自建
 6. **資料內容**：`content/` 與 `data/` 全部為協會自有內容
 7. **baseURL 策略**：`hugo.toml` 放預設值，兩個部署平台各自用 `HUGO_BASEURL` 覆蓋（見下節）
+8. **首頁 hero 版型**：`layouts/index.html`——改為兩欄式（圖左文右），行動裝置上下堆疊且文字在前。
+   圖片主視覺為 `assets/images/hero-books.png`（書島插畫，底色已重繪為 `#FCFBF9` 以與頁面背景無縫接合）。
+   ⚠️ 圖片最大寬度是套在外層 `div`（`max-w-[620px]`），**不是**套在 `<img>` 上——主題的 `.img { max-width:100% }`
+   屬於未分層 CSS，權重高於 Tailwind utility，直接寫在 `<img>` 的 `max-w-*` 不會生效。
 
 ---
 
