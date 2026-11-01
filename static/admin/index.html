@@ -4,6 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>台灣鍾肇政文學推廣協會 — 內容管理後台 (Decap CMS)</title>
+    <script>
+      // 手動初始化 CMS：GitHub Pages 版不啟動後台，只顯示提示
+      window.CMS_MANUAL_INIT = true;
+      window.IS_GITHUB_PAGES = location.hostname.endsWith("github.io");
+    </script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
     <!-- Cloudinary Media Library Widget (Optional for Cloudinary Image Hosting) -->
@@ -12,5 +17,18 @@
   <body>
     <!-- Decap CMS Script -->
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      if (window.IS_GITHUB_PAGES) {
+        // Netlify Identity 只在 Netlify 主站可用，GitHub Pages 開啟時提示改用主站
+        document.body.innerHTML =
+          '<div style="font-family:sans-serif;max-width:32rem;margin:4rem auto;padding:1.5rem;text-align:center">' +
+          "<h1>⚠️ 請改用 Netlify 主站登入</h1>" +
+          "<p>內容管理後台需透過 Netlify Identity 登入，GitHub Pages 版本無法使用。</p>" +
+          '<p><a href="https://ccc-site.netlify.app/admin">👉 前往 https://ccc-site.netlify.app/admin</a></p>' +
+          "</div>";
+      } else {
+        CMS.init();
+      }
+    </script>
   </body>
 </html>
