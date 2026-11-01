@@ -12,4 +12,5 @@ public/
 resources/_gen/
 jsconfig.json
 go.sum
+hugo_stats.json
 yarn.lock
