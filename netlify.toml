@@ -3,6 +3,8 @@ publish = "public"
 command = "pnpm project-setup; pnpm build"
 
 [build.environment]
-HUGO_VERSION = "0.158.0"
+# ⚠️ 版本需與 .github/workflows/main.yml 及 config/_default/module.toml 保持一致
+NODE_VERSION = "22"
+HUGO_VERSION = "0.162.1"
 GO_VERSION = "1.25.1"
 HUGO_BASEURL = "https://ccc-site.netlify.app/"

@@ -9,7 +9,7 @@
 
 | 項目 | 技術 | 版本 |
 |---|---|---|
-| 靜態網站生成器 | [Hugo Extended](https://gohugo.io/) | 0.158.0 |
+| 靜態網站生成器 | [Hugo Extended](https://gohugo.io/) | 0.162.1 |
 | CSS 框架 | Tailwind CSS | v4（`@tailwindcss/cli`） |
 | 主題 | Hugoplate（`themes/hugoplate`，本地修改版） | — |
 | 內容管理後台 | Decap CMS（原 Netlify CMS），見 `static/admin/` | 靜態檔 |
