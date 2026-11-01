@@ -137,7 +137,7 @@
           </h4>
 
           <div class="p-6 md:p-8 rounded-2xl bg-body border border-border/80 shadow-sm max-w-3xl mx-auto">
-            {{ with site.Data.about.org_structure }}
+            {{ with hugo.Data.about.org_structure }}
             <div class="flex flex-col items-center text-center">
               <!-- 理事長 -->
               <div class="w-56 py-3 px-4 rounded-xl bg-primary text-white font-bold text-base shadow-md relative z-10">
@@ -187,7 +187,7 @@
             歷任理事長
           </h4>
 
-          {{ with site.Data.about.past_presidents }}
+          {{ with hugo.Data.about.past_presidents }}
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {{ range . }}
             <div class="p-4 rounded-xl bg-theme-light border border-border/60 flex items-center gap-3 shadow-sm hover:shadow-md transition">
@@ -214,7 +214,7 @@
           <p class="text-text/70 text-xs mt-1">紀錄協會成立以來的深耕足跡</p>
         </div>
 
-        {{ with site.Data.about.history }}
+        {{ with hugo.Data.about.history }}
         <div class="relative pl-6 md:pl-8 space-y-4 text-sm before:absolute before:left-2.5 md:before:left-3.5 before:top-3.5 before:bottom-3.5 before:w-0.5 before:bg-primary/30">
           {{ range . }}
           <div class="relative flex flex-col sm:flex-row sm:items-start gap-2.5 sm:gap-4 p-4 rounded-xl bg-theme-light/70 border border-border/40 hover:border-primary/40 transition shadow-2xs">
