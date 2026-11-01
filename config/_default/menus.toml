@@ -1,4 +1,4 @@
-############# English navigation ##############
+############# 主選單 #############
 
 # main menu
 [[main]]
@@ -62,20 +62,14 @@ name = "專文"
 url = "/blog"
 
 [[main]]
-weight = 6
+weight = 7
 name = "授權合作"
 url = "/licensing"
 
 [[main]]
-weight = 7
-# parent = "Pages"
+weight = 8
 name = "聯絡協會"
 url = "/contact"
-
-# [[main]]
-# parent = "Pages"
-# name = "404 Page"
-# url = "/404"
 
 # footer menu
 [[footer]]

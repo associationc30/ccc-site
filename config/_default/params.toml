@@ -11,7 +11,7 @@ logo_height = "32px"
 # if logo_webp set false, will not generate WEBP version of logo | default is true
 logo_webp = true
 # logo text will only show when logo is missing.
-logo_text = "Hugoplate"
+logo_text = "台灣鍾肇政文學推廣協會"
 # navbar fixed to top
 navbar_fixed = true
 # theme-mode
@@ -40,7 +40,7 @@ preloader = "" # use jpg, png, svg or gif format.
 [navigation_button]
 enable = false
 label = "Github"
-link = "https://github.com/zeon-studio/hugoplate"
+link = "https://github.com/associationc30/ccc-site"
 
 # LLMs Configuration
 # LLMs module: https://github.com/gethugothemes/hugo-modules/tree/master/llms-txt
@@ -70,15 +70,15 @@ show_categories = true
 [announcement]
 enable = false
 expire_days = 7
-content = "<span class='text-center block'>♥️ Loving Hugoplate? <a class='underline' href='https://github.com/zeon-studio/hugoplate' target='_blank' rel='noopener'>Please ⭐️ on Github</a></span>"
+content = ""
 
 # seo meta data for OpenGraph / Twitter Card
 # seo module: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo
 [metadata]
-keywords = ["Boilerplate", "Hugo"]
-description = "Hugo & Tailwindcss Starter"
-author = "zeon.studio"
-twitter = "zeon_studio"
+keywords = ["鍾肇政", "台灣文學", "客家文學", "龍潭"]
+description = "台灣鍾肇政文學推廣協會官方網站"
+author = "台灣鍾肇政文學推廣協會"
+twitter = ""
 image = "images/og-image.png"
 
 
@@ -118,8 +118,8 @@ sidebar = ["categories", "tags"]
 [google_map]
 enable = false
 map_api_key = "" # keep empty - set GOOGLE_MAP_API_KEY instead
-map_latitude = "51.5223477"
-map_longitude = "-0.1622023"
+map_latitude = "24.8618"
+map_longitude = "121.2147"
 map_marker = "images/marker.png"
 
 
@@ -127,5 +127,5 @@ map_marker = "images/marker.png"
 [subscription]
 enable = false
 # mailchimp subsciption
-mailchimp_form_action = "https://gmail.us4.list-manage.com/subscribe/post?u=463ee871f45d2d93748e77cad&amp;id=a0a2c6d074" # replace this url with yours
-mailchimp_form_name = "b_463ee871f45d2d93748e77cad_a0a2c6d074"
+mailchimp_form_action = ""
+mailchimp_form_name = ""
