@@ -149,6 +149,12 @@ ccc-site/
 
 1. **改內容**：優先用 `/admin` CMS；改版面/設定才動程式碼
 2. **本地預覽**：`npm run dev`，確認無誤
+   > 若改用靜態預覽（`hugo -d` 產出一份後再起伺服器），請用 `scripts/preview-server.py` 而不是 `python3 -m http.server`。
+   > Hugo 的檔名帶 fingerprint，每次重建都會變；plain http.server 不送快取標頭，瀏覽器會繼續用舊 HTML 去抓已被刪除的 CSS，畫面就變成沒有樣式的裸 HTML。
+   > ```bash
+   > hugo --baseURL http://127.0.0.1:1319/ -d "$TMPDIR/preview" --quiet
+   > python3 scripts/preview-server.py 1319 "$TMPDIR/preview"
+   > ```
 3. **提交**：`git add -A && git commit && git push origin main`
 4. **確認**：等 Netlify build 完成，檢查主站；備用站看 Actions 跑完
 5. **改主題色/字體**：改 `data/theme.json`（不動程式碼）
