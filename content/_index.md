@@ -3,7 +3,7 @@
 banner:
   title: "耕耘本土文學沃土，傳承大河精神"
   content: "臺灣鍾肇政文學推廣協會致力於鍾肇政文學典藏、大河小說研究、客家文化轉譯與本土文學推廣。"
-  image: "/images/banner.png"
+  image: "/images/hero-books.png"
   button:
     enable: false
     label: ""

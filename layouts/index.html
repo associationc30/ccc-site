@@ -1,10 +1,15 @@
 {{ define "main" }}
-  <!-- Banner -->
+  <!-- Banner（兩欄式：圖左、文右；行動裝置上下堆疊且文字在前） -->
   {{ with .Params.banner }}
-    <section class="section pt-14">
+    <section class="section pt-10 md:pt-14">
       <div class="container">
-        <div class="row justify-center">
-          <div class="lg:col-7 md:col-9 mb-8 text-center">
+        <div class="row items-center justify-between">
+          <div class="order-2 md:order-1 md:col-6 lg:col-7 mb-8 md:mb-0">
+            <div class="mx-auto w-full max-w-[520px] lg:max-w-[620px]">
+              {{ partial "image" (dict "Src" .image "Alt" "以書堆疊成的島嶼意象插畫，象徵本土文學的沃土" "Loading" "eager" "Class" "w-full" "DisplayXL" "620x" "DisplayLG" "520x" "DisplayMD" "440x" ) }}
+            </div>
+          </div>
+          <div class="order-1 md:order-2 md:col-6 lg:col-5 mb-8 md:mb-0 text-center md:text-left">
             <h1 class="mb-4 text-h3 lg:text-h1">
               {{ .title | markdownify }}
             </h1>
@@ -23,9 +28,6 @@
                 </a>
               {{ end }}
             {{ end }}
-          </div>
-          <div class="col-12">
-            {{ partial "image" (dict "Src" .image "Alt" "Banner image" "Loading" "eager" "Class" "mx-auto lg:!max-w-[800px]" "DisplayXL" "800x" ) }}
           </div>
         </div>
       </div>
