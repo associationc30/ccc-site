@@ -15,6 +15,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
         self.send_header("Pragma", "no-cache")
         self.send_header("Expires", "0")
+        # 保險用：Hugo 的 CSS <link> 帶 integrity，跨來源時瀏覽器走 CORS 模式。
+        self.send_header("Access-Control-Allow-Origin", "*")
         super().end_headers()
 
     def log_message(self, format, *args):
@@ -22,7 +24,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 socketserver.TCPServer.allow_reuse_address = True
+
+
+class ThreadingServer(socketserver.ThreadingTCPServer):
+    """瀏覽器會平行開多條連線；單執行緒的 TCPServer 會讓 CSS/圖片排隊卡死。"""
+
+    allow_reuse_address = True
+    daemon_threads = True
+
+
 handler = functools.partial(Handler, directory=ROOT)
-with socketserver.TCPServer(("127.0.0.1", PORT), handler) as httpd:
+with ThreadingServer(("127.0.0.1", PORT), handler) as httpd:
     print(f"serving {ROOT} on http://127.0.0.1:{PORT}/ (no-cache)", flush=True)
     httpd.serve_forever()
