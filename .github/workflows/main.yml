@@ -22,6 +22,8 @@ env:
   HUGO_ENV: production
   HUGO_VERSION: "0.158.0"
   GO_VERSION: "1.23.3"
+  # GitHub Pages (備用站) 用的 baseURL，與 netlify.toml 的 HUGO_BASEURL 分開
+  HUGO_BASEURL: "https://associationc30.github.io/ccc-site/"
   TINA_CLIENT_ID: ${{ secrets.TINA_CLIENT_ID }}
   TINA_TOKEN: ${{ secrets.TINA_TOKEN }}
   TINA_SEARCH_TOKEN: ${{ secrets.TINA_SEARCH_TOKEN }}
