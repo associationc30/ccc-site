@@ -27,6 +27,10 @@ npm run format          # Prettier 格式化
 ```
 
 > `hugo_stats.json` 是 Hugo build 自動產生的統計檔，已列入 `.gitignore`，勿提交。
+> ⚠️ **但 Tailwind 是靠它決定要產生哪些 utility class**（`main.css` 的 `@source "hugo_stats.json"`）。
+> 檔案不存在時，第一次 build 產生的 CSS 會缺少所有 utility（`flex`、`max-w-*` 等），版面會壞掉。
+> 因此 `package.json` 的 `dev`／`build`／`preview` 都先跑一次 `hugo --renderToMemory --quiet` 產生統計檔，再進行正式建置。
+> **不要移除這個前置步驟**，否則 CI 首次建置會產出殘缺的 CSS。
 
 ---
 
