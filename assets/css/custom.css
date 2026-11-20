@@ -273,7 +273,8 @@
   font-family: var(--kv-cjk);
   color: var(--kv-ink);
   overflow: hidden;
-  padding: clamp(1.9rem, 3.2vw, 3rem) var(--kv-pad) clamp(1.6rem, 2.8vw, 2.5rem);
+  /* 下內距要容得下懸在圖下面那顆印 */
+  padding: clamp(1.9rem, 3.2vw, 3rem) var(--kv-pad) clamp(3.8rem, 4.6vw, 4.7rem);
   border-bottom: 1px solid var(--kv-rule-soft);
 }
 .kv-page-hero::before {
@@ -322,10 +323,11 @@
 .kv-page-seal {
   /* 分頁的落款印放在線稿右下角（像蓋在畫作邊角），略出圖外壓在紙上 */
   /* 用 px 定下限：主題的 root font-size 會隨螢幕縮，rem 寫法在手機只有 26px（四字會糊） */
-  --kv-seal-size: clamp(34px, 2.5vw, 38px);
+  --kv-seal-size: clamp(32px, 2.3vw, 35px);
   position: absolute;
-  right: -3rem; /* 與線稿右緣留出約 12px 空隙，只當一抹顏色 */
-  bottom: -1.6rem;
+  /* 與圖右緣留 11px、與圖下緣（墨線）留 15px 左右，浮在紙上而非貼著圖 */
+  right: -45px;
+  bottom: -49px;
 }
 .kv-page-title {
   margin: 0.5rem 0 0;
@@ -367,6 +369,7 @@
   /* 與首頁主視覺同一條左邊界（對齊 logo 人像），換頁時標題不會跳 */
   .kv-page-hero {
     padding-inline: 50px;
+    padding-bottom: 54px;
   }
   .kv-page-grid {
     grid-template-columns: 1fr;
@@ -378,7 +381,7 @@
   }
   .kv-page-seal {
     /* 手機用 px：rem 會隨主題的流動字級縮水，印章就跟圖黏在一起 */
-    right: -40px;
-    bottom: -10px;
+    right: -38px;
+    bottom: -40px;
   }
 }
