@@ -64,8 +64,10 @@
     padding-inline: 0;
   }
   .kv-plate {
+    --kv-content-w: 1216px; /* 1320 − 2×52，供下面出血寬度換算用 */
     max-width: 1320px; /* 與 .navbar.container 同寬 */
-    padding-inline: 24px; /* 12（容器內距）+ 12（logo 左留白） */
+    /* 12（容器內距）+ 12（logo 圖檔左留白 7.6%×160）+ 29（人像置中造成的偏移）－1（字面 side bearing） */
+    padding-inline: 52px;
   }
 }
 
@@ -156,7 +158,9 @@
   position: relative;
   /* 圖與左欄齊頭：不加上緣位移，改由圖片自己抵掉素材上方的空白 */
   margin: 0;
-  width: 118%;
+  /* 118% 是基本放大；寬螢幕時改以視窗為準，補上圖右側到視窗邊的空白，
+     讓線稿一路切出畫面（100vw − 版心寬)/2 = 版心右緣到視窗邊的距離 */
+  width: max(118%, calc(100% + (100vw - 1216px) / 2 + 28px));
   max-width: none;
 }
 .kv-art img {
@@ -169,9 +173,9 @@
 }
 /* ── 窄螢幕：先字後圖，取消出血與直排 ─────────────────────────── */
 @media (max-width: 1023px) {
-  /* 手機/平板：與站頭 logo 圖文左緣（約 22px）對齊 */
+  /* 手機/平板：同樣對齊人像左緣（實測 390 下人像在 51.5px） */
   .kv-hero {
-    padding-inline: 22px;
+    padding-inline: 50px;
   }
   .kv-grid {
     display: flex;
