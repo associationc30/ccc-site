@@ -14,8 +14,9 @@
   --kv-ink-42: rgba(34, 32, 27, 0.42);
   --kv-rule-soft: rgba(34, 32, 27, 0.12);
   --kv-seal: #9c3b2c;
-  --kv-cjk: "jf蘭陽明體1.1", "jf-lanyangming-1.1", "Noto Serif TC",
-    "Noto Serif CJK TC", serif;
+  /* 只用訪客端拿得到的字：Noto Serif TC 由主題從 Google Fonts 載入（400/500/600）。
+     不列本機字型（如 jf蘭陽明體1.1），否則預覽與公開站的字面會不一致。 */
+  --kv-cjk: "Noto Serif TC", "Noto Serif CJK TC", serif;
   --kv-lat: "Libre Caslon Text", "Garamond Libre", Georgia, serif;
   --kv-pad: clamp(0.9rem, 2.6vw, 3rem);
 
