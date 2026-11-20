@@ -126,7 +126,7 @@ ccc-site/
 8. **首頁 hero 版型**：`layouts/index.html`——「圖右字左」主視覺：米白紙底，左欄是直排標題（`.kv-title`）
    ＋朱紅落款印（`.kv-seal`）＋提要（英文全名、協會全名、標語、說明段），右側是書島**線稿**（透明底 PNG），
    圖寬 `118%` 向右出血出畫面。文案欄位見 `content/_index.md` 的 `banner:`。
-   - 圖說（`.kv-art figcaption`）寬度寫 `calc(100% / 1.18)`，因為圖比欄寬 118%，圖說要收回欄內才不會被視窗切掉。
+   - 圖下方沒有圖說也沒有細線（`caption`／`credit` 欄位都已移除），首頁只留線稿本身。
    - 桌機給圖 `margin-top: clamp(1rem, 7vw, 6rem)`，讓圖說與左欄提要落在同一水平帶。
    - 窄螢幕（< 1023px）：`.kv-grid` 改 flex、`.kv-col` 設 `display: contents` 解體，
      再用 `order` 排成「標題＋印 → 圖 → 圖說 → 提要」；直排標題轉橫排、圖寬回到 100%。

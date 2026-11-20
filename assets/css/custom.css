@@ -152,17 +152,6 @@
   height: auto;
   opacity: 0.94;
 }
-.kv-art figcaption {
-  /* 圖比欄寬 118%，圖說收回到欄寬以內才不會被視窗切掉 */
-  width: calc(100% / 1.18);
-  margin-top: clamp(1rem, 1.8vw, 1.5rem);
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--kv-rule-soft);
-  font-size: 0.8125rem;
-  letter-spacing: 0.16em;
-  color: var(--kv-ink-54);
-}
-
 /* ── 窄螢幕：先字後圖，取消出血與直排 ─────────────────────────── */
 @media (max-width: 1023px) {
   .kv-grid {

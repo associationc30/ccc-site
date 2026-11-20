@@ -49,9 +49,6 @@
             {{ else }}
               <img src="{{ .image | relURL }}" alt="{{ .imageAlt }}" fetchpriority="high" />
             {{ end }}
-            {{ with .caption }}
-              <figcaption><span>{{ . }}</span></figcaption>
-            {{ end }}
           </figure>
         </div>
       </div>
