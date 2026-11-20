@@ -6,7 +6,8 @@
    紙色沿用站上 --color-light（#F5F2EC）。
    ========================================================================== */
 
-.kv-hero {
+.kv-hero,
+.kv-page-hero {
   --kv-paper: var(--color-light);
   --kv-ink: #22201b;
   --kv-ink-72: rgba(34, 32, 27, 0.72);
@@ -19,7 +20,9 @@
   --kv-cjk: "Noto Serif TC", "Noto Serif CJK TC", serif;
   --kv-lat: "Libre Caslon Text", "Garamond Libre", Georgia, serif;
   --kv-pad: clamp(0.9rem, 2.6vw, 3rem);
+}
 
+.kv-hero {
   position: relative;
   background: var(--kv-paper);
   padding: clamp(1.75rem, 3.2vw, 3rem) var(--kv-pad) clamp(2.25rem, 3.6vw, 3.25rem);
@@ -259,4 +262,98 @@
   background: rgba(78, 107, 74, 0.12);
   color: #47623f;
   border: 1px solid rgba(78, 107, 74, 0.32);
+}
+
+/* ==========================================================================
+   分頁頁首（page-header 覆寫）：紙色底 + 線稿靠右下，取代主題的漸層色塊
+   ========================================================================== */
+.kv-page-hero {
+  position: relative;
+  background: var(--kv-paper);
+  font-family: var(--kv-cjk);
+  color: var(--kv-ink);
+  overflow: hidden;
+  padding: clamp(1.4rem, 2.4vw, 2.25rem) var(--kv-pad) clamp(1.1rem, 2vw, 1.75rem);
+  border-bottom: 1px solid var(--kv-rule-soft);
+}
+.kv-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 8% 2%, rgba(255, 253, 246, 0.55), rgba(255, 253, 246, 0) 58%);
+}
+.kv-page-hero h1,
+.kv-page-hero p,
+.kv-page-hero span,
+.kv-page-hero a {
+  font-family: var(--kv-cjk);
+}
+.kv-page-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: end;
+  gap: clamp(1.5rem, 3.2vw, 3.25rem);
+}
+.kv-page-head {
+  min-width: 0;
+  padding-bottom: 0.35rem;
+}
+.kv-crumb {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--kv-ink-42);
+}
+.kv-crumb a,
+.kv-crumb span {
+  color: inherit !important; /* 蓋掉主題的 text-primary */
+}
+.kv-crumb a:hover {
+  color: var(--kv-seal) !important;
+}
+.kv-page-title {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.85rem, 3vw, 2.85rem);
+  line-height: 1.28;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--kv-ink);
+}
+.kv-page-desc {
+  margin: 0.75rem 0 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.85;
+  letter-spacing: 0.03em;
+  color: var(--kv-ink-72);
+}
+.kv-page-art {
+  position: relative;
+  width: 135%;
+  max-width: none;
+  margin: 0 0 -1.09%;
+}
+.kv-page-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+}
+@media (min-width: 1024px) {
+  .kv-page-hero {
+    padding-inline: 0;
+  }
+}
+@media (max-width: 1023px) {
+  .kv-page-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .kv-page-art {
+    width: 100%;
+    margin: 0;
+  }
 }

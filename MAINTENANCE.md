@@ -137,6 +137,13 @@ ccc-site/
 8. **首頁 hero 版型**：`layouts/index.html`——「圖右字左」主視覺：米白紙底，左欄是直排標題（`.kv-title`）
    ＋朱紅落款印（`.kv-seal`）＋提要（英文全名、協會全名、標語、說明段），右側是書島**線稿**（透明底 PNG），
    圖寬 `118%` 向右出血出畫面。文案欄位見 `content/_index.md` 的 `banner:`。
+
+   **分頁頁首（所有內頁）**：`layouts/_partials/page-header.html` 已被本站覆寫，不再用主題的
+   `from-body to-light` 漸層色塊。新版沿用首頁的紙色與線稿（麵包屑＋標題＋description 在左、
+   線稿靠右下並向右出血），與 `.kv-hero` 共用同一組 `--kv-*` 色票（色票定義在
+   `.kv-hero, .kv-page-hero` 的共用規則，改色只要改那一處）。
+   內頁的副標吃 front matter 的 `description:`，沒有就不顯示。線稿在內頁是裝飾圖
+   （`alt=""`、`loading="lazy"`），不會搶首頁的 LCP。
    - 圖下方沒有圖說也沒有細線（`caption`／`credit` 欄位都已移除），首頁只留線稿本身。
    - **左邊界對齊**：桌機（≥1024px）主視覺的左右邊界跟站頭容器走——`.kv-plate` 設
      `max-width: 1320px`、`padding-inline: 24px`，其中 12px 是容器內距、另 12px 抵掉
