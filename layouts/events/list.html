@@ -12,7 +12,7 @@
             </span>
             {{ if eq .Params.status "報名中" }}
               <span class="px-3 py-1 rounded-full text-xs font-medium badge-open">
-                🟢 熱烈報名中
+                熱烈報名中
               </span>
             {{ end }}
           </div>
@@ -46,7 +46,7 @@
             <div class="flex flex-col sm:flex-row lg:flex-col gap-3 justify-center items-stretch lg:items-end">
               {{ if and .Params.google_form_url (eq .Params.status "報名中") }}
                 <a href="{{ .Params.google_form_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-md w-full text-center flex items-center justify-center gap-2">
-                  <span>👉 前往 Google 表單線上報名</span>
+                  <span>前往 Google 表單線上報名</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
@@ -68,16 +68,16 @@
               全部活動 (All)
             </button>
             <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="報名中">
-              🟢 熱烈報名中
+              熱烈報名中
             </button>
             <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="即將舉辦">
-              🔵 即將舉辦
+              即將舉辦
             </button>
             <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="常設展">
-              🟣 常設展覽
+              常設展覽
             </button>
             <button type="button" class="event-filter-btn btn-sm px-4 py-2 rounded-xl text-xs font-medium bg-theme-light hover:bg-primary/10 text-text/80 transition" data-status="歷年回顧">
-              ⚪ 歷年活動回顧
+              歷年活動回顧
             </button>
           </div>
         </div>
@@ -94,13 +94,13 @@
                 </span>
                 
                 {{ if eq .Params.status "報名中" }}
-                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold badge-open">🟢 熱烈報名中</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold badge-open">熱烈報名中</span>
                 {{ else if eq .Params.status "即將舉辦" }}
-                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">🔵 即將舉辦</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">即將舉辦</span>
                 {{ else if eq .Params.status "常設展" }}
-                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">🟣 常設展覽</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">常設展覽</span>
                 {{ else }}
-                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-500/15 text-gray-500 dark:text-gray-400 border border-gray-500/30">⚪ 歷年回顧</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-500/15 text-gray-500 dark:text-gray-400 border border-gray-500/30">歷年回顧</span>
                 {{ end }}
               </div>
 

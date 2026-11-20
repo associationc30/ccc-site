@@ -65,7 +65,7 @@
             Association Events & Programs
           </span>
           <h2 class="h2 text-text">
-            🔥 近期熱門活動與線上報名
+            近期熱門活動與線上報名
           </h2>
           <p class="text-text/80 text-sm">
             台灣鍾肇政文學推廣協會近期辦理之學術研討會、走讀工作坊與文學獎徵件，歡迎線上登記參加！
@@ -85,9 +85,9 @@
                 </span>
                 
                 {{ if eq .Params.status "報名中" }}
-                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold badge-open">🟢 熱烈報名中</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold badge-open">熱烈報名中</span>
                 {{ else }}
-                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">🔵 即將舉辦</span>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400 border border-blue-500/30">即將舉辦</span>
                 {{ end }}
               </div>
 
@@ -119,7 +119,7 @@
             <div class="flex flex-col sm:flex-row gap-2 pt-2">
               {{ if and .Params.google_form_url (eq .Params.status "報名中") }}
                 <a href="{{ .Params.google_form_url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-xs text-xs font-bold py-2 flex-1 text-center flex items-center justify-center gap-1 shadow-sm">
-                  <span>👉 線上報名</span>
+                  <span>線上報名</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                   </svg>
