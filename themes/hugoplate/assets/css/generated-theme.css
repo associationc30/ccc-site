@@ -16,8 +16,8 @@
   --color-text-light: #748083;
 
   /* === Font Families === */
-  --font-primary: Heebo, sans-serif;
-  --font-secondary: Signika, sans-serif;
+  --font-primary: Noto Serif TC, serif;
+  --font-secondary: Noto Serif TC, serif;
 
   /* === Font Sizes === */
   --text-base: 16px;

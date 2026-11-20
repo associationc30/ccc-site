@@ -115,7 +115,11 @@ ccc-site/
 
 ## 5. 自訂修改清單（相對主題原版）
 
-1. **主題色與字體**：`data/theme.json`（primary `#0B9396`、body 背景 `#FCFBF9` 等，字體 Heebo）
+1. **主題色與字體**：`data/theme.json`（primary `#0B9396`、body 背景 `#FCFBF9` 等）。
+   **全站字體是明體（Noto Serif TC 400/500/600/700）**——改字體要動 `data/theme.json` 的
+   `fonts.font_family`，然後跑 `node scripts/themeGenerator.js` 重新產生
+   `themes/hugoplate/assets/css/generated-theme.css`（`--font-primary` / `--font-secondary`），
+   只改 CSS 會被下次產生蓋掉。
 2. **選單**：`config/_default/menus.toml`（中文選單，含聯絡我們）
 3. **聯絡頁**：`layouts/contact.html`——標題改為「聯絡資訊」，會址/開放時間/交通指引區塊以 `{{/* */}}` 註解隱藏（內容保留，日後可還原）
 4. **自訂 CSS**：`assets/css/custom.css`（主視覺的圖版樣式都寫在這裡，class 前綴 `.kv-`；
@@ -136,10 +140,10 @@ ccc-site/
    - 窄螢幕（< 1023px）：`.kv-grid` 改 flex、`.kv-col` 設 `display: contents` 解體，
      再用 `order` 排成「標題＋印 → 圖 → 圖說 → 提要」；直排標題轉橫排、圖寬回到 100%。
    - 紙色用站上 token `--color-light`（`#F5F2EC`）；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。
-   - 字體：只用 `Noto Serif TC`（主題從 Google Fonts 載入 400/500/600）→ `Noto Serif CJK TC` → `serif`。
+   - 字體：只用 `Noto Serif TC`（主題從 Google Fonts 載入 400/500/600/700）→ `Noto Serif CJK TC` → `serif`。
      不列任何本機字型（例：`jf蘭陽明體1.1`）——訪客看不到，會造成預覽與公開站字面不一致。
      若日後要改用蘭陽明體等商用字，必須先取得 justfont 的 webfont 授權並自架檔案。
-     **主題在 `h1` 上直接指定了 `--font-secondary`（Signika 無襯線），繼承贏不過元素選擇器**，
+     **主題在 `h1` 上直接指定了 `--font-secondary`，繼承贏不過元素選擇器**，
      所以 `.kv-hero h1 / p / span / figcaption` 都必須明寫 `font-family`，只設在父層沒用。
    - 圖片用 Hugo 影像處理（`.Resize … webp q95`）產生 900／1400／2000／2396 四種寬度，
      `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。線稿細線怕壓縮，webp 品質用 95。
