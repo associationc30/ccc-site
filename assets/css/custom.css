@@ -320,10 +320,11 @@
   gap: clamp(0.75rem, 1.4vw, 1.35rem);
 }
 .kv-page-seal {
-  /* 分頁的落款印比首頁小一級，但要大到四格字還認得出來，貼在標題末字右側 */
-  --kv-seal-size: clamp(2.3rem, 2.9vw, 2.95rem);
-  flex: none;
-  margin-bottom: 0.3rem;
+  /* 分頁的落款印放在線稿右下角（像蓋在畫作邊角），略出圖外壓在紙上 */
+  --kv-seal-size: clamp(2.5rem, 3.1vw, 3.2rem);
+  position: absolute;
+  right: -0.55rem;
+  bottom: -0.15rem;
 }
 .kv-page-title {
   margin: 0.5rem 0 0;
