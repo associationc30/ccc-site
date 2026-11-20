@@ -273,7 +273,7 @@
   font-family: var(--kv-cjk);
   color: var(--kv-ink);
   overflow: hidden;
-  padding: clamp(1.4rem, 2.4vw, 2.25rem) var(--kv-pad) clamp(1.1rem, 2vw, 1.75rem);
+  padding: clamp(1.9rem, 3.2vw, 3rem) var(--kv-pad) clamp(1.6rem, 2.8vw, 2.5rem);
   border-bottom: 1px solid var(--kv-rule-soft);
 }
 .kv-page-hero::before {
@@ -332,8 +332,9 @@
 }
 .kv-page-art {
   position: relative;
-  width: 135%;
-  max-width: none;
+  /* 收小、留在右下角但不衝出版心，讓頁首有留白 */
+  width: 92%;
+  max-width: 640px;
   margin: 0 0 -1.09%;
 }
 .kv-page-art img {
@@ -348,6 +349,10 @@
   }
 }
 @media (max-width: 1023px) {
+  /* 與首頁主視覺同一條左邊界（對齊 logo 人像），換頁時標題不會跳 */
+  .kv-page-hero {
+    padding-inline: 50px;
+  }
   .kv-page-grid {
     grid-template-columns: 1fr;
     gap: 1.1rem;
