@@ -246,3 +246,17 @@
     margin: 0; /* 手機不需要削邊 */
   }
 }
+
+/* ── 全站：主色按鈕的 hover（主題只定義了靜態色） ─────────────────── */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #7e2e22;
+  border-color: #7e2e22;
+}
+
+/* ── 全站：狀態標籤改用苔綠（原本是 Tailwind emerald，與米白／朱紅的紙墨調不合） ── */
+.badge-open {
+  background: rgba(78, 107, 74, 0.12);
+  color: #47623f;
+  border: 1px solid rgba(78, 107, 74, 0.32);
+}

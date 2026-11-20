@@ -57,7 +57,7 @@ ccc-site/
 │   ├── letters.json          # 書信文物資料庫
 │   ├── manuscripts.json      # 手稿與文物資料庫
 │   ├── social.json           # 社群連結
-│   └── theme.json            # ⭐ 顏色與字體主題（primary #0B9396 等）
+│   └── theme.json            # ⭐ 顏色與字體主題（primary #9C3B2C 朱紅等）
 ├── layouts/                  # 覆寫主題的版型
 │   ├── contact.html          # ⭐ 自訂：聯絡頁（已隱藏會址/開放時間/交通指引）
 │   └── _partials/essentials/ # header、footer、head、style、script
@@ -115,7 +115,14 @@ ccc-site/
 
 ## 5. 自訂修改清單（相對主題原版）
 
-1. **主題色與字體**：`data/theme.json`（primary `#0B9396`、body 背景 `#FCFBF9` 等）。
+1. **主題色與字體**：`data/theme.json`，現行色票是「紙墨朱紅」——
+   primary `#9C3B2C`（朱紅，與主視覺印章同色）、body `#FCFBF9`、light `#F5F2EC`、
+   border `#E8E1D6`、dark `#2B2320`（暖墨，原 `#1F2E31` 偏藍）、
+   text `#4A443D`、text_dark `#241F1B`、text_light `#7B736A`。
+   對比度：primary/body 6.6:1、text/body 9.3:1、text_light/body 4.5:1（皆過 AA）。
+   改完色票要重跑 `node scripts/themeGenerator.js`。
+   狀態標籤（「熱烈報名中」）不用 Tailwind 的 emerald，改用 `.badge-open`（苔綠 `#47623F`），
+   才不會在米白／朱紅的版面裡跳出色。
    **全站字體是明體（Noto Serif TC 400/500/600/700）**——改字體要動 `data/theme.json` 的
    `fonts.font_family`，然後跑 `node scripts/themeGenerator.js` 重新產生
    `themes/hugoplate/assets/css/generated-theme.css`（`--font-primary` / `--font-secondary`），
