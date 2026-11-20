@@ -22,10 +22,9 @@
             {{ else }}
               <img src="{{ .image | relURL }}" alt="{{ .imageAlt }}" fetchpriority="high" />
             {{ end }}
-            <figcaption>
-              <span>{{ .caption }}</span>
-              <em>{{ .credit }}</em>
-            </figcaption>
+            {{ with .caption }}
+              <figcaption><span>{{ . }}</span></figcaption>
+            {{ end }}
           </figure>
 
           <div class="kv-colophon">

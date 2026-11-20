@@ -7,7 +7,6 @@ banner:
   image: "images/hero-books-pen.png"
   imageAlt: "以筆描繪、由書籍排成臺灣島形狀的線稿"
   caption: "書籍排列・臺灣島形"
-  credit: "攝影　二〇二二年九月二十七日"
   orgLatin: "Taiwan Chung Chao-cheng Literature Association"
   org: "臺灣鍾肇政文學推廣協會"
   button:
