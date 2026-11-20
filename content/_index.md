@@ -1,9 +1,13 @@
 ---
 # Banner
 banner:
-  title: "耕耘本土文學沃土，傳承大河精神"
-  content: "臺灣鍾肇政文學推廣協會致力於鍾肇政文學典藏、大河小說研究、客家文化轉譯與本土文學推廣。"
-  image: "/images/banner.png"
+  title: "以書為島"
+  subtitle: "耕耘本土文學沃土，傳承大河精神"
+  content: "台灣鍾肇政文學推廣協會致力於鍾肇政文學推廣、客家文化轉譯等各式台灣文學相關事項。"
+  image: "images/hero-books-pen.png"
+  imageAlt: "以筆描繪、由書籍排成台灣島形狀的線稿"
+  orgLatin: "Taiwan Chung Chao-cheng Literature Association"
+  org: "台灣鍾肇政文學推廣協會"
   button:
     enable: false
     label: ""
@@ -25,7 +29,7 @@ features:
 
   - title: "學術研討與推廣活動"
     image: "/images/service-2.png"
-    content: "定期主辦國際學術研討會、全國鍾肇政文學獎、在地走讀工作坊與特展，激展臺灣本土文學之當代活力。"
+    content: "定期主辦國際學術研討會、全國鍾肇政文學獎、在地走讀工作坊與特展，激展台灣本土文學之當代活力。"
     bulletpoints:
       - "舉辦大河小說國際學術研討會與青年學者論文發表"
       - "實地走訪龍潭舊居、日式宿舍群與龍潭大池文學地景"
@@ -39,9 +43,9 @@ features:
     image: "/images/service-3.png"
     content: "發揚鍾肇政先生提攜後進與「還我母語運動」之精神，深化大河小說史觀研究並推動客家母語文學創作。"
     bulletpoints:
-      - "深化《濁流三部曲》、《臺灣人三部曲》等大河巨作之研究"
+      - "深化《濁流三部曲》、《台灣人三部曲》等大河巨作之研究"
       - "推動客家母語文學寫作與跨國譯介傳播"
-      - "促進跨世代作家對話與臺灣文學主體性論述"
+      - "促進跨世代作家對話與台灣文學主體性論述"
     button:
       enable: false
       label: ""

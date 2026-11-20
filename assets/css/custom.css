@@ -1,1 +1,387 @@
 /* Add your own custom styles here */
+
+/* ==========================================================================
+   主視覺 § 圖右字左（experiment/keyvisual-island）
+   文字欄在左（直排標題＋落款印＋提要），線稿靠右、向右出血出畫面。
+   紙色沿用站上 --color-light（#F5F2EC）。
+   ========================================================================== */
+
+.kv-hero,
+.kv-page-hero {
+  --kv-paper: var(--color-light);
+  --kv-ink: #22201b;
+  --kv-ink-72: rgba(34, 32, 27, 0.72);
+  --kv-ink-54: rgba(34, 32, 27, 0.55);
+  --kv-ink-42: rgba(34, 32, 27, 0.42);
+  --kv-rule-soft: rgba(34, 32, 27, 0.12);
+  --kv-seal: #9c3b2c;
+  /* 只用訪客端拿得到的字：Noto Serif TC 由主題從 Google Fonts 載入（400/500/600）。
+     不列本機字型（如 jf蘭陽明體1.1），否則預覽與公開站的字面會不一致。 */
+  --kv-cjk: "Noto Serif TC", "Noto Serif CJK TC", serif;
+  --kv-lat: "Libre Caslon Text", "Garamond Libre", Georgia, serif;
+  --kv-pad: clamp(0.9rem, 2.6vw, 3rem);
+}
+
+.kv-hero {
+  position: relative;
+  background: var(--kv-paper);
+  padding: clamp(1.75rem, 3.2vw, 3rem) var(--kv-pad) clamp(2.25rem, 3.6vw, 3.25rem);
+  font-family: var(--kv-cjk);
+  color: var(--kv-ink);
+  overflow: hidden;
+}
+
+.kv-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 8% 2%, rgba(255, 253, 246, 0.55), rgba(255, 253, 246, 0) 58%),
+    radial-gradient(80% 70% at 98% 100%, rgba(186, 166, 128, 0.1), rgba(186, 166, 128, 0) 60%);
+}
+
+/* 主題對 h1/p… 直接指定無襯線字，繼承贏不過元素選擇器，故逐一寫明 */
+.kv-hero h1,
+.kv-hero p,
+.kv-hero span,
+.kv-hero figcaption {
+  font-family: var(--kv-cjk);
+}
+.kv-latin,
+.kv-latin span {
+  font-family: var(--kv-lat);
+}
+
+.kv-plate {
+  position: relative;
+  z-index: 1;
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* 桌機：主視覺左右邊界跟站頭容器（.navbar.container = 1320px + 12px padding）對齊，
+   再加 12px 抵掉 logo.png 自身的左留白（7.6% × 160px ≈ 12px），
+   讓直排字的字面左緣與左上角人像圖的畫面左緣落在同一條垂直線上。 */
+@media (min-width: 1024px) {
+  .kv-hero {
+    padding-inline: 0;
+  }
+  .kv-plate {
+    --kv-content-w: 1216px; /* 1320 − 2×52，供下面出血寬度換算用 */
+    max-width: 1320px; /* 與 .navbar.container 同寬 */
+    /* 12（容器內距）+ 12（logo 圖檔左留白 7.6%×160）+ 29（人像置中造成的偏移）－1（字面 side bearing） */
+    padding-inline: 52px;
+  }
+}
+
+.kv-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  gap: clamp(2rem, 4.5vw, 5rem);
+  align-items: start;
+}
+
+/* ── 左欄：直排標題、印、提要 ─────────────────────────────────── */
+.kv-colophon {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.25rem, 2.6vw, 2.25rem);
+}
+.kv-title {
+  margin: 0;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  white-space: nowrap;
+  font-size: clamp(2.9rem, 5.4vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  color: var(--kv-ink);
+}
+.kv-seal {
+  --kv-seal-size: clamp(2.75rem, 3.6vw, 4.25rem);
+  width: var(--kv-seal-size);
+  aspect-ratio: 1;
+  padding: 6px;
+  background: var(--kv-seal);
+  color: #f7f2e6;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  place-items: center;
+  font-size: calc(var(--kv-seal-size) * 0.3);
+  line-height: 1;
+  opacity: 0.95;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 250, 240, 0.28);
+}
+.kv-seal span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+
+.kv-lead {
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  max-width: 30rem;
+}
+.kv-latin {
+  margin: 0 0 0.9rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--kv-ink-42);
+  line-height: 1.6;
+}
+.kv-org-cjk {
+  margin: 0 0 0.6rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.3em;
+  color: var(--kv-ink-72);
+}
+.kv-slogan {
+  margin: 0 0 0.65rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.3rem);
+  letter-spacing: 0.1em;
+  line-height: 1.7;
+  color: var(--kv-ink);
+}
+.kv-text {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.95;
+  letter-spacing: 0.04em;
+  color: var(--kv-ink-72);
+}
+
+/* ── 右側：線稿向右出血，讓島的右端跑出畫面 ───────────────────── */
+.kv-art {
+  position: relative;
+  /* 圖靠右下：與左欄底部對齊（align-self:end），上緣不位移 */
+  align-self: end;
+  margin: 0;
+  /* 118% 是基本放大；寬螢幕時改以視窗為準，補上圖右側到視窗邊的空白，
+     讓線稿一路切出畫面（100vw − 版心寬)/2 = 版心右緣到視窗邊的距離 */
+  width: max(118%, calc(100% + (100vw - 1216px) / 2 + 28px));
+  max-width: none;
+}
+.kv-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.94;
+  /* 線稿四周留白（下 3.57% 高 ≒ 1.09% 寬）——削掉下緣，墨線底邊才會貼齊欄底 */
+  margin-bottom: -1.09%;
+}
+/* 桌機：拆掉左欄這層，讓「標題＋印」與線稿同列，線稿底邊才對得到印章底邊 */
+@media (min-width: 1024px) {
+  .kv-col {
+    display: contents;
+  }
+  .kv-grid {
+    row-gap: 0;
+  }
+  .kv-colophon {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .kv-art {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end; /* 底邊貼齊 colophon（＝標題＋印）底邊 */
+  }
+  .kv-lead {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+/* ── 窄螢幕：先字後圖，取消出血與直排 ─────────────────────────── */
+@media (max-width: 1023px) {
+  /* 手機/平板：同樣對齊人像左緣（實測 390 下人像在 51.5px） */
+  .kv-hero {
+    padding-inline: 50px;
+  }
+  .kv-grid {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.5rem, 4vw, 2.25rem);
+  }
+  /* 讓左欄解體，好把順序排成「標題＋印 → 圖 → 提要」 */
+  .kv-col {
+    display: contents;
+  }
+  .kv-colophon {
+    order: 1;
+  }
+  .kv-art {
+    order: 2;
+  }
+  .kv-lead {
+    order: 3;
+  }
+  .kv-title {
+    writing-mode: horizontal-tb;
+    font-size: clamp(2.4rem, 9.5vw, 3.4rem);
+    letter-spacing: 0.16em;
+  }
+  .kv-seal {
+    --kv-seal-size: 2.75rem;
+  }
+  .kv-colophon {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  .kv-lead {
+    margin-top: clamp(1.25rem, 3.5vw, 1.75rem);
+    max-width: none;
+  }
+  .kv-art {
+    width: 100%;
+    /* 圖與「以書為島」之間的呼吸：flex gap 之外再加一段 */
+    margin-top: 1.75rem;
+  }
+  .kv-art img {
+    margin: 0; /* 手機不需要削邊 */
+  }
+}
+
+/* ── 全站：主色按鈕的 hover（主題只定義了靜態色） ─────────────────── */
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #7e2e22;
+  border-color: #7e2e22;
+}
+
+/* ── 全站：狀態標籤改用苔綠（原本是 Tailwind emerald，與米白／朱紅的紙墨調不合） ── */
+.badge-open {
+  background: rgba(78, 107, 74, 0.12);
+  color: #47623f;
+  border: 1px solid rgba(78, 107, 74, 0.32);
+}
+
+/* ==========================================================================
+   分頁頁首（page-header 覆寫）：紙色底 + 線稿靠右下，取代主題的漸層色塊
+   ========================================================================== */
+.kv-page-hero {
+  position: relative;
+  background: var(--kv-paper);
+  font-family: var(--kv-cjk);
+  color: var(--kv-ink);
+  overflow: hidden;
+  /* 下內距要容得下懸在圖下面那顆印 */
+  padding: clamp(1.9rem, 3.2vw, 3rem) var(--kv-pad) clamp(3.8rem, 4.6vw, 4.7rem);
+  border-bottom: 1px solid var(--kv-rule-soft);
+}
+.kv-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 90% at 8% 2%, rgba(255, 253, 246, 0.55), rgba(255, 253, 246, 0) 58%);
+}
+.kv-page-hero h1,
+.kv-page-hero p,
+.kv-page-hero span,
+.kv-page-hero a {
+  font-family: var(--kv-cjk);
+}
+.kv-page-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: end;
+  gap: clamp(1.5rem, 3.2vw, 3.25rem);
+}
+.kv-page-head {
+  min-width: 0;
+  padding-bottom: 0.35rem;
+}
+.kv-crumb {
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--kv-ink-42);
+}
+.kv-crumb a,
+.kv-crumb span {
+  color: inherit !important; /* 蓋掉主題的 text-primary */
+}
+.kv-crumb a:hover {
+  color: var(--kv-seal) !important;
+}
+.kv-page-title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.75rem, 1.4vw, 1.35rem);
+}
+.kv-page-seal {
+  /* 分頁的落款印放在線稿右下角（像蓋在畫作邊角），略出圖外壓在紙上 */
+  /* 用 px 定下限：主題的 root font-size 會隨螢幕縮，rem 寫法在手機只有 26px（四字會糊） */
+  --kv-seal-size: clamp(32px, 2.3vw, 35px);
+  position: absolute;
+  /* 與圖右緣留 11px、與圖下緣（墨線）留 15px 左右，浮在紙上而非貼著圖 */
+  right: -45px;
+  bottom: -49px;
+}
+.kv-page-title {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.85rem, 3vw, 2.85rem);
+  line-height: 1.28;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--kv-ink);
+}
+.kv-page-desc {
+  margin: 0.75rem 0 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.85;
+  letter-spacing: 0.03em;
+  color: var(--kv-ink-72);
+}
+.kv-page-art {
+  position: relative;
+  /* 收小、留在右下角但不衝出版心，讓頁首有留白 */
+  width: 66%;
+  max-width: 460px;
+  /* 縮小後仍貼住右欄的右緣（右下角），不要留在格線左邊 */
+  justify-self: end;
+  margin: 0 0 -1.09%;
+}
+.kv-page-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+}
+@media (min-width: 1024px) {
+  .kv-page-hero {
+    padding-inline: 0;
+  }
+}
+@media (max-width: 1023px) {
+  /* 與首頁主視覺同一條左邊界（對齊 logo 人像），換頁時標題不會跳 */
+  .kv-page-hero {
+    padding-inline: 50px;
+    padding-bottom: 54px;
+  }
+  .kv-page-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .kv-page-art {
+    width: 86%;
+    margin: 0;
+  }
+  .kv-page-seal {
+    /* 手機用 px：rem 會隨主題的流動字級縮水，印章就跟圖黏在一起 */
+    right: -38px;
+    bottom: -40px;
+  }
+}

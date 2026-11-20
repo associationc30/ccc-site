@@ -57,13 +57,15 @@ ccc-site/
 │   ├── letters.json          # 書信文物資料庫
 │   ├── manuscripts.json      # 手稿與文物資料庫
 │   ├── social.json           # 社群連結
-│   └── theme.json            # ⭐ 顏色與字體主題（primary #0B9396 等）
+│   └── theme.json            # ⭐ 顏色與字體主題（primary #9C3B2C 朱紅等）
 ├── layouts/                  # 覆寫主題的版型
 │   ├── contact.html          # ⭐ 自訂：聯絡頁（已隱藏會址/開放時間/交通指引）
 │   └── _partials/essentials/ # header、footer、head、style、script
 ├── assets/
-│   ├── css/custom.css        # ⭐ 自訂樣式入口（目前僅註解）
-│   └── images/               # logo、favicon、og-image、banner 等圖檔
+│   ├── css/custom.css        # ⭐ 自訂樣式入口（主視覺圖版版面的全部樣式都在這裡，前綴 .kv-）
+│   └── images/               # logo、favicon、og-image 等圖檔
+│       ├── hero-books-pen.png # ⭐ 首頁主視覺素材：書島白描線稿（透明底 RGBA，2396×729）
+│       └── hero-books.png    # 舊主視覺插畫（已停用，保留以便還原）
 ├── static/admin/             # ⭐ Decap CMS 後台（/admin 路徑）
 │   ├── index.html            # 含 Netlify Identity 登入
 │   └── config.yml            # CMS 集合定義（見第 4 節）
@@ -113,38 +115,53 @@ ccc-site/
 
 ## 5. 自訂修改清單（相對主題原版）
 
-1. **主題色與字體**：`data/theme.json`（primary `#0B9396`、body 背景 `#FCFBF9` 等，字體 Heebo）
+1. **主題色與字體**：`data/theme.json`，現行色票是「紙墨朱紅」——
+   primary `#9C3B2C`（朱紅，與主視覺印章同色）、body `#FCFBF9`、light `#F5F2EC`、
+   border `#E8E1D6`、dark `#2B2320`（暖墨，原 `#1F2E31` 偏藍）、
+   text `#4A443D`、text_dark `#241F1B`、text_light `#7B736A`。
+   對比度：primary/body 6.6:1、text/body 9.3:1、text_light/body 4.5:1（皆過 AA）。
+   改完色票要重跑 `node scripts/themeGenerator.js`。
+   狀態標籤（「熱烈報名中」）不用 Tailwind 的 emerald，改用 `.badge-open`（苔綠 `#47623F`），
+   才不會在米白／朱紅的版面裡跳出色。
+   **全站字體是明體（Noto Serif TC 400/500/600/700）**——改字體要動 `data/theme.json` 的
+   `fonts.font_family`，然後跑 `node scripts/themeGenerator.js` 重新產生
+   `themes/hugoplate/assets/css/generated-theme.css`（`--font-primary` / `--font-secondary`），
+   只改 CSS 會被下次產生蓋掉。
 2. **選單**：`config/_default/menus.toml`（中文選單，含聯絡我們）
 3. **聯絡頁**：`layouts/contact.html`——標題改為「聯絡資訊」，會址/開放時間/交通指引區塊以 `{{/* */}}` 註解隱藏（內容保留，日後可還原）
-4. **自訂 CSS**：`assets/css/custom.css`（目前只有註解，日後新增樣式寫這裡）
+4. **自訂 CSS**：`assets/css/custom.css`（主視覺的圖版樣式都寫在這裡，class 前綴 `.kv-`；
+   檔尾的 `@import "custom.css"` 在主題 `main.css`，會被 Tailwind 內嵌，不需另加 `<link>`）
 5. **CMS 後台**：`static/admin/` 整套自建
 6. **資料內容**：`content/` 與 `data/` 全部為協會自有內容
 7. **baseURL 策略**：`hugo.toml` 放預設值，兩個部署平台各自用 `HUGO_BASEURL` 覆蓋（見下節）
+8. **首頁 hero 版型**：`layouts/index.html`——「圖右字左」主視覺：米白紙底，左欄是直排標題（`.kv-title`）
+   ＋朱紅落款印（`.kv-seal`）＋提要（英文全名、協會全名、標語、說明段），右側是書島**線稿**（透明底 PNG），
+   圖寬 `118%` 向右出血出畫面。文案欄位見 `content/_index.md` 的 `banner:`。
 
----
-
-## 6. 部署（雙站備援）
-
-| | 主站 Netlify | 備用站 GitHub Pages |
-|---|---|---|
-| 網址 | `https://ccc-site.netlify.app/` | `https://associationc30.github.io/ccc-site/` |
-| 設定檔 | `netlify.toml` | `.github/workflows/main.yml` |
-| baseURL | `HUGO_BASEURL` in netlify.toml | `HUGO_BASEURL` in workflow env |
-| 觸發 | push main 自動 build | push main 自動跑 workflow |
-
-注意事項：
-- 兩站 `baseURL` 刻意不同，改網址時各改各的環境變數
-- GitHub Pages 需在 repo Settings → Pages 設為「GitHub Actions」
-- 詳細說明見 `DEPLOY.md`
-- 其他平台設定檔（amplify/gitlab/vercel）已移除，勿再新增
-
----
-
-## 7. 日常維護流程速查
-
-1. **改內容**：優先用 `/admin` CMS；改版面/設定才動程式碼
-2. **本地預覽**：`npm run dev`，確認無誤
-3. **提交**：`git add -A && git commit && git push origin main`
-4. **確認**：等 Netlify build 完成，檢查主站；備用站看 Actions 跑完
-5. **改主題色/字體**：改 `data/theme.json`（不動程式碼）
-6. **新增活動**：CMS 新增或 `hugo new events/xxx.md`，記得填 status / featured / google_form_url
+   **分頁頁首（所有內頁）**：`layouts/_partials/page-header.html` 已被本站覆寫，不再用主題的
+   `from-body to-light` 漸層色塊。新版沿用首頁的紙色與線稿（麵包屑＋標題＋description 在左、
+   線稿靠右下並向右出血），與 `.kv-hero` 共用同一組 `--kv-*` 色票（色票定義在
+   `.kv-hero, .kv-page-hero` 的共用規則，改色只要改那一處）。
+   內頁的副標吃 front matter 的 `description:`，沒有就不顯示。線稿在內頁是裝飾圖
+   （`alt=""`、`loading="lazy"`），不會搶首頁的 LCP。
+   - 圖下方沒有圖說也沒有細線（`caption`／`credit` 欄位都已移除），首頁只留線稿本身。
+   - **左邊界對齊**：桌機（≥1024px）主視覺的左右邊界跟站頭容器走——`.kv-plate` 設
+     `max-width: 1320px`、`padding-inline: 24px`，其中 12px 是容器內距、另 12px 抵掉
+     `logo.png` 自身的左留白（7.6% × 顯示寬 160px ≈ 12px）。這樣直排字的字面左緣
+     （實測 1440 下 x=78）與左上角 logo 圖文左緣（x=77）同線。改 logo 尺寸或換圖要重算這 12px。
+   - 桌機圖與左欄齊頭：`.kv-art` 不加上緣位移，`.kv-art img` 用 `margin-top:-1.54%`
+     削掉線稿本身的 5.07% 上方留白，兩者同起於格線頂端（實測 inkTop = 標題 top）。
+   - 窄螢幕（< 1023px）：`.kv-grid` 改 flex、`.kv-col` 設 `display: contents` 解體，
+     再用 `order` 排成「標題＋印 → 圖 → 圖說 → 提要」；直排標題轉橫排、圖寬回到 100%。
+   - 紙色用站上 token `--color-light`（`#F5F2EC`）；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。
+   - 字體：只用 `Noto Serif TC`（主題從 Google Fonts 載入 400/500/600/700）→ `Noto Serif CJK TC` → `serif`。
+     不列任何本機字型（例：`jf蘭陽明體1.1`）——訪客看不到，會造成預覽與公開站字面不一致。
+     若日後要改用蘭陽明體等商用字，必須先取得 justfont 的 webfont 授權並自架檔案。
+     **主題在 `h1` 上直接指定了 `--font-secondary`，繼承贏不過元素選擇器**，
+     所以 `.kv-hero h1 / p / span / figcaption` 都必須明寫 `font-family`，只設在父層沒用。
+   - 圖片用 Hugo 影像處理（`.Resize … webp q95`）產生 900／1400／2000／2396 四種寬度，
+     `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。線稿細線怕壓縮，webp 品質用 95。
+   - 線稿怎麼來的：照片 → 降到 70% → Canny 抓結構線（門檻 36/88）→ 濾掉 <260px 碎線 → 低頻位移做手抖
+     → 套島形遮罩只留書上的線 → 再清掉去背後透明區裡的殘線與碎點。腳本與排版提案見
+     `ccc-site_待處理素材/主視覺提案/`。
+   - 前一版「字在島內」（標題落在島的中央留白、需要量測洞的位置）在 commit `82ecc98`，可整段還原。

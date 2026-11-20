@@ -1,0 +1,32 @@
+{{/* 分頁頁首：沿用首頁主視覺的紙色與線稿，取代主題的漸層色塊。
+     標題與麵包屑在左、線稿靠右下並向右出血；窄螢幕改為標題在上、圖在下。 */}}
+{{ $img := resources.Get "images/hero-books-pen.png" }}
+<section class="kv-page-hero">
+  <div class="kv-plate">
+    <div class="kv-page-grid">
+      <div class="kv-page-head">
+        {{ partial "components/breadcrumb" (dict "Context" . "Class" "kv-crumb") }}
+        <h1 class="kv-page-title">{{ T (printf "%s" (lower .Title)) | default .Title | title }}</h1>
+        {{ with .Params.description }}<p class="kv-page-desc">{{ . }}</p>{{ end }}
+      </div>
+
+      <figure class="kv-page-art" aria-hidden="true">
+        {{ if $img }}
+          {{ $sm := $img.Resize "700x webp q95" }}
+          {{ $md := $img.Resize "1100x webp q95" }}
+          {{ $lg := $img.Resize "1600x webp q95" }}
+          <img
+            src="{{ $md.RelPermalink }}"
+            srcset="{{ $sm.RelPermalink }} 700w, {{ $md.RelPermalink }} 1100w, {{ $lg.RelPermalink }} 1600w"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            width="{{ $md.Width }}"
+            height="{{ $md.Height }}"
+            alt=""
+            decoding="async"
+            loading="lazy" />
+        {{ end }}
+        <div class="kv-seal kv-page-seal" aria-hidden="true"><span>為</span><span>以</span><span>島</span><span>書</span></div>
+      </figure>
+    </div>
+  </div>
+</section>
