@@ -169,6 +169,10 @@
 }
 /* ── 窄螢幕：先字後圖，取消出血與直排 ─────────────────────────── */
 @media (max-width: 1023px) {
+  /* 手機/平板：與站頭 logo 圖文左緣（約 22px）對齊 */
+  .kv-hero {
+    padding-inline: 22px;
+  }
   .kv-grid {
     display: flex;
     flex-direction: column;
