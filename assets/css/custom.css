@@ -238,6 +238,8 @@
   }
   .kv-art {
     width: 100%;
+    /* 圖與「以書為島」之間的呼吸：flex gap 之外再加一段 */
+    margin-top: 1.75rem;
   }
   .kv-art img {
     margin: 0; /* 手機不需要削邊 */
