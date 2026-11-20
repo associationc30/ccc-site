@@ -123,71 +123,20 @@ ccc-site/
 5. **CMS 後台**：`static/admin/` 整套自建
 6. **資料內容**：`content/` 與 `data/` 全部為協會自有內容
 7. **baseURL 策略**：`hugo.toml` 放預設值，兩個部署平台各自用 `HUGO_BASEURL` 覆蓋（見下節）
-8. **首頁 hero 版型**：`layouts/index.html`——「字在島內」主視覺：米白紙底、書島**線稿**（透明底 PNG）
-   放大到比視窗寬、左右出血，標題（`.kv-title`）與朱紅印（`.kv-seal`）**落在島的中央留白裡**，
-   圖下一道細線＋圖說，再往下是協會全名、標語與說明段。文案欄位見 `content/_index.md` 的 `banner:`。
-   - 標題位置不是手調的：`.kv-hero` 的 `--kv-hole-x/y/w/h` 是量線稿（2396×729）算出的
-     **最大無線條矩形**（40.4% / 36.8% / 22.7% / 19.2%），標題與印用 `cqw` 跟著圖縮放，
-     所以任何寬度都不會壓到線條。**換一張線稿就要重量這四個值**，否則字會壓到圖。
-   - 圖寬：`clamp(100%, (100vh - 430px) * 3.29, min(2400px, 132vw))`——用視窗高度換算上限，
-     避免圖太大把圖說與提要擠出首屏（3.29 是線稿的寬高比）。
-   - 島的內部若有殘線（去背後的透明區裡的筆畫），會在產生線稿時清掉；桌面端留白乾淨才放得住字。
-   - 行動裝置（< 768px）：取消出血、標題移到圖上方（`order` 換位），因為島縮小後洞裡放不下字。
-   - 紙色用站上 token `--color-light`（`#F5F2EC`），不是原設計稿的 `#F4EFE3`；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。
+8. **首頁 hero 版型**：`layouts/index.html`——「圖右字左」主視覺：米白紙底，左欄是直排標題（`.kv-title`）
+   ＋朱紅落款印（`.kv-seal`）＋提要（英文全名、協會全名、標語、說明段），右側是書島**線稿**（透明底 PNG），
+   圖寬 `118%` 向右出血出畫面。文案欄位見 `content/_index.md` 的 `banner:`。
+   - 圖說（`.kv-art figcaption`）寬度寫 `calc(100% / 1.18)`，因為圖比欄寬 118%，圖說要收回欄內才不會被視窗切掉。
+   - 桌機給圖 `margin-top: clamp(1rem, 7vw, 6rem)`，讓圖說與左欄提要落在同一水平帶。
+   - 窄螢幕（< 1023px）：`.kv-grid` 改 flex、`.kv-col` 設 `display: contents` 解體，
+     再用 `order` 排成「標題＋印 → 圖 → 圖說 → 提要」；直排標題轉橫排、圖寬回到 100%。
+   - 紙色用站上 token `--color-light`（`#F5F2EC`）；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。
    - 字體：`jf蘭陽明體1.1`（本機才有）→ `Noto Serif TC`（Google Fonts）→ `Noto Serif CJK TC` 逐級退。
      **主題在 `h1` 上直接指定了 `--font-secondary`（Signika 無襯線），繼承贏不過元素選擇器**，
-     所以 `.kv-hero h1 / p / span / em / figcaption` 都必須明寫 `font-family`，只設在父層沒用。
-   - 圖片用 Hugo 影像處理（`.Resize … webp q95`）產生 900／1400／2000 三種寬度，
-     `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。線稿細線怕壓縮，
-     所以 webp 品質用 95，不要降到 80。
-   - 線稿怎麼來的：照片 → 降到 70% → Canny 抓結構線（門檻 36/88）→ 濾掉 <260px 的碎線
-     → 低頻位移製造手抖 → 套島形遮罩，只留書上的線。產生腳本與四張排版提案見
-     `ccc-site_待處理素材/主視覺提案/`（README 有說明）。
-
----
-
-## 6. 部署（雙站備援）
-
-| | 主站 Netlify | 備用站 GitHub Pages |
-|---|---|---|
-| 網址 | `https://ccc-site.netlify.app/` | `https://associationc30.github.io/ccc-site/` |
-| 設定檔 | `netlify.toml` | `.github/workflows/main.yml` |
-| baseURL | `HUGO_BASEURL` in netlify.toml | `HUGO_BASEURL` in workflow env |
-| 觸發 | push main 自動 build | push main 自動跑 workflow |
-
-注意事項：
-- 兩站 `baseURL` 刻意不同，改網址時各改各的環境變數
-- GitHub Pages 需在 repo Settings → Pages 設為「GitHub Actions」
-- 詳細說明見 `DEPLOY.md`
-- 其他平台設定檔（amplify/gitlab/vercel）已移除，勿再新增
-
----
-
-## 7. 日常維護流程速查
-
-1. **改內容**：優先用 `/admin` CMS；改版面/設定才動程式碼
-2. **本地預覽**：`npm run dev`，確認無誤
-   > 若改用靜態預覽（`hugo -d` 產出一份後再起伺服器），請用 `scripts/preview-server.py` 而不是 `python3 -m http.server`。
-   > 兩個坑：
-   > 1. Hugo 的檔名帶 fingerprint，每次重建都會變；plain http.server 不送快取標頭，瀏覽器會繼續用舊 HTML 去抓已被刪除的 CSS。
-   > 2. **`--baseURL` 的主機名稱必須跟你瀏覽器輸入的一致**。Hugo 會輸出 `<base href="…">`，
-   >    若建置用 `127.0.0.1` 而你開 `localhost`，所有資源都變成跨來源；CSS 的 `<link>` 帶 `integrity`，
-   >    跨來源時會被 SRI 擋掉，整頁變成無樣式。
-   > ```bash
-   > hugo --baseURL http://localhost:1319/ -d "$TMPDIR/preview" --quiet
-   > python3 scripts/preview-server.py 1319 "$TMPDIR/preview"
-   > ```
-   > ⚠️ **本機 Hugo 版本要和 CI 一致（0.162.1）**。Fedora 套件庫的 Hugo 0.169 會讓
-   > `css.TailwindCSS` 走新的 node 沙箱，建置直接失敗（`access denied: tailwindcss is not whitelisted`，
-   > 補白名單後仍會在 Tailwind 掃描時撞 `open /boot/efi: permission denied`）。
-   > 用官方 0.162.1 二進位即可，不需動 `security.toml`：
-   > ```bash
-   > mkdir -p ~/.local/opt/hugo-0.162.1 && cd ~/.local/opt/hugo-0.162.1
-   > curl -sL -o hugo.tgz https://github.com/gohugoio/hugo/releases/download/v0.162.1/hugo_extended_0.162.1_linux-amd64.tar.gz
-   > tar -xzf hugo.tgz && ./hugo version
-   > ```
-   > 之後把 `hugo` 換成 `~/.local/opt/hugo-0.162.1/hugo` 即可。
-3. **提交**：`git add -A && git commit && git push origin main`
-4. **確認**：等 Netlify build 完成，檢查主站；備用站看 Actions 跑完
-5. **改主題色/字體**：改 `data/theme.json`（不動程式碼）
-6. **新增活動**：CMS 新增或 `hugo new events/xxx.md`，記得填 status / featured / google_form_url
+     所以 `.kv-hero h1 / p / span / figcaption` 都必須明寫 `font-family`，只設在父層沒用。
+   - 圖片用 Hugo 影像處理（`.Resize … webp q95`）產生 900／1400／2000／2396 四種寬度，
+     `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。線稿細線怕壓縮，webp 品質用 95。
+   - 線稿怎麼來的：照片 → 降到 70% → Canny 抓結構線（門檻 36/88）→ 濾掉 <260px 碎線 → 低頻位移做手抖
+     → 套島形遮罩只留書上的線 → 再清掉去背後透明區裡的殘線與碎點。腳本與排版提案見
+     `ccc-site_待處理素材/主視覺提案/`。
+   - 前一版「字在島內」（標題落在島的中央留白、需要量測洞的位置）在 commit `82ecc98`，可整段還原。

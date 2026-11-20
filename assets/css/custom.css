@@ -1,9 +1,8 @@
 /* Add your own custom styles here */
 
 /* ==========================================================================
-   主視覺 § 字在島內（experiment/keyvisual-island）
-   線稿滿版鋪在紙上，標題與印章落在島的中央留白裡——島變成容器。
-   洞的位置是量線稿（pen.png, 2396×729）算出來的，換圖就要重量。
+   主視覺 § 圖右字左（experiment/keyvisual-island）
+   文字欄在左（直排標題＋落款印＋提要），線稿靠右、向右出血出畫面。
    紙色沿用站上 --color-light（#F5F2EC）。
    ========================================================================== */
 
@@ -18,23 +17,16 @@
   --kv-cjk: "jf蘭陽明體1.1", "jf-lanyangming-1.1", "Noto Serif TC",
     "Noto Serif CJK TC", serif;
   --kv-lat: "Libre Caslon Text", "Garamond Libre", Georgia, serif;
-
-  /* 島的內洞：量線稿（2396×729）算出的最大無線條矩形 → 標題只落在這裡 */
-  --kv-hole-x: 40.4%;
-  --kv-hole-y: 36.8%;
-  --kv-hole-w: 22.7%;
-  --kv-hole-h: 19.2%;
+  --kv-pad: clamp(0.9rem, 2.6vw, 3rem);
 
   position: relative;
   background: var(--kv-paper);
-  padding: clamp(1.5rem, 2.6vw, 2.5rem) clamp(0.9rem, 2.6vw, 3rem)
-    clamp(2.5rem, 4.2vw, 3.75rem);
+  padding: clamp(1.75rem, 3.2vw, 3rem) var(--kv-pad) clamp(2.25rem, 3.6vw, 3.25rem);
   font-family: var(--kv-cjk);
   color: var(--kv-ink);
   overflow: hidden;
 }
 
-/* 紙面微光：幾乎看不見，只是別讓大面積單色死板 */
 .kv-hero::before {
   content: "";
   position: absolute;
@@ -45,12 +37,10 @@
     radial-gradient(80% 70% at 98% 100%, rgba(186, 166, 128, 0.1), rgba(186, 166, 128, 0) 60%);
 }
 
-/* 主題在 @layer 之前就對 h1/h2… 指定了無襯線字，繼承贏不過元素選擇器，
-   所以主視覺範圍內的字體要逐一寫明。 */
+/* 主題對 h1/p… 直接指定無襯線字，繼承贏不過元素選擇器，故逐一寫明 */
 .kv-hero h1,
 .kv-hero p,
 .kv-hero span,
-.kv-hero em,
 .kv-hero figcaption {
   font-family: var(--kv-cjk);
 }
@@ -62,81 +52,50 @@
 .kv-plate {
   position: relative;
   z-index: 1;
-  max-width: 1560px;
+  max-width: 1600px;
   margin-inline: auto;
 }
 
-.kv-latin {
-  margin: 0 0 clamp(0.75rem, 1.4vw, 1.25rem);
-  font-size: 0.6875rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--kv-ink-42);
-  line-height: 1.6;
+.kv-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+  gap: clamp(2rem, 4.5vw, 5rem);
+  align-items: start;
 }
 
-/* ── 圖：線稿滿版；container 讓洞裡的字跟著圖一起縮放 ───────────── */
-.kv-art {
-  position: relative;
-  margin: 0;
-  /* 放大的關鍵：線稿比視窗寬、左右出血，但用視窗高度換算上限，
-     讓圖說與提要仍落在首屏（線稿比例 2396:729 ≒ 3.29:1） */
-  width: clamp(100%, (100vh - 430px) * 3.29, min(2400px, 132vw));
-  left: 50%;
-  translate: -50% 0;
-  container-type: inline-size;
-}
-.kv-art img {
-  display: block;
-  width: 100%;
-  height: auto;
-  opacity: 0.94;
-}
-.kv-art figcaption {
-  margin-top: clamp(0.9rem, 1.6vw, 1.4rem);
-  padding-top: 0.8rem;
-  border-top: 1px solid var(--kv-rule-soft);
-  font-size: 0.8125rem;
-  letter-spacing: 0.16em;
-  color: var(--kv-ink-54);
-}
-
-.kv-hole {
-  position: absolute;
-  left: var(--kv-hole-x);
-  top: var(--kv-hole-y);
-  width: var(--kv-hole-w);
-  height: var(--kv-hole-h);
+/* ── 左欄：直排標題、印、提要 ─────────────────────────────────── */
+.kv-colophon {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.3cqw;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.25rem, 2.6vw, 2.25rem);
 }
 .kv-title {
   margin: 0;
-  margin-right: -0.3em; /* 抵掉字距造成的視覺偏移 */
-  font-size: 3.55cqw;
-  line-height: 1;
-  letter-spacing: 0.3em;
-  font-weight: 600;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
   white-space: nowrap;
+  font-size: clamp(2.9rem, 5.4vw, 6.4rem);
+  line-height: 1;
+  letter-spacing: 0.2em;
+  font-weight: 600;
   color: var(--kv-ink);
 }
 .kv-seal {
-  flex: none;
-  width: 3.1cqw;
+  --kv-seal-size: clamp(2.75rem, 3.6vw, 4.25rem);
+  width: var(--kv-seal-size);
   aspect-ratio: 1;
-  padding: 0.22cqw;
+  padding: 6px;
   background: var(--kv-seal);
   color: #f7f2e6;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   place-items: center;
-  font-size: 0.95cqw;
+  font-size: calc(var(--kv-seal-size) * 0.3);
   line-height: 1;
   opacity: 0.95;
-  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.3);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 250, 240, 0.28);
 }
 .kv-seal span {
   display: grid;
@@ -146,19 +105,26 @@
   line-height: 1;
 }
 
-/* ── 提要：圖說之下 ───────────────────────────────────────────── */
 .kv-lead {
-  margin-top: clamp(1.5rem, 2.6vw, 2.25rem);
-  max-width: 36rem;
+  margin-top: clamp(1.75rem, 3vw, 2.75rem);
+  max-width: 30rem;
+}
+.kv-latin {
+  margin: 0 0 0.9rem;
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--kv-ink-42);
+  line-height: 1.6;
 }
 .kv-org-cjk {
-  margin: 0 0 0.55rem;
+  margin: 0 0 0.6rem;
   font-size: 0.9375rem;
   letter-spacing: 0.3em;
   color: var(--kv-ink-72);
 }
 .kv-slogan {
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.65rem;
   font-size: clamp(1.05rem, 1.4vw, 1.3rem);
   letter-spacing: 0.1em;
   line-height: 1.7;
@@ -172,40 +138,69 @@
   color: var(--kv-ink-72);
 }
 
-/* ── 窄螢幕：島太小、洞裡的字會擠成一團，改回「字在上、圖在下」 ── */
-@media (max-width: 767px) {
-  .kv-art {
+/* ── 右側：線稿向右出血，讓島的右端跑出畫面 ───────────────────── */
+.kv-art {
+  position: relative;
+  /* 桌機把圖往下壓一點，讓圖說與左欄提要落在同一水平帶 */
+  margin: clamp(1rem, 7vw, 6rem) 0 0;
+  width: 118%;
+  max-width: none;
+}
+.kv-art img {
+  display: block;
+  width: 100%;
+  height: auto;
+  opacity: 0.94;
+}
+.kv-art figcaption {
+  /* 圖比欄寬 118%，圖說收回到欄寬以內才不會被視窗切掉 */
+  width: calc(100% / 1.18);
+  margin-top: clamp(1rem, 1.8vw, 1.5rem);
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--kv-rule-soft);
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  color: var(--kv-ink-54);
+}
+
+/* ── 窄螢幕：先字後圖，取消出血與直排 ─────────────────────────── */
+@media (max-width: 1023px) {
+  .kv-grid {
     display: flex;
     flex-direction: column;
-    container-type: normal;
-    width: 100%;
-    left: auto;
-    translate: none;
+    gap: clamp(1.5rem, 4vw, 2.25rem);
   }
-  .kv-art img {
+  /* 讓左欄解體，好把順序排成「標題＋印 → 圖 → 提要」 */
+  .kv-col {
+    display: contents;
+  }
+  .kv-colophon {
+    order: 1;
+  }
+  .kv-art {
     order: 2;
   }
-  .kv-art figcaption {
+  .kv-lead {
     order: 3;
   }
-  .kv-hole {
-    position: static;
-    order: 1;
-    width: auto;
-    height: auto;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.9rem;
-    margin-bottom: 1.1rem;
-  }
   .kv-title {
-    font-size: clamp(2.1rem, 9.5vw, 2.9rem);
-    letter-spacing: 0.18em;
-    margin-right: -0.18em;
+    writing-mode: horizontal-tb;
+    font-size: clamp(2.4rem, 9.5vw, 3.4rem);
+    letter-spacing: 0.16em;
   }
   .kv-seal {
-    width: 2.6rem;
-    font-size: 0.85rem;
-    padding: 5px;
+    --kv-seal-size: 2.75rem;
+  }
+  .kv-colophon {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+  .kv-lead {
+    margin-top: clamp(1.25rem, 3.5vw, 1.75rem);
+    max-width: none;
+  }
+  .kv-art {
+    width: 100%;
   }
 }
