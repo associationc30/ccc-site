@@ -156,7 +156,8 @@
 /* ── 右側：線稿向右出血，讓島的右端跑出畫面 ───────────────────── */
 .kv-art {
   position: relative;
-  /* 圖與左欄齊頭：不加上緣位移，改由圖片自己抵掉素材上方的空白 */
+  /* 圖靠右下：與左欄底部對齊（align-self:end），上緣不位移 */
+  align-self: end;
   margin: 0;
   /* 118% 是基本放大；寬螢幕時改以視窗為準，補上圖右側到視窗邊的空白，
      讓線稿一路切出畫面（100vw − 版心寬)/2 = 版心右緣到視窗邊的距離 */
@@ -168,9 +169,32 @@
   width: 100%;
   height: auto;
   opacity: 0.94;
-  /* 線稿四周留白（上 5.07% 高 ≒ 1.54% 寬）——削掉上緣，讓墨線與直排字齊頭 */
-  margin-top: -1.54%;
+  /* 線稿四周留白（下 3.57% 高 ≒ 1.09% 寬）——削掉下緣，墨線底邊才會貼齊欄底 */
+  margin-bottom: -1.09%;
 }
+/* 桌機：拆掉左欄這層，讓「標題＋印」與線稿同列，線稿底邊才對得到印章底邊 */
+@media (min-width: 1024px) {
+  .kv-col {
+    display: contents;
+  }
+  .kv-grid {
+    row-gap: 0;
+  }
+  .kv-colophon {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .kv-art {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end; /* 底邊貼齊 colophon（＝標題＋印）底邊 */
+  }
+  .kv-lead {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
 /* ── 窄螢幕：先字後圖，取消出血與直排 ─────────────────────────── */
 @media (max-width: 1023px) {
   /* 手機/平板：同樣對齊人像左緣（實測 390 下人像在 51.5px） */
@@ -216,6 +240,6 @@
     width: 100%;
   }
   .kv-art img {
-    margin-top: 0; /* 手機不需要削上緣留白 */
+    margin: 0; /* 手機不需要削邊 */
   }
 }
