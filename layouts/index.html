@@ -1,34 +1,60 @@
 {{ define "main" }}
-  <!-- Banner（兩欄式：圖左、文右；行動裝置上下堆疊且文字在前） -->
+  <!-- Banner（圖版式主視覺：書島圖版 ＋ 直排落款 ＋ 圖說） -->
   {{ with .Params.banner }}
-    <section class="section pt-10 pb-10 md:pt-14 md:pb-14">
-      <div class="container">
-        <div class="row items-center justify-between">
-          <div class="order-2 md:order-1 md:col-6 lg:col-7 mb-8 md:mb-0">
-            <div class="mx-auto w-full max-w-[520px] lg:max-w-[620px]">
-              {{ partial "image" (dict "Src" .image "Alt" "以書堆疊成的島嶼意象插畫，象徵本土文學的沃土" "Loading" "eager" "Class" "w-full" "DisplayXL" "620x" "DisplayLG" "520x" "DisplayMD" "440x" ) }}
+    {{ $img := resources.Get .image }}
+    <section class="kv-hero" aria-labelledby="hero-title">
+      <div class="kv-plate">
+        <div class="kv-mark" aria-hidden="true"><span>Ⅰ</span><i></i><em>典藏影像</em></div>
+
+        <div class="kv-grid">
+          <figure class="kv-figure">
+            {{ if $img }}
+              {{ $sm := $img.Resize "900x webp q92" }}
+              {{ $md := $img.Resize "1400x webp q92" }}
+              {{ $lg := $img.Resize "2000x webp q92" }}
+              <img
+                src="{{ $md.RelPermalink }}"
+                srcset="{{ $sm.RelPermalink }} 900w, {{ $md.RelPermalink }} 1400w, {{ $lg.RelPermalink }} 2000w"
+                sizes="(min-width: 1024px) 58vw, 92vw"
+                width="{{ $md.Width }}"
+                height="{{ $md.Height }}"
+                alt="{{ .imageAlt }}"
+                fetchpriority="high"
+                decoding="async" />
+            {{ else }}
+              <img src="{{ .image | relURL }}" alt="{{ .imageAlt }}" fetchpriority="high" />
+            {{ end }}
+            <figcaption>
+              <span>{{ .caption }}</span>
+              <em>{{ .credit }}</em>
+            </figcaption>
+          </figure>
+
+          <div class="kv-colophon">
+            <p class="kv-org" lang="en">{{ .orgLatin }}</p>
+            <div class="kv-columns">
+              <p class="kv-org-cjk">{{ .org | default site.Title }}</p>
+              <h1 class="kv-title" id="hero-title">{{ .title }}</h1>
+              <div class="kv-seal" aria-hidden="true"><span>為</span><span>以</span><span>島</span><span>書</span></div>
             </div>
           </div>
-          <div class="order-1 md:order-2 md:col-6 lg:col-5 mb-8 md:mb-0 text-center md:text-left">
-            <h1 class="mb-4 text-h3 lg:text-h1">
-              {{ .title | markdownify }}
-            </h1>
-            <p class="mb-8">
-              {{ .content | markdownify }}
-            </p>
-            {{ with .button }}
-              {{ if .enable }}
-                <a
-                  class="btn btn-primary"
-                  href="{{ .link | absURL }}"
-                  {{ if strings.HasPrefix .link `http` }}
-                    target="_blank" rel="noopener"
-                  {{ end }}>
-                  {{ .label }}
-                </a>
-              {{ end }}
+        </div>
+
+        <div class="kv-lead">
+          {{ with .subtitle }}<p class="kv-slogan">{{ . | markdownify }}</p>{{ end }}
+          {{ with .content }}<p class="kv-text">{{ . | markdownify }}</p>{{ end }}
+          {{ with .button }}
+            {{ if .enable }}
+              <a
+                class="btn btn-primary mt-6"
+                href="{{ .link | absURL }}"
+                {{ if strings.HasPrefix .link `http` }}
+                  target="_blank" rel="noopener"
+                {{ end }}>
+                {{ .label }}
+              </a>
             {{ end }}
-          </div>
+          {{ end }}
         </div>
       </div>
     </section>

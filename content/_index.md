@@ -1,9 +1,15 @@
 ---
 # Banner
 banner:
-  title: "耕耘本土文學沃土，傳承大河精神"
+  title: "以書為島"
+  subtitle: "耕耘本土文學沃土，傳承大河精神"
   content: "臺灣鍾肇政文學推廣協會致力於鍾肇政文學典藏、大河小說研究、客家文化轉譯與本土文學推廣。"
-  image: "/images/hero-books.png"
+  image: "images/hero-books-island.png"
+  imageAlt: "以書籍在桌面上排列成臺灣島形狀的影像"
+  caption: "書籍排列・臺灣島形"
+  credit: "攝影　二〇二二年九月二十七日"
+  orgLatin: "Taiwan Chung Chao-cheng Literature Association"
+  org: "臺灣鍾肇政文學推廣協會"
   button:
     enable: false
     label: ""

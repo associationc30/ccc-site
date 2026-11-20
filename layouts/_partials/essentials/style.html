@@ -17,12 +17,15 @@
 <!-- google fonts -->
 {{ $pf:= hugo.Data.theme.fonts.font_family.primary }}
 {{ $sf:= hugo.Data.theme.fonts.font_family.secondary }}
+{{/* 編排版面用的襯線字：主視覺的直排標題與寬字距拉丁小字 */}}
+{{ $tf:= "Noto+Serif+TC:wght@400;500;600" }}
+{{ $lf:= "Libre+Caslon+Text:ital,wght@0,400;0,700" }}
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <script>
   (function () {
     const googleFont = document.createElement("link");
-    googleFont.href = "https://fonts.googleapis.com/css2?family={{$pf | safeURL}}{{with $sf}}&family={{. | safeURL}}{{end}}&display=swap";
+    googleFont.href = "https://fonts.googleapis.com/css2?family={{$pf | safeURL}}{{with $sf}}&family={{. | safeURL}}{{end}}&family={{$tf | safeURL}}&family={{$lf | safeURL}}&display=swap";
     googleFont.type = "text/css";
     googleFont.rel = "stylesheet";
     document.head.appendChild(googleFont);

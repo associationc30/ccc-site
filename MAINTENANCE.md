@@ -62,9 +62,10 @@ ccc-site/
 │   ├── contact.html          # ⭐ 自訂：聯絡頁（已隱藏會址/開放時間/交通指引）
 │   └── _partials/essentials/ # header、footer、head、style、script
 ├── assets/
-│   ├── css/custom.css        # ⭐ 自訂樣式入口（目前僅註解）
-│   └── images/               # logo、favicon、og-image、hero-books 等圖檔
-│       └── hero-books.png    # ⭐ 首頁主視覺（書島插畫，底色 #FCFBF9）
+│   ├── css/custom.css        # ⭐ 自訂樣式入口（主視覺圖版版面的全部樣式都在這裡，前綴 .kv-）
+│   └── images/               # logo、favicon、og-image 等圖檔
+│       ├── hero-books-island.png  # ⭐ 首頁主視覺素材：書島去背 PNG（透明底，2000×608）
+│       └── hero-books.png    # 舊主視覺插畫（已停用，保留以便還原）
 ├── static/admin/             # ⭐ Decap CMS 後台（/admin 路徑）
 │   ├── index.html            # 含 Netlify Identity 登入
 │   └── config.yml            # CMS 集合定義（見第 4 節）
@@ -117,14 +118,20 @@ ccc-site/
 1. **主題色與字體**：`data/theme.json`（primary `#0B9396`、body 背景 `#FCFBF9` 等，字體 Heebo）
 2. **選單**：`config/_default/menus.toml`（中文選單，含聯絡我們）
 3. **聯絡頁**：`layouts/contact.html`——標題改為「聯絡資訊」，會址/開放時間/交通指引區塊以 `{{/* */}}` 註解隱藏（內容保留，日後可還原）
-4. **自訂 CSS**：`assets/css/custom.css`（目前只有註解，日後新增樣式寫這裡）
+4. **自訂 CSS**：`assets/css/custom.css`（主視覺的圖版樣式都寫在這裡，class 前綴 `.kv-`；
+   檔尾的 `@import "custom.css"` 在主題 `main.css`，會被 Tailwind 內嵌，不需另加 `<link>`）
 5. **CMS 後台**：`static/admin/` 整套自建
 6. **資料內容**：`content/` 與 `data/` 全部為協會自有內容
 7. **baseURL 策略**：`hugo.toml` 放預設值，兩個部署平台各自用 `HUGO_BASEURL` 覆蓋（見下節）
-8. **首頁 hero 版型**：`layouts/index.html`——改為兩欄式（圖左文右），行動裝置上下堆疊且文字在前。
-   圖片主視覺為 `assets/images/hero-books.png`（書島插畫，底色已重繪為 `#FCFBF9` 以與頁面背景無縫接合）。
-   ⚠️ 圖片最大寬度是套在外層 `div`（`max-w-[620px]`），**不是**套在 `<img>` 上——主題的 `.img { max-width:100% }`
-   屬於未分層 CSS，權重高於 Tailwind utility，直接寫在 `<img>` 的 `max-w-*` 不會生效。
+8. **首頁 hero 版型**：`layouts/index.html`——改為「圖版式主視覺」：米白紙底＋雙細框、書島去背照片當圖版、
+   右側直排標題（`.kv-title`）＋協會全名（`.kv-org-cjk`）＋朱紅落款印、圖版下方細線與圖說，最後是標語與說明段。
+   行動裝置（< 1023px）直排改橫排、落款排到圖版下方。文案欄位見 `content/_index.md` 的 `banner:`。
+   - 紙色用站上 token `--color-light`（`#F5F2EC`），不是原設計稿的 `#F4EFE3`；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。
+   - 字體：`jf蘭陽明體1.1`（本機才有）→ `Noto Serif TC`（Google Fonts）→ `Noto Serif CJK TC` 逐級退。
+     **主題在 `h1` 上直接指定了 `--font-secondary`（Signika 無襯線），繼承贏不過元素選擇器**，
+     所以 `.kv-hero h1 / p / span / em / figcaption` 都必須明寫 `font-family`，只設在父層沒用。
+   - 圖片用 Hugo 影像處理（`.Resize … webp`）產生 900／1400／2000 三種寬度，
+     `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。
 
 ---
 
@@ -159,6 +166,16 @@ ccc-site/
    > hugo --baseURL http://localhost:1319/ -d "$TMPDIR/preview" --quiet
    > python3 scripts/preview-server.py 1319 "$TMPDIR/preview"
    > ```
+   > ⚠️ **本機 Hugo 版本要和 CI 一致（0.162.1）**。Fedora 套件庫的 Hugo 0.169 會讓
+   > `css.TailwindCSS` 走新的 node 沙箱，建置直接失敗（`access denied: tailwindcss is not whitelisted`，
+   > 補白名單後仍會在 Tailwind 掃描時撞 `open /boot/efi: permission denied`）。
+   > 用官方 0.162.1 二進位即可，不需動 `security.toml`：
+   > ```bash
+   > mkdir -p ~/.local/opt/hugo-0.162.1 && cd ~/.local/opt/hugo-0.162.1
+   > curl -sL -o hugo.tgz https://github.com/gohugoio/hugo/releases/download/v0.162.1/hugo_extended_0.162.1_linux-amd64.tar.gz
+   > tar -xzf hugo.tgz && ./hugo version
+   > ```
+   > 之後把 `hugo` 換成 `~/.local/opt/hugo-0.162.1/hugo` 即可。
 3. **提交**：`git add -A && git commit && git push origin main`
 4. **確認**：等 Netlify build 完成，檢查主站；備用站看 Actions 跑完
 5. **改主題色/字體**：改 `data/theme.json`（不動程式碼）
