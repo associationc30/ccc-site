@@ -64,7 +64,7 @@ ccc-site/
 ├── assets/
 │   ├── css/custom.css        # ⭐ 自訂樣式入口（主視覺圖版版面的全部樣式都在這裡，前綴 .kv-）
 │   └── images/               # logo、favicon、og-image 等圖檔
-│       ├── hero-books-island.png  # ⭐ 首頁主視覺素材：書島去背 PNG（透明底，2000×608）
+│       ├── hero-books-pen.png # ⭐ 首頁主視覺素材：書島白描線稿（透明底 RGBA，2396×729）
 │       └── hero-books.png    # 舊主視覺插畫（已停用，保留以便還原）
 ├── static/admin/             # ⭐ Decap CMS 後台（/admin 路徑）
 │   ├── index.html            # 含 Netlify Identity 登入
@@ -123,15 +123,20 @@ ccc-site/
 5. **CMS 後台**：`static/admin/` 整套自建
 6. **資料內容**：`content/` 與 `data/` 全部為協會自有內容
 7. **baseURL 策略**：`hugo.toml` 放預設值，兩個部署平台各自用 `HUGO_BASEURL` 覆蓋（見下節）
-8. **首頁 hero 版型**：`layouts/index.html`——改為「圖版式主視覺」：米白紙底＋雙細框、書島去背照片當圖版、
-   右側直排標題（`.kv-title`）＋協會全名（`.kv-org-cjk`）＋朱紅落款印、圖版下方細線與圖說，最後是標語與說明段。
+8. **首頁 hero 版型**：`layouts/index.html`——「書島白描」主視覺：米白紙底（無框）、
+   左下角書島**線稿**（透明底 PNG，不是照片）、右側直排標題（`.kv-title`）＋協會全名（`.kv-org-cjk`）
+   ＋朱紅落款印（`.kv-seal`），圖下方細線＋圖說，最後是英文全名、標語與說明段。
    行動裝置（< 1023px）直排改橫排、落款排到圖版下方。文案欄位見 `content/_index.md` 的 `banner:`。
    - 紙色用站上 token `--color-light`（`#F5F2EC`），不是原設計稿的 `#F4EFE3`；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。
    - 字體：`jf蘭陽明體1.1`（本機才有）→ `Noto Serif TC`（Google Fonts）→ `Noto Serif CJK TC` 逐級退。
      **主題在 `h1` 上直接指定了 `--font-secondary`（Signika 無襯線），繼承贏不過元素選擇器**，
      所以 `.kv-hero h1 / p / span / em / figcaption` 都必須明寫 `font-family`，只設在父層沒用。
-   - 圖片用 Hugo 影像處理（`.Resize … webp`）產生 900／1400／2000 三種寬度，
-     `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。
+   - 圖片用 Hugo 影像處理（`.Resize … webp q95`）產生 900／1400／2000 三種寬度，
+     `banner.image` 寫 `images/xxx.png`（相對 `assets/`、不帶開頭斜線）。線稿細線怕壓縮，
+     所以 webp 品質用 95，不要降到 80。
+   - 線稿怎麼來的：照片 → 降到 70% → Canny 抓結構線（門檻 36/88）→ 濾掉 <260px 的碎線
+     → 低頻位移製造手抖 → 套島形遮罩，只留書上的線。產生腳本與四張排版提案見
+     `ccc-site_待處理素材/主視覺提案/`（README 有說明）。
 
 ---
 
