@@ -1,10 +1,10 @@
 /* Add your own custom styles here */
 
 /* ==========================================================================
-   主視覺 § 書島白描（experiment/keyvisual-island）
-   版面制度：米白紙底、線稿靠左下、直排右起標題、落款印、圖說細線。
-   紙色沿用站上 --color-light（#F5F2EC）；墨色與朱紅照原稿。
-   字體：本機 jf蘭陽明體 → 訪客 Noto Serif TC（Google Fonts）。
+   主視覺 § 字在島內（experiment/keyvisual-island）
+   線稿滿版鋪在紙上，標題與印章落在島的中央留白裡——島變成容器。
+   洞的位置是量線稿（pen.png, 2396×729）算出來的，換圖就要重量。
+   紙色沿用站上 --color-light（#F5F2EC）。
    ========================================================================== */
 
 .kv-hero {
@@ -19,10 +19,16 @@
     "Noto Serif CJK TC", serif;
   --kv-lat: "Libre Caslon Text", "Garamond Libre", Georgia, serif;
 
+  /* 島的內洞：量線稿（2396×729）算出的最大無線條矩形 → 標題只落在這裡 */
+  --kv-hole-x: 40.4%;
+  --kv-hole-y: 36.8%;
+  --kv-hole-w: 22.7%;
+  --kv-hole-h: 19.2%;
+
   position: relative;
   background: var(--kv-paper);
-  padding: clamp(2rem, 3.6vw, 3.25rem) clamp(1.25rem, 3.4vw, 3.5rem)
-    clamp(2.5rem, 4.4vw, 4rem);
+  padding: clamp(1.5rem, 2.6vw, 2.5rem) clamp(0.9rem, 2.6vw, 3rem)
+    clamp(2.5rem, 4.2vw, 3.75rem);
   font-family: var(--kv-cjk);
   color: var(--kv-ink);
   overflow: hidden;
@@ -35,12 +41,12 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(120% 90% at 10% 2%, rgba(255, 253, 246, 0.55), rgba(255, 253, 246, 0) 58%),
+    radial-gradient(120% 90% at 8% 2%, rgba(255, 253, 246, 0.55), rgba(255, 253, 246, 0) 58%),
     radial-gradient(80% 70% at 98% 100%, rgba(186, 166, 128, 0.1), rgba(186, 166, 128, 0) 60%);
 }
 
-/* 主題在 @layer 之前就對 h1/h2… 指定了無襯線字（--font-secondary），
-   繼承贏不過元素選擇器，所以主視覺範圍內的字體要逐一寫明。 */
+/* 主題在 @layer 之前就對 h1/h2… 指定了無襯線字，繼承贏不過元素選擇器，
+   所以主視覺範圍內的字體要逐一寫明。 */
 .kv-hero h1,
 .kv-hero p,
 .kv-hero span,
@@ -60,95 +66,77 @@
   margin-inline: auto;
 }
 
-.kv-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: clamp(2rem, 4.6vw, 5rem);
-  align-items: start;
+.kv-latin {
+  margin: 0 0 clamp(0.75rem, 1.4vw, 1.25rem);
+  font-size: 0.6875rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--kv-ink-42);
+  line-height: 1.6;
 }
 
-/* ── 圖版：線稿不填色，只留筆觸 ─────────────────────────────── */
-.kv-figure {
-  margin: clamp(2rem, 7.5vw, 7rem) 0 0;
-  max-width: 1040px;
+/* ── 圖：線稿滿版；container 讓洞裡的字跟著圖一起縮放 ───────────── */
+.kv-art {
+  position: relative;
+  margin: 0;
+  /* 放大的關鍵：線稿比視窗寬、左右出血，但用視窗高度換算上限，
+     讓圖說與提要仍落在首屏（線稿比例 2396:729 ≒ 3.29:1） */
+  width: clamp(100%, (100vh - 430px) * 3.29, min(2400px, 132vw));
+  left: 50%;
+  translate: -50% 0;
+  container-type: inline-size;
 }
-.kv-figure img {
+.kv-art img {
   display: block;
   width: 100%;
   height: auto;
   opacity: 0.94;
 }
-.kv-figure figcaption {
-  margin-top: clamp(1.1rem, 1.8vw, 1.7rem);
-  padding-top: 0.85rem;
+.kv-art figcaption {
+  margin-top: clamp(0.9rem, 1.6vw, 1.4rem);
+  padding-top: 0.8rem;
   border-top: 1px solid var(--kv-rule-soft);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.4rem;
   font-size: 0.8125rem;
   letter-spacing: 0.16em;
   color: var(--kv-ink-54);
 }
-.kv-figure figcaption em {
-  font-style: normal;
-  color: var(--kv-ink-42);
-  letter-spacing: 0.24em;
-}
 
-/* ── 落款：標題在最右，單位名在其左，印在標題末字之下 ─────────── */
-.kv-colophon {
+.kv-hole {
+  position: absolute;
+  left: var(--kv-hole-x);
+  top: var(--kv-hole-y);
+  width: var(--kv-hole-w);
+  height: var(--kv-hole-h);
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.kv-columns {
-  display: grid;
-  grid-template-columns: auto auto;
-  grid-template-areas:
-    "orgc title"
-    "orgc seal";
-  gap: 0.8rem 1.7rem;
-  justify-content: end;
-  justify-items: end;
-}
-.kv-org-cjk {
-  grid-area: orgc;
-  margin: 0;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  white-space: nowrap;
-  font-size: 1rem;
-  letter-spacing: 0.42em;
-  color: var(--kv-ink-72);
+  align-items: center;
+  justify-content: center;
+  gap: 1.3cqw;
 }
 .kv-title {
-  grid-area: title;
   margin: 0;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  white-space: nowrap;
-  font-size: clamp(2.9rem, 5.8vw, 7.2rem);
+  margin-right: -0.3em; /* 抵掉字距造成的視覺偏移 */
+  font-size: 3.55cqw;
   line-height: 1;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   font-weight: 600;
+  white-space: nowrap;
   color: var(--kv-ink);
 }
 .kv-seal {
-  grid-area: seal;
-  --kv-seal-size: clamp(3rem, 4.2vw, 5rem);
-  width: var(--kv-seal-size);
+  flex: none;
+  width: 3.1cqw;
   aspect-ratio: 1;
-  padding: 7px;
+  padding: 0.22cqw;
   background: var(--kv-seal);
   color: #f7f2e6;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   place-items: center;
-  font-size: calc(var(--kv-seal-size) * 0.3);
+  font-size: 0.95cqw;
   line-height: 1;
   opacity: 0.95;
-  box-shadow: inset 0 0 0 1.5px rgba(255, 250, 240, 0.28);
+  box-shadow: inset 0 0 0 1px rgba(255, 250, 240, 0.3);
 }
 .kv-seal span {
   display: grid;
@@ -158,22 +146,19 @@
   line-height: 1;
 }
 
-/* ── 提要：接在圖說下方，補滿左下留白 ─────────────────────────── */
+/* ── 提要：圖說之下 ───────────────────────────────────────────── */
 .kv-lead {
-  grid-column: 1;
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-  max-width: 34rem;
+  margin-top: clamp(1.5rem, 2.6vw, 2.25rem);
+  max-width: 36rem;
 }
-.kv-latin {
-  margin: 0 0 1.1rem;
-  font-size: 0.6875rem;
+.kv-org-cjk {
+  margin: 0 0 0.55rem;
+  font-size: 0.9375rem;
   letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--kv-ink-42);
-  line-height: 1.6;
+  color: var(--kv-ink-72);
 }
 .kv-slogan {
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.6rem;
   font-size: clamp(1.05rem, 1.4vw, 1.3rem);
   letter-spacing: 0.1em;
   line-height: 1.7;
@@ -187,47 +172,40 @@
   color: var(--kv-ink-72);
 }
 
-/* ── 行動裝置：直排改橫排，落款排到圖版之前 ───────────────────── */
-@media (max-width: 1023px) {
-  .kv-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(1.5rem, 4vw, 2.25rem);
+/* ── 窄螢幕：島太小、洞裡的字會擠成一團，改回「字在上、圖在下」 ── */
+@media (max-width: 767px) {
+  .kv-art {
+    display: flex;
+    flex-direction: column;
+    container-type: normal;
+    width: 100%;
+    left: auto;
+    translate: none;
   }
-  .kv-colophon {
-    align-items: flex-start;
+  .kv-art img {
+    order: 2;
+  }
+  .kv-art figcaption {
+    order: 3;
+  }
+  .kv-hole {
+    position: static;
     order: 1;
-  }
-  .kv-columns {
-    grid-template-columns: auto;
-    grid-template-areas:
-      "title"
-      "orgc"
-      "seal";
-    justify-content: start;
-    justify-items: start;
+    width: auto;
+    height: auto;
+    justify-content: flex-start;
+    align-items: center;
     gap: 0.9rem;
+    margin-bottom: 1.1rem;
   }
   .kv-title {
-    writing-mode: horizontal-tb;
-    font-size: clamp(2.4rem, 10vw, 3.4rem);
-    letter-spacing: 0.16em;
-  }
-  .kv-org-cjk {
-    writing-mode: horizontal-tb;
-    font-size: 0.9375rem;
-    letter-spacing: 0.3em;
+    font-size: clamp(2.1rem, 9.5vw, 2.9rem);
+    letter-spacing: 0.18em;
+    margin-right: -0.18em;
   }
   .kv-seal {
-    --kv-seal-size: 3rem;
-  }
-  .kv-figure {
-    margin-top: 0;
-    order: 2;
-    max-width: none;
-  }
-  .kv-lead {
-    order: 3;
-    margin-top: clamp(1.5rem, 4vw, 2rem);
-    max-width: none;
+    width: 2.6rem;
+    font-size: 0.85rem;
+    padding: 5px;
   }
 }

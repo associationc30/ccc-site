@@ -1,57 +1,57 @@
 {{ define "main" }}
-  <!-- Banner（圖版式主視覺：書島白描線稿 ＋ 直排落款 ＋ 圖說） -->
+  <!-- Banner（字在島內主視覺：線稿滿版，標題落在島的中央留白） -->
   {{ with .Params.banner }}
     {{ $img := resources.Get .image }}
     <section class="kv-hero" aria-labelledby="hero-title">
       <div class="kv-plate">
-        <div class="kv-grid">
-          <figure class="kv-figure">
-            {{ if $img }}
-              {{ $sm := $img.Resize "900x webp q95" }}
-              {{ $md := $img.Resize "1400x webp q95" }}
-              {{ $lg := $img.Resize "2000x webp q95" }}
-              <img
-                src="{{ $md.RelPermalink }}"
-                srcset="{{ $sm.RelPermalink }} 900w, {{ $md.RelPermalink }} 1400w, {{ $lg.RelPermalink }} 2000w"
-                sizes="(min-width: 1024px) 56vw, 92vw"
-                width="{{ $md.Width }}"
-                height="{{ $md.Height }}"
-                alt="{{ .imageAlt }}"
-                fetchpriority="high"
-                decoding="async" />
-            {{ else }}
-              <img src="{{ .image | relURL }}" alt="{{ .imageAlt }}" fetchpriority="high" />
-            {{ end }}
-            {{ with .caption }}
-              <figcaption><span>{{ . }}</span></figcaption>
-            {{ end }}
-          </figure>
+        {{ with .orgLatin }}<p class="kv-latin" lang="en">{{ . }}</p>{{ end }}
 
-          <div class="kv-colophon">
-            <div class="kv-columns">
-              <p class="kv-org-cjk">{{ .org | default site.Title }}</p>
-              <h1 class="kv-title" id="hero-title">{{ .title }}</h1>
-              <div class="kv-seal" aria-hidden="true"><span>為</span><span>以</span><span>島</span><span>書</span></div>
-            </div>
+        <figure class="kv-art">
+          {{ if $img }}
+            {{ $sm := $img.Resize "900x webp q95" }}
+            {{ $md := $img.Resize "1400x webp q95" }}
+            {{ $lg := $img.Resize "2000x webp q95" }}
+            {{ $xl := $img.Resize "2396x webp q95" }}
+            <img
+              src="{{ $md.RelPermalink }}"
+              srcset="{{ $sm.RelPermalink }} 900w, {{ $md.RelPermalink }} 1400w, {{ $lg.RelPermalink }} 2000w, {{ $xl.RelPermalink }} 2396w"
+              sizes="(min-width: 1600px) 1560px, 94vw"
+              width="{{ $md.Width }}"
+              height="{{ $md.Height }}"
+              alt="{{ .imageAlt }}"
+              fetchpriority="high"
+              decoding="async" />
+          {{ else }}
+            <img src="{{ .image | relURL }}" alt="{{ .imageAlt }}" fetchpriority="high" />
+          {{ end }}
+
+          <!-- 島的內洞（依線稿量測：left 29.2% / top 9.8% / 48.7% × 54.4%） -->
+          <div class="kv-hole">
+            <h1 class="kv-title" id="hero-title">{{ .title }}</h1>
+            <div class="kv-seal" aria-hidden="true"><span>為</span><span>以</span><span>島</span><span>書</span></div>
           </div>
 
-          <div class="kv-lead">
-            {{ with .orgLatin }}<p class="kv-latin" lang="en">{{ . }}</p>{{ end }}
-            {{ with .subtitle }}<p class="kv-slogan">{{ . | markdownify }}</p>{{ end }}
-            {{ with .content }}<p class="kv-text">{{ . | markdownify }}</p>{{ end }}
-            {{ with .button }}
-              {{ if .enable }}
-                <a
-                  class="btn btn-primary mt-6"
-                  href="{{ .link | absURL }}"
-                  {{ if strings.HasPrefix .link `http` }}
-                    target="_blank" rel="noopener"
-                  {{ end }}>
-                  {{ .label }}
-                </a>
-              {{ end }}
+          {{ with .caption }}
+            <figcaption><span>{{ . }}</span></figcaption>
+          {{ end }}
+        </figure>
+
+        <div class="kv-lead">
+          <p class="kv-org-cjk">{{ .org | default site.Title }}</p>
+          {{ with .subtitle }}<p class="kv-slogan">{{ . | markdownify }}</p>{{ end }}
+          {{ with .content }}<p class="kv-text">{{ . | markdownify }}</p>{{ end }}
+          {{ with .button }}
+            {{ if .enable }}
+              <a
+                class="btn btn-primary mt-6"
+                href="{{ .link | absURL }}"
+                {{ if strings.HasPrefix .link `http` }}
+                  target="_blank" rel="noopener"
+                {{ end }}>
+                {{ .label }}
+              </a>
             {{ end }}
-          </div>
+          {{ end }}
         </div>
       </div>
     </section>
