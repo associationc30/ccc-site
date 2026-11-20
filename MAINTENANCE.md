@@ -64,8 +64,7 @@ ccc-site/
 ├── assets/
 │   ├── css/custom.css        # ⭐ 自訂樣式入口（主視覺圖版版面的全部樣式都在這裡，前綴 .kv-）
 │   └── images/               # logo、favicon、og-image 等圖檔
-│       ├── hero-books-pen.png # ⭐ 首頁主視覺素材：書島白描線稿（透明底 RGBA，2396×729）
-│       └── hero-books.png    # 舊主視覺插畫（已停用，保留以便還原）
+│       └── hero-books-pen.png # ⭐ 首頁主視覺素材：書島白描線稿（透明底 RGBA，2396×729）
 ├── static/admin/             # ⭐ Decap CMS 後台（/admin 路徑）
 │   ├── index.html            # 含 Netlify Identity 登入
 │   └── config.yml            # CMS 集合定義（見第 4 節）
