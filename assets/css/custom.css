@@ -314,6 +314,17 @@
 .kv-crumb a:hover {
   color: var(--kv-seal) !important;
 }
+.kv-page-title-row {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(0.75rem, 1.4vw, 1.35rem);
+}
+.kv-page-seal {
+  /* 分頁的落款印比首頁小一級，但要大到四格字還認得出來，貼在標題末字右側 */
+  --kv-seal-size: clamp(2.3rem, 2.9vw, 2.95rem);
+  flex: none;
+  margin-bottom: 0.3rem;
+}
 .kv-page-title {
   margin: 0.5rem 0 0;
   font-size: clamp(1.85rem, 3vw, 2.85rem);

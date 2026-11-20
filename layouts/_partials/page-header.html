@@ -6,7 +6,10 @@
     <div class="kv-page-grid">
       <div class="kv-page-head">
         {{ partial "components/breadcrumb" (dict "Context" . "Class" "kv-crumb") }}
-        <h1 class="kv-page-title">{{ T (printf "%s" (lower .Title)) | default .Title | title }}</h1>
+        <div class="kv-page-title-row">
+          <h1 class="kv-page-title">{{ T (printf "%s" (lower .Title)) | default .Title | title }}</h1>
+          <div class="kv-seal kv-page-seal" aria-hidden="true"><span>為</span><span>以</span><span>島</span><span>書</span></div>
+        </div>
         {{ with .Params.description }}<p class="kv-page-desc">{{ . }}</p>{{ end }}
       </div>
 
