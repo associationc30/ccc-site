@@ -127,7 +127,12 @@ ccc-site/
    ＋朱紅落款印（`.kv-seal`）＋提要（英文全名、協會全名、標語、說明段），右側是書島**線稿**（透明底 PNG），
    圖寬 `118%` 向右出血出畫面。文案欄位見 `content/_index.md` 的 `banner:`。
    - 圖下方沒有圖說也沒有細線（`caption`／`credit` 欄位都已移除），首頁只留線稿本身。
-   - 桌機給圖 `margin-top: clamp(1rem, 7vw, 6rem)`，讓圖說與左欄提要落在同一水平帶。
+   - **左邊界對齊**：桌機（≥1024px）主視覺的左右邊界跟站頭容器走——`.kv-plate` 設
+     `max-width: 1320px`、`padding-inline: 24px`，其中 12px 是容器內距、另 12px 抵掉
+     `logo.png` 自身的左留白（7.6% × 顯示寬 160px ≈ 12px）。這樣直排字的字面左緣
+     （實測 1440 下 x=78）與左上角 logo 圖文左緣（x=77）同線。改 logo 尺寸或換圖要重算這 12px。
+   - 桌機圖與左欄齊頭：`.kv-art` 不加上緣位移，`.kv-art img` 用 `margin-top:-1.54%`
+     削掉線稿本身的 5.07% 上方留白，兩者同起於格線頂端（實測 inkTop = 標題 top）。
    - 窄螢幕（< 1023px）：`.kv-grid` 改 flex、`.kv-col` 設 `display: contents` 解體，
      再用 `order` 排成「標題＋印 → 圖 → 圖說 → 提要」；直排標題轉橫排、圖寬回到 100%。
    - 紙色用站上 token `--color-light`（`#F5F2EC`）；要改回設計稿色只需改 `.kv-hero` 的 `--kv-paper`。

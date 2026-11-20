@@ -52,8 +52,21 @@
 .kv-plate {
   position: relative;
   z-index: 1;
-  max-width: 1600px;
+  max-width: none;
   margin-inline: auto;
+}
+
+/* 桌機：主視覺左右邊界跟站頭容器（.navbar.container = 1320px + 12px padding）對齊，
+   再加 12px 抵掉 logo.png 自身的左留白（7.6% × 160px ≈ 12px），
+   讓直排字的字面左緣與左上角人像圖的畫面左緣落在同一條垂直線上。 */
+@media (min-width: 1024px) {
+  .kv-hero {
+    padding-inline: 0;
+  }
+  .kv-plate {
+    max-width: 1320px; /* 與 .navbar.container 同寬 */
+    padding-inline: 24px; /* 12（容器內距）+ 12（logo 左留白） */
+  }
 }
 
 .kv-grid {
